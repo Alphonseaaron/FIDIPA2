@@ -4,11 +4,17 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import type { Database } from '../lib/database.types';
 import { Loader2 } from 'lucide-react';
+import ImageCarousel from '../components/ImageCarousel';
+import { getAllTopicImages } from '../lib/utils';
 
 type Project = Database['public']['Tables']['projects']['Row'];
 
+interface ProjectWithImages extends Project {
+  images: string[];
+}
+
 export default function Projects() {
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [projects, setProjects] = useState<ProjectWithImages[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -39,7 +45,13 @@ export default function Projects() {
         .limit(3);
 
       if (error) throw error;
-      setProjects(data || []);
+
+      const projectsWithImages = (data || []).map(project => ({
+        ...project,
+        images: getAllTopicImages(project.title)
+      }));
+
+      setProjects(projectsWithImages);
     } catch (error) {
       console.error('Error fetching projects:', error);
       setError('Failed to load projects');
@@ -63,16 +75,6 @@ export default function Projects() {
       <section id="projects" className="py-20 bg-white dark:bg-dark-lighter">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-red-500 dark:text-red-400">{error}</p>
-        </div>
-      </section>
-    );
-  }
-
-  if (projects.length === 0) {
-    return (
-      <section id="projects" className="py-20 bg-white dark:bg-dark-lighter">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-gray-600 dark:text-gray-400">No projects available at the moment.</p>
         </div>
       </section>
     );
@@ -113,10 +115,12 @@ export default function Projects() {
               className="group bg-white dark:bg-dark shadow-lg dark:shadow-none rounded-lg overflow-hidden hover:shadow-xl dark:hover:bg-dark-accent transition-all duration-300"
             >
               <div className="relative h-48 overflow-hidden">
-                <img 
-                  src={project.image_url || 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1600'} 
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform group-hover:scale-110"
+                <ImageCarousel 
+                  images={project.images}
+                  className="h-full"
+                  interval={4000}
+                  showControls={false}
+                  showIndicators={false}
                 />
                 <div className="absolute top-4 right-4 bg-primary px-3 py-1 rounded-full text-sm font-medium text-white">
                   {project.status || 'Ongoing'}

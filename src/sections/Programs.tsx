@@ -4,11 +4,17 @@ import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import type { Database } from '../lib/database.types';
 import { Loader2 } from 'lucide-react';
+import ImageCarousel from '../components/ImageCarousel';
+import { getAllTopicImages } from '../lib/utils';
 
 type Program = Database['public']['Tables']['programs']['Row'];
 
+interface ProgramWithImages extends Program {
+  images: string[];
+}
+
 export default function Programs() {
-  const [programs, setPrograms] = useState<Program[]>([]);
+  const [programs, setPrograms] = useState<ProgramWithImages[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -39,7 +45,13 @@ export default function Programs() {
         .limit(3);
 
       if (error) throw error;
-      setPrograms(data || []);
+
+      const programsWithImages = (data || []).map(program => ({
+        ...program,
+        images: getAllTopicImages(program.title)
+      }));
+
+      setPrograms(programsWithImages);
     } catch (error) {
       console.error('Error fetching programs:', error);
       setError('Failed to load programs');
@@ -63,16 +75,6 @@ export default function Programs() {
       <section id="programs" className="py-20 relative bg-light dark:bg-dark">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-red-500 dark:text-red-400">{error}</p>
-        </div>
-      </section>
-    );
-  }
-
-  if (programs.length === 0) {
-    return (
-      <section id="programs" className="py-20 relative bg-light dark:bg-dark">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-gray-600 dark:text-gray-400">No programs available at the moment.</p>
         </div>
       </section>
     );
@@ -116,10 +118,12 @@ export default function Programs() {
               className="group bg-white dark:bg-dark-lighter/80 shadow-lg dark:shadow-none backdrop-blur-sm rounded-lg overflow-hidden hover:shadow-xl dark:hover:bg-dark-accent/50 transition-all duration-300"
             >
               <div className="h-48 overflow-hidden">
-                <img 
-                  src={program.image_url || 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1600'} 
-                  alt={program.title}
-                  className="w-full h-full object-cover transition-transform group-hover:scale-110"
+                <ImageCarousel 
+                  images={program.images}
+                  className="h-full"
+                  interval={4000}
+                  showControls={false}
+                  showIndicators={false}
                 />
               </div>
               <div className="p-6">

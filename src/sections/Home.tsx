@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import { supabase } from '../lib/supabase';
-import { getRandomImage } from '../lib/utils';
+import { getAllTopicImages } from '../lib/utils';
 
 interface Section {
   text: string;
   subtext: string;
-  image: string;
+  images: string[];
 }
 
 export default function Home() {
   const [sections, setSections] = useState<Section[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,27 +20,27 @@ export default function Home() {
       {
         text: "Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)",
         subtext: "A holistic peaceful and democratic society with justice for all",
-        image: getRandomImage('Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)')
+        images: getAllTopicImages('women-land')
       },
       {
         text: "Empowering Communities Since 2007",
         subtext: "Registered under the NGO Act of Kenya as a National NGO",
-        image: getRandomImage('Empowering Communities Since 2007')
+        images: getAllTopicImages('community')
       },
       {
         text: "Fostering Unity and Effective Participation",
         subtext: "Working with urban and rural communities for sustainable development",
-        image: getRandomImage('Fostering Unity and Effective Participation')
+        images: getAllTopicImages('environment')
       },
       {
         text: "Human Rights Based Approach",
         subtext: "Empowering women and girls to claim their rights",
-        image: getRandomImage('Human Rights Based Approach')
+        images: getAllTopicImages('leadership')
       },
       {
         text: "Supporting Education and Infrastructure",
         subtext: "Building better facilities and resources for our communities",
-        image: getRandomImage('Supporting Education and Infrastructure')
+        images: getAllTopicImages('education')
       }
     ];
 
@@ -50,13 +50,22 @@ export default function Home() {
 
   useEffect(() => {
     if (sections.length > 0) {
-      const timer = setInterval(() => {
+      const slideTimer = setInterval(() => {
         setCurrentSlide((prev) => (prev + 1) % sections.length);
       }, 5000);
 
-      return () => clearInterval(timer);
+      const imageTimer = setInterval(() => {
+        setCurrentImageIndex((prev) => 
+          (prev + 1) % (sections[currentSlide]?.images.length || 1)
+        );
+      }, 3000);
+
+      return () => {
+        clearInterval(slideTimer);
+        clearInterval(imageTimer);
+      };
     }
-  }, [sections.length]);
+  }, [sections.length, currentSlide]);
 
   if (loading) {
     return (
@@ -87,7 +96,7 @@ export default function Home() {
               className="absolute inset-0"
             >
               <img 
-                src={section.image} 
+                src={section.images[currentImageIndex % section.images.length]} 
                 alt={section.text}
                 className="w-full h-full object-cover"
               />
