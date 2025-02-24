@@ -5,9 +5,9 @@ import { supabase } from '../lib/supabase';
 import { getRandomImage } from '../lib/utils';
 
 interface Section {
-  title: string;
-  content: string;
-  image_url: string;
+  text: string;
+  subtext: string;
+  image: string;
 }
 
 export default function Home() {
@@ -16,21 +16,36 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchSections();
+    const defaultSections = [
+      {
+        text: "Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)",
+        subtext: "A holistic peaceful and democratic society with justice for all",
+        image: getRandomImage('Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)')
+      },
+      {
+        text: "Empowering Communities Since 2007",
+        subtext: "Registered under the NGO Act of Kenya as a National NGO",
+        image: getRandomImage('Empowering Communities Since 2007')
+      },
+      {
+        text: "Fostering Unity and Effective Participation",
+        subtext: "Working with urban and rural communities for sustainable development",
+        image: getRandomImage('Fostering Unity and Effective Participation')
+      },
+      {
+        text: "Human Rights Based Approach",
+        subtext: "Empowering women and girls to claim their rights",
+        image: getRandomImage('Human Rights Based Approach')
+      },
+      {
+        text: "Supporting Education and Infrastructure",
+        subtext: "Building better facilities and resources for our communities",
+        image: getRandomImage('Supporting Education and Infrastructure')
+      }
+    ];
 
-    const channel = supabase
-      .channel('sections-changes')
-      .on('postgres_changes', 
-        { event: '*', schema: 'public', table: 'sections' },
-        () => {
-          fetchSections();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
+    setSections(defaultSections);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -42,79 +57,6 @@ export default function Home() {
       return () => clearInterval(timer);
     }
   }, [sections.length]);
-
-  const fetchSections = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('sections')
-        .select('*')
-        .order('sort_order', { ascending: true });
-
-      if (error) throw error;
-
-      const defaultSections = [
-  {
-    text: "Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)",
-    subtext: "A holistic peaceful and democratic society with justice for all",
-    image: getRandomImage('Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)')
-  },
-  {
-    text: "Empowering Communities Since 2007",
-    subtext: "Registered under the NGO Act of Kenya as a National NGO",
-    image: getRandomImage('Empowering Communities Since 2007')
-  },
-  {
-    text: "Fostering Unity and Effective Participation",
-    subtext: "Working with urban and rural communities for sustainable development",
-    image: getRandomImage('Fostering Unity and Effective Participation')
-  },
-  {
-    text: "Human Rights Based Approach",
-    subtext: "Empowering women and girls to claim their rights",
-    image: getRandomImage('Human Rights Based Approach')
-  },
-  {
-    text: "Supporting Education and Infrastructure",
-    subtext: "Building better facilities and resources for our communities",
-    image: getRandomImage('Supporting Education and Infrastructure')
-  }
-];
-
-      setSections(data?.length ? data : defaultSections);
-    } catch (error) {
-      console.error('Error fetching sections:', error);
-      // Set default sections on error
-      setSections([
-        {
-    text: "Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)",
-    subtext: "A holistic peaceful and democratic society with justice for all",
-    image: getRandomImage('Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)')
-  },
-  {
-    text: "Empowering Communities Since 2007",
-    subtext: "Registered under the NGO Act of Kenya as a National NGO",
-    image: getRandomImage('Empowering Communities Since 2007')
-  },
-  {
-    text: "Fostering Unity and Effective Participation",
-    subtext: "Working with urban and rural communities for sustainable development",
-    image: getRandomImage('Fostering Unity and Effective Participation')
-  },
-  {
-    text: "Human Rights Based Approach",
-    subtext: "Empowering women and girls to claim their rights",
-    image: getRandomImage('Human Rights Based Approach')
-  },
-  {
-    text: "Supporting Education and Infrastructure",
-    subtext: "Building better facilities and resources for our communities",
-    image: getRandomImage('Supporting Education and Infrastructure')
-  }
-      ]);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) {
     return (
@@ -145,8 +87,8 @@ export default function Home() {
               className="absolute inset-0"
             >
               <img 
-                src={section.image_url} 
-                alt={section.title}
+                src={section.image} 
+                alt={section.text}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/40" />
@@ -176,15 +118,16 @@ export default function Home() {
                   animate={{ y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  {section.title}
+                  {section.text}
                 </motion.h1>
-                <motion.div
+                <motion.p
                   className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
                   initial={{ y: 20 }}
                   animate={{ y: 0 }}
                   transition={{ delay: 0.4 }}
-                  dangerouslySetInnerHTML={{ __html: section.content }}
-                />
+                >
+                  {section.subtext}
+                </motion.p>
               </motion.div>
             ))}
           </div>
