@@ -9,6 +9,7 @@ type Project = Database['public']['Tables']['projects']['Row'];
 export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchProjects();
@@ -40,6 +41,7 @@ export default function Projects() {
       setProjects(data || []);
     } catch (error) {
       console.error('Error fetching projects:', error);
+      setError('Failed to load projects');
     } finally {
       setLoading(false);
     }
@@ -64,6 +66,26 @@ export default function Projects() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="projects" className="py-20 bg-white dark:bg-dark-lighter">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-red-500 dark:text-red-400">{error}</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (projects.length === 0) {
+    return (
+      <section id="projects" className="py-20 bg-white dark:bg-dark-lighter">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-gray-600 dark:text-gray-400">No projects available at the moment.</p>
         </div>
       </section>
     );

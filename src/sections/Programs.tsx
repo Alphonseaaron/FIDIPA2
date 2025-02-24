@@ -9,6 +9,7 @@ type Program = Database['public']['Tables']['programs']['Row'];
 export default function Programs() {
   const [programs, setPrograms] = useState<Program[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchPrograms();
@@ -40,6 +41,7 @@ export default function Programs() {
       setPrograms(data || []);
     } catch (error) {
       console.error('Error fetching programs:', error);
+      setError('Failed to load programs');
     } finally {
       setLoading(false);
     }
@@ -58,16 +60,32 @@ export default function Programs() {
                   <div className="p-6 space-y-4">
                     <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
                     <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
-                    <div className="space-y-2">
-                      {[1, 2, 3].map((j) => (
-                        <div key={j} className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-2/3"></div>
-                      ))}
-                    </div>
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-2/3"></div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="programs" className="py-20 relative bg-light dark:bg-dark">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-red-500 dark:text-red-400">{error}</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (programs.length === 0) {
+    return (
+      <section id="programs" className="py-20 relative bg-light dark:bg-dark">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-gray-600 dark:text-gray-400">No programs available at the moment.</p>
         </div>
       </section>
     );
