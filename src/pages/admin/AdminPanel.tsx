@@ -3,7 +3,9 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { LogOut, Settings, FileText, Users, Layout, BookOpen, FolderOpen } from 'lucide-react';
 import SectionEditor from '../../components/admin/SectionEditor';
-import ContentForm from '../../components/admin/ContentForm';
+import BlogManager from './BlogManager';
+import ProgramManager from './ProgramManager';
+import ProjectManager from './ProjectManager';
 import MediaLibrary from '../../components/admin/MediaLibrary';
 
 export default function AdminPanel() {
@@ -92,9 +94,9 @@ export default function AdminPanel() {
       <div className="flex-1 p-8">
         <Routes>
           <Route path="sections" element={<SectionEditor />} />
-          <Route path="programs/*" element={<ContentForm type="program" />} />
-          <Route path="projects/*" element={<ContentForm type="project" />} />
-          <Route path="blog/*" element={<ContentForm type="blog" />} />
+          <Route path="programs/*" element={<ProgramManager />} />
+          <Route path="projects/*" element={<ProjectManager />} />
+          <Route path="blog/*" element={<BlogManager />} />
           <Route path="media" element={<MediaLibrary />} />
           <Route
             index

@@ -53,27 +53,32 @@ export default function Home() {
       if (error) throw error;
 
       const defaultSections = [
-        {
-          title: "Empowering Communities Through Sustainable Development",
-          content: "Building sustainable solutions for poverty alleviation through community-driven initiatives and innovative approaches.",
-          image_url: getRandomImage('women-land')
-        },
-        {
-          title: "Gender Equality and Social Inclusion",
-          content: "Promoting equal opportunities and social inclusion through comprehensive programs and community engagement.",
-          image_url: getRandomImage('leadership')
-        },
-        {
-          title: "Supporting Vulnerable Communities",
-          content: "Implementing innovative approaches to create lasting positive change in communities through targeted programs and initiatives.",
-          image_url: getRandomImage('children')
-        },
-        {
-          title: "Environmental Conservation and Food Security",
-          content: "Working towards sustainable farming and environmental protection to ensure food security for future generations.",
-          image_url: getRandomImage('environment')
-        }
-      ];
+  {
+    text: "Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)",
+    subtext: "A holistic peaceful and democratic society with justice for all",
+    image: getRandomImage('Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)')
+  },
+  {
+    text: "Empowering Communities Since 2007",
+    subtext: "Registered under the NGO Act of Kenya as a National NGO",
+    image: getRandomImage('Empowering Communities Since 2007')
+  },
+  {
+    text: "Fostering Unity and Effective Participation",
+    subtext: "Working with urban and rural communities for sustainable development",
+    image: getRandomImage('Fostering Unity and Effective Participation')
+  },
+  {
+    text: "Human Rights Based Approach",
+    subtext: "Empowering women and girls to claim their rights",
+    image: getRandomImage('Human Rights Based Approach')
+  },
+  {
+    text: "Supporting Education and Infrastructure",
+    subtext: "Building better facilities and resources for our communities",
+    image: getRandomImage('Supporting Education and Infrastructure')
+  }
+];
 
       setSections(data?.length ? data : defaultSections);
     } catch (error) {
@@ -81,25 +86,30 @@ export default function Home() {
       // Set default sections on error
       setSections([
         {
-          title: "Empowering Communities Through Sustainable Development",
-          content: "Building sustainable solutions for poverty alleviation through community-driven initiatives and innovative approaches.",
-          image_url: getRandomImage('women-land')
-        },
-        {
-          title: "Gender Equality and Social Inclusion",
-          content: "Promoting equal opportunities and social inclusion through comprehensive programs and community engagement.",
-          image_url: getRandomImage('leadership')
-        },
-        {
-          title: "Supporting Vulnerable Communities",
-          content: "Implementing innovative approaches to create lasting positive change in communities through targeted programs and initiatives.",
-          image_url: getRandomImage('children')
-        },
-        {
-          title: "Environmental Conservation and Food Security",
-          content: "Working towards sustainable farming and environmental protection to ensure food security for future generations.",
-          image_url: getRandomImage('environment')
-        }
+    text: "Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)",
+    subtext: "A holistic peaceful and democratic society with justice for all",
+    image: getRandomImage('Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)')
+  },
+  {
+    text: "Empowering Communities Since 2007",
+    subtext: "Registered under the NGO Act of Kenya as a National NGO",
+    image: getRandomImage('Empowering Communities Since 2007')
+  },
+  {
+    text: "Fostering Unity and Effective Participation",
+    subtext: "Working with urban and rural communities for sustainable development",
+    image: getRandomImage('Fostering Unity and Effective Participation')
+  },
+  {
+    text: "Human Rights Based Approach",
+    subtext: "Empowering women and girls to claim their rights",
+    image: getRandomImage('Human Rights Based Approach')
+  },
+  {
+    text: "Supporting Education and Infrastructure",
+    subtext: "Building better facilities and resources for our communities",
+    image: getRandomImage('Supporting Education and Infrastructure')
+  }
       ]);
     } finally {
       setLoading(false);

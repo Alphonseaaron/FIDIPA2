@@ -6,8 +6,7 @@ const staffMembers = [
   {
     id: "1",
     name: "Ms Jayne A. I. Wasonga",
-    role: "Board Secretary and Chief Executive Officer",
-    photo_url: "/src/assets/images/Women Land and Property Rights 1.jpg"
+    role: "Board Secretary and Chief Executive Officer"
   },
   {
     id: "2",
@@ -55,8 +54,7 @@ const boardMembers = [
   {
     id: "3",
     name: "Ms Jayne A. Wasonga",
-    role: "Chief Executive Officer and Board Secretary",
-    photo_url: "/src/assets/images/Women Land and Property Rights 1.jpg"
+    role: "Chief Executive Officer and Board Secretary"
   },
   {
     id: "4",
@@ -137,7 +135,7 @@ function TeamCarousel({ members }: { members: any[] }) {
   return (
     <div className="relative">
       <div className="mx-12">
-        <div className="flex gap-6 overflow-hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {visibleMembers.map((member, index) => (
             <motion.div
               key={member.id}
@@ -145,25 +143,12 @@ function TeamCarousel({ members }: { members: any[] }) {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex-1 min-w-0 bg-white dark:bg-dark-lighter rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 dark:border-gray-700"
-              style={{ 
-                minHeight: '200px',
-                maxHeight: '200px',
-                width: `${100 / itemsPerPage}%`
-              }}
+              className="bg-white dark:bg-dark-lighter rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 dark:border-gray-700"
             >
               <div className="flex flex-col h-full items-center text-center">
-                {member.photo_url ? (
-                  <img 
-                    src={member.photo_url} 
-                    alt={member.name}
-                    className="w-16 h-16 rounded-full object-cover mb-4"
-                  />
-                ) : (
-                  <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                    <User size={24} className="text-primary" />
-                  </div>
-                )}
+                <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                  <User size={24} className="text-primary" />
+                </div>
                 <div className="flex-1 flex flex-col items-center w-full">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                     {member.name}
