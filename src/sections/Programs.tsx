@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import type { Database } from '../lib/database.types';
+import { Loader2 } from 'lucide-react';
 
 type Program = Database['public']['Tables']['programs']['Row'];
 
@@ -50,22 +51,8 @@ export default function Programs() {
   if (loading) {
     return (
       <section id="programs" className="py-20 relative bg-light dark:bg-dark">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="animate-pulse space-y-8">
-            <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
-            <div className="grid md:grid-cols-3 gap-8">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-white dark:bg-dark-lighter rounded-lg overflow-hidden">
-                  <div className="h-48 bg-gray-200 dark:bg-gray-700"></div>
-                  <div className="p-6 space-y-4">
-                    <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-2/3"></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="max-w-7xl mx-auto px-4 flex justify-center">
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
         </div>
       </section>
     );
@@ -136,28 +123,12 @@ export default function Programs() {
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">{program.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">{program.description}</p>
-                {program.content && (
-                  <div className="mb-4">
-                    <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-400 mb-2">Key Components:</h4>
-                    <div 
-                      className="text-sm text-gray-600 dark:text-gray-400 space-y-1"
-                      dangerouslySetInnerHTML={{ 
-                        __html: program.content
-                          .split('\n')
-                          .slice(0, 3)
-                          .map(line => `
-                            <div class="flex items-center">
-                              <span class="w-1.5 h-1.5 bg-primary rounded-full mr-2"></span>
-                              ${line}
-                            </div>
-                          `)
-                          .join('')
-                      }}
-                    />
-                  </div>
-                )}
+                <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                  {program.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                  {program.description}
+                </p>
                 <Link 
                   to={`/programs/${program.slug}`}
                   className="text-primary hover:text-primary/80 transition-colors flex items-center"
