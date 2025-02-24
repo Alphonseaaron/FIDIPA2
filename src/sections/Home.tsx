@@ -2,29 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { supabase } from '../lib/supabase';
-
-const defaultSections = [
-  {
-    title: "Empowering Communities Through Sustainable Development",
-    content: "Building sustainable solutions for poverty alleviation through community-driven initiatives and innovative approaches.",
-    image_url: "/src/assets/images/Women Land and Property Rights 1.jpg"
-  },
-  {
-    title: "Gender Equality and Social Inclusion",
-    content: "Promoting equal opportunities and social inclusion through comprehensive programs and community engagement.",
-    image_url: "/src/assets/images/Women in Leadership  and Socio-economic Project 1.jpg"
-  },
-  {
-    title: "Supporting Vulnerable Communities",
-    content: "Implementing innovative approaches to create lasting positive change in communities through targeted programs and initiatives.",
-    image_url: "/src/assets/images/Orphans or Vulnerable Children Project 1.jpg"
-  },
-  {
-    title: "Environmental Conservation and Food Security",
-    content: "Working towards sustainable farming and environmental protection to ensure food security for future generations.",
-    image_url: "/src/assets/images/Environment, Food Security, Resilience and Livelihood Program 1.jpg"
-  }
-];
+import { getRandomImage } from '../lib/utils';
 
 interface Section {
   title: string;
@@ -33,8 +11,9 @@ interface Section {
 }
 
 export default function Home() {
-  const [sections, setSections] = useState<Section[]>(defaultSections);
+  const [sections, setSections] = useState<Section[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchSections();
@@ -55,11 +34,13 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % sections.length);
-    }, 5000);
+    if (sections.length > 0) {
+      const timer = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % sections.length);
+      }, 5000);
 
-    return () => clearInterval(timer);
+      return () => clearInterval(timer);
+    }
   }, [sections.length]);
 
   const fetchSections = async () => {
@@ -70,11 +51,68 @@ export default function Home() {
         .order('sort_order', { ascending: true });
 
       if (error) throw error;
+
+      const defaultSections = [
+        {
+          title: "Empowering Communities Through Sustainable Development",
+          content: "Building sustainable solutions for poverty alleviation through community-driven initiatives and innovative approaches.",
+          image_url: getRandomImage('women-land')
+        },
+        {
+          title: "Gender Equality and Social Inclusion",
+          content: "Promoting equal opportunities and social inclusion through comprehensive programs and community engagement.",
+          image_url: getRandomImage('leadership')
+        },
+        {
+          title: "Supporting Vulnerable Communities",
+          content: "Implementing innovative approaches to create lasting positive change in communities through targeted programs and initiatives.",
+          image_url: getRandomImage('children')
+        },
+        {
+          title: "Environmental Conservation and Food Security",
+          content: "Working towards sustainable farming and environmental protection to ensure food security for future generations.",
+          image_url: getRandomImage('environment')
+        }
+      ];
+
       setSections(data?.length ? data : defaultSections);
     } catch (error) {
       console.error('Error fetching sections:', error);
+      // Set default sections on error
+      setSections([
+        {
+          title: "Empowering Communities Through Sustainable Development",
+          content: "Building sustainable solutions for poverty alleviation through community-driven initiatives and innovative approaches.",
+          image_url: getRandomImage('women-land')
+        },
+        {
+          title: "Gender Equality and Social Inclusion",
+          content: "Promoting equal opportunities and social inclusion through comprehensive programs and community engagement.",
+          image_url: getRandomImage('leadership')
+        },
+        {
+          title: "Supporting Vulnerable Communities",
+          content: "Implementing innovative approaches to create lasting positive change in communities through targeted programs and initiatives.",
+          image_url: getRandomImage('children')
+        },
+        {
+          title: "Environmental Conservation and Food Security",
+          content: "Working towards sustainable farming and environmental protection to ensure food security for future generations.",
+          image_url: getRandomImage('environment')
+        }
+      ]);
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <section id="home" className="min-h-screen flex items-center justify-center bg-light dark:bg-dark">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-primary"></div>
+      </section>
+    );
+  }
 
   return (
     <section id="home" className="min-h-screen relative overflow-hidden">

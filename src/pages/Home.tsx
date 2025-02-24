@@ -3,7 +3,6 @@ import { supabase } from '../lib/supabase';
 import About from '../sections/About';
 import Programs from '../sections/Programs';
 import Projects from '../sections/Projects';
-import Blog from '../sections/Blog';
 import Contact from '../sections/Contact';
 import HomeHero from '../sections/Home';
 import Team from '../sections/Team';
@@ -15,7 +14,7 @@ export default function Home() {
     programs: true,
     projects: true,
     team: true,
-    blog: true,
+    blog: false, // Blog section hidden
     contact: true
   });
 
@@ -29,11 +28,15 @@ export default function Home() {
         
         if (error) {
           console.error('Error fetching site config:', error);
-          return; // Keep default values if there's an error
+          return;
         }
         
         if (data?.sections) {
-          setVisibleSections(data.sections);
+          // Override blog visibility to false
+          setVisibleSections({
+            ...data.sections,
+            blog: false
+          });
         }
       } catch (error) {
         console.error('Error in fetchSiteConfig:', error);
@@ -50,7 +53,6 @@ export default function Home() {
       {visibleSections.programs && <Programs />}
       {visibleSections.projects && <Projects />}
       {visibleSections.team && <Team />}
-      {visibleSections.blog && <Blog />}
       {visibleSections.contact && <Contact />}
     </div>
   );

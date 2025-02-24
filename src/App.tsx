@@ -3,12 +3,10 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/Home';
-import BlogPage from './pages/Blog';
 import ProjectsPage from './pages/Projects';
 import WriteForUsPage from './pages/WriteForUs';
 import AdminPanel from './pages/admin/AdminPanel';
 import ProgramsPage from './pages/Programs';
-import BlogPostPage from './pages/BlogPost';
 import ProgramDetailPage from './pages/ProgramDetail';
 import ProjectDetailPage from './pages/ProjectDetail';
 
@@ -32,8 +30,6 @@ function AppContent() {
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/projects/:slug" element={<ProjectDetailPage />} />
           <Route path="/programs" element={<ProgramsPage />} />
