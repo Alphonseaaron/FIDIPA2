@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { ref, listAll, getDownloadURL, StorageReference } from 'firebase/storage';
-import { storage } from '../../lib/storage';
+import { supabase } from '../../lib/supabase';
 import { Trash2, Copy, Loader2 } from 'lucide-react';
-import { deleteFile } from '../../lib/storage';
 import MediaUploader from './MediaUploader';
+import AdminHeader from './AdminHeader';
 
 interface MediaItem {
+  name: string;
   url: string;
   path: string;
-  name: string;
-  ref: StorageReference;
 }
 
 export default function MediaLibrary() {
@@ -23,17 +21,22 @@ export default function MediaLibrary() {
 
   const fetchMediaItems = async () => {
     try {
-      const storageRef = ref(storage, 'uploads');
-      const result = await listAll(storageRef);
-      
+      const { data: files, error } = await supabase.storage
+        .from('media')
+        .list('uploads');
+
+      if (error) throw error;
+
       const items = await Promise.all(
-        result.items.map(async (item) => {
-          const url = await getDownloadURL(item);
+        (files || []).map(async (file) => {
+          const { data: { publicUrl } } = supabase.storage
+            .from('media')
+            .getPublicUrl(`uploads/${file.name}`);
+
           return {
-            url,
-            path: item.fullPath,
-            name: item.name,
-            ref: item
+            name: file.name,
+            url: publicUrl,
+            path: `uploads/${file.name}`
           };
         })
       );
@@ -50,7 +53,11 @@ export default function MediaLibrary() {
     if (!window.confirm('Are you sure you want to delete this file?')) return;
 
     try {
-      await deleteFile(item.path);
+      const { error } = await supabase.storage
+        .from('media')
+        .remove([item.path]);
+
+      if (error) throw error;
       setMediaItems(prev => prev.filter(i => i.path !== item.path));
     } catch (error) {
       console.error('Error deleting file:', error);
@@ -80,13 +87,14 @@ export default function MediaLibrary() {
 
   return (
     <div className="space-y-8">
+      <AdminHeader title="Media Library" />
+      
       <MediaUploader
         onUploadComplete={(url, path) => {
           setMediaItems(prev => [{
             url,
             path,
-            name: path.split('/').pop() || '',
-            ref: ref(storage, path)
+            name: path.split('/').pop() || ''
           }, ...prev]);
         }}
         folder="uploads"
