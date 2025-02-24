@@ -1,40 +1,40 @@
-// Map of topic keywords to their corresponding image URLs
+// Map of topic keywords to their corresponding image URLs from Supabase storage
 const imageMap = {
   'women-land': [
-    '/src/assets/images/Women Land and Property Rights 1.jpg',
-    '/src/assets/images/Women Land and Property Rights 2.jpg',
-    '/src/assets/images/Women Land and Property Rights 3.jpg',
-    '/src/assets/images/Women Land and Property Rights 4.jpg',
-    '/src/assets/images/Women Land and Property Rights 5.jpg'
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-land-rights-1.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-land-rights-2.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-land-rights-3.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-land-rights-4.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-land-rights-5.jpg'
   ],
   'leadership': [
-    '/src/assets/images/Women in Leadership  and Socio-economic Project 1.jpg',
-    '/src/assets/images/Women in Leadership  and Socio-economic Project 2.jpg',
-    '/src/assets/images/Women in Leadership  and Socio-economic Project 3.jpg',
-    '/src/assets/images/Women in Leadership  and Socio-economic Project 4.jpg'
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-leadership-1.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-leadership-2.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-leadership-3.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-leadership-4.jpg'
   ],
   'children': [
-    '/src/assets/images/Orphans or Vulnerable Children Project 1.jpg',
-    '/src/assets/images/Orphans or Vulnerable Children Project 2.jpg',
-    '/src/assets/images/Orphans or Vulnerable Children Project 3.jpg',
-    '/src/assets/images/Orphans or Vulnerable Children Project 4.jpg'
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/orphans-children-1.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/orphans-children-2.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/orphans-children-3.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/orphans-children-4.jpg'
   ],
   'environment': [
-    '/src/assets/images/Environment, Food Security, Resilience and Livelihood Program 1.jpg',
-    '/src/assets/images/Environment, Food Security, Resilience and Livelihood Program 2.jpg',
-    '/src/assets/images/Environment, Food Security, Resilience and Livelihood Program 3.jpg',
-    '/src/assets/images/Environment, Food Security, Resilience and Livelihood Program 4.jpg'
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/environment-1.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/environment-2.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/environment-3.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/environment-4.jpg'
   ],
   'agriculture': [
-    '/src/assets/images/Agriculture and Information Technology 1.jpg',
-    '/src/assets/images/Agriculture and Information Technology 2.jpg',
-    '/src/assets/images/Agriculture and Information Technology 3.jpg',
-    '/src/assets/images/Agriculture and Information Technology 4.jpg'
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/agriculture-1.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/agriculture-2.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/agriculture-3.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/agriculture-4.jpg'
   ]
 };
 
 export function getRandomImage(topic: string): string {
-  const defaultImage = 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1600';
+  const defaultImage = 'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/default-hero.jpg';
   
   // Find matching topic images
   const matchingTopic = Object.entries(imageMap).find(([key]) => 
