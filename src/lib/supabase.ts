@@ -19,22 +19,6 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
   }
 });
 
-// Initialize Supabase connection
-const initializeSupabase = async () => {
-  try {
-    const { data, error } = await supabase.auth.getSession();
-    if (error) throw error;
-    console.log('Supabase initialized successfully');
-    return data.session;
-  } catch (error) {
-    console.error('Error initializing Supabase:', error);
-    throw error;
-  }
-};
-
-// Initialize on import
-initializeSupabase().catch(console.error);
-
 // Storage functions
 export async function uploadFile(file: File, folder: string = 'uploads'): Promise<{ url: string; path: string }> {
   try {
