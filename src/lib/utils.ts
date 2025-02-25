@@ -100,14 +100,14 @@ export async function getImagesByTopic(topic: string): Promise<string[]> {
   try {
     const { data: files, error } = await supabase.storage
       .from('media')
-      .list(`images/${topic}`);
+      .list(`programs/${topic}`);
 
     if (error) throw error;
 
     return files
       ? files.map(file => supabase.storage
           .from('media')
-          .getPublicUrl(`images/${topic}/${file.name}`).data.publicUrl)
+          .getPublicUrl(`programs/${topic}/${file.name}`).data.publicUrl)
       : [defaultImage];
   } catch (error) {
     console.error('Error fetching images:', error);
