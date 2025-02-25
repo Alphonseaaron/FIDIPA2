@@ -123,32 +123,6 @@ export default function ProjectManager() {
     return date instanceof Date && !isNaN(date) && dateString.includes('T');
   };
 
-  const parseCSVRow = (row) => {
-    const values = [];
-    let currentValue = '';
-    let insideQuotes = false;
-
-    for (let i = 0; i < row.length; i++) {
-      const char = row[i];
-      if (char === '"') {
-        if (insideQuotes && row[i + 1] === '"') {
-          // Handle escaped quotes
-          currentValue += '"';
-          i++;
-        } else {
-          insideQuotes = !insideQuotes;
-        }
-      } else if (char === ',' && !insideQuotes) {
-        values.push(currentValue.trim());
-        currentValue = '';
-      } else {
-        currentValue += char;
-      }
-    }
-    values.push(currentValue.trim());
-    return values;
-  };
-
   const handleImportCSV = async (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -158,15 +132,15 @@ export default function ProjectManager() {
     try {
       const text = await file.text();
       const rows = text.split('\n');
-      const headers = parseCSVRow(rows[0]).map(h => h.toLowerCase().replace(/^["']|["']$/g, ''));
+      const headers = rows[0].toLowerCase().split(',').map(h => h.trim());
       
       const projects = rows.slice(1)
         .filter(row => row.trim()) // Skip empty rows
         .map(row => {
-          const values = parseCSVRow(row);
+          const values = row.split(',').map(v => v.trim());
           return headers.reduce((obj, header, i) => {
             // Clean up the value and handle empty strings
-            let value = values[i]?.replace(/^["']|["']$/g, '').trim() || null;
+            let value = values[i] || null;
             
             // Handle specific fields
             if (header === 'created_at' || header === 'updated_at') {
@@ -179,20 +153,13 @@ export default function ProjectManager() {
             obj[header] = value;
             return obj;
           }, {});
-        })
-        .filter(project => Object.values(project).some(value => value)); // Remove empty rows
+        });
 
       // Validate the data
       const validationErrors = validateCsvData(projects);
       if (validationErrors.length > 0) {
         setImportError(validationErrors.join('\n'));
         return;
-      }
-
-      // Get the current user session
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session?.user?.email === 'admin@fidipa.com') {
-        throw new Error('You must be logged in as an admin to import projects');
       }
 
       // Insert the projects
@@ -205,10 +172,7 @@ export default function ProjectManager() {
             created_at: project.created_at || new Date().toISOString()
           });
 
-        if (error) {
-          console.error('Error inserting project:', error);
-          throw new Error(`Failed to insert project "${project.title}": ${error.message}`);
-        }
+        if (error) throw error;
       }
 
       await fetchProjects();
@@ -273,11 +237,14 @@ export default function ProjectManager() {
             <h4 className="font-medium text-white mb-2">CSV Format Requirements:</h4>
             <ul className="list-disc list-inside space-y-1 text-sm text-gray-300">
               <li>Required columns: title, slug, description</li>
-              <li>Slug format: lowercase letters, numbers, and hyphens only (e.g., "my-project-title")</li>
               <li>Optional columns: content, image_url, status, meta_title, meta_description, created_at, updated_at</li>
+              <li>Slug format: lowercase letters, numbers, and hyphens only (e.g., "my-project-title")</li>
               <li>Status must be either "ongoing" or "completed" (defaults to "ongoing")</li>
               <li>Dates should be in ISO format (e.g., 2024-02-24T00:00:00Z)</li>
               <li>Empty rows will be skipped</li>
+              <li>First row must be column headers</li>
+              <li>Values should be comma-separated</li>
+              <li>No quotes needed unless value contains commas</li>
             </ul>
           </div>
         </div>
@@ -286,7 +253,15 @@ export default function ProjectManager() {
       <DataTable
         columns={[
           { key: 'title', header: 'Title' },
+          { key: 'slug', header: 'Slug' },
           { key: 'description', header: 'Description' },
+          { 
+            key: 'image_url', 
+            header: 'Image',
+            render: (value) => value ? (
+              <img src={value} alt="Project" className="w-16 h-16 object-cover rounded" />
+            ) : 'No image'
+          },
           { 
             key: 'status', 
             header: 'Status',
@@ -300,9 +275,16 @@ export default function ProjectManager() {
               </span>
             )
           },
+          { key: 'meta_title', header: 'Meta Title' },
+          { key: 'meta_description', header: 'Meta Description' },
           { 
             key: 'created_at', 
             header: 'Created',
+            render: (value) => new Date(value).toLocaleDateString()
+          },
+          { 
+            key: 'updated_at', 
+            header: 'Updated',
             render: (value) => new Date(value).toLocaleDateString()
           }
         ]}
