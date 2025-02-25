@@ -3,77 +3,57 @@ import { supabase } from './supabase';
 // Map of topic keywords to their corresponding image URLs from Supabase storage
 const imageMap = {
   'women-land': [
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-land-rights-1.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-land-rights-2.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-land-rights-3.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-land-rights-4.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-land-rights-5.jpg'
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Women%20Land%20and%20Property%20Rights%201.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Women%20Land%20and%20Property%20Rights%202.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Women%20Land%20and%20Property%20Rights%203.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Women%20Land%20and%20Property%20Rights%204.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Women%20Land%20and%20Property%20Rights%205.jpg'
   ],
   'prisons': [
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-prisons-1.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-prisons-2.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-prisons-3.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-prisons-4.jpg'
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Women%20in%20and%20out%20of%20prisons%20project%201.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Women%20in%20and%20out%20of%20prisons%20project%202.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Women%20in%20and%20out%20of%20prisons%20project%203.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Women%20in%20and%20out%20of%20prisons%20project%204.jpg'
   ],
   'education': [
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/girls-education-1.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/girls-education-2.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/girls-education-3.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/girls-education-4.jpg'
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Girls%20Education%20and%20Mentorship%20Project%201.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Girls%20Education%20and%20Mentorship%20Project%202.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Girls%20Education%20and%20Mentorship%20Project%203.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Girls%20Education%20and%20Mentorship%20Project%204.jpg'
   ],
   'leadership': [
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-leadership-1.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-leadership-2.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-leadership-3.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/women-leadership-4.jpg'
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Women%20in%20Leadership%20and%20Socio-economic%20Project%201.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Women%20in%20Leadership%20and%20Socio-economic%20Project%202.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Women%20in%20Leadership%20and%20Socio-economic%20Project%203.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Women%20in%20Leadership%20and%20Socio-economic%20Project%204.jpg'
   ],
   'children': [
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/orphans-children-1.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/orphans-children-2.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/orphans-children-3.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/orphans-children-4.jpg'
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Orphans%20or%20Vulnerable%20Children%20Project%201.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Orphans%20or%20Vulnerable%20Children%20Project%202.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Orphans%20or%20Vulnerable%20Children%20Project%203.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Orphans%20or%20Vulnerable%20Children%20Project%204.jpg'
   ],
   'environment': [
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/environment-1.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/environment-2.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/environment-3.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/environment-4.jpg'
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Environment%2C%20Food%20Security%2C%20Resilience%20and%20Livelihood%20Program%201.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Environment%2C%20Food%20Security%2C%20Resilience%20and%20Livelihood%20Program%202.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Environment%2C%20Food%20Security%2C%20Resilience%20and%20Livelihood%20Program%203.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Environment%2C%20Food%20Security%2C%20Resilience%20and%20Livelihood%20Program%204.jpg'
   ],
   'agriculture': [
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/agriculture-1.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/agriculture-2.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/agriculture-3.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/agriculture-4.jpg'
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Agriculture%20and%20Information%20Technology%201.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Agriculture%20and%20Information%20Technology%202.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Agriculture%20and%20Information%20Technology%203.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Agriculture%20and%20Information%20Technology%204.jpg'
   ],
   'skills': [
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/soft-skills-1.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/soft-skills-2.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/soft-skills-3.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/soft-skills-4.jpg'
-  ],
-  'community': [
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/projects/community-1.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/projects/community-2.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/projects/community-3.jpg'
-  ],
-  'youth': [
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/projects/youth-1.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/projects/youth-2.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/projects/youth-3.jpg'
-  ],
-  'school': [
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/projects/school-1.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/projects/school-2.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/projects/school-3.jpg'
-  ],
-  'water': [
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/projects/water-1.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/projects/water-2.jpg',
-    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/projects/water-3.jpg'
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Soft%20Skills%20Training%20and%20Leadership%20training%201.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Soft%20Skills%20Training%20and%20Leadership%20training%202.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Soft%20Skills%20Training%20and%20Leadership%20training%203.jpg',
+    'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/programs/Soft%20Skills%20Training%20and%20Leadership%20training%204.jpg'
   ]
 };
 
-const defaultImage = 'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/default-hero.jpg';
+const defaultImage = 'https://bwvkubhcicqtirckhvpk.supabase.co/storage/v1/object/public/media/default/hero.jpg';
 
 export function getRandomImage(topic: string): string {
   // Find matching topic images
