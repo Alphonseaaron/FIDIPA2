@@ -22,7 +22,7 @@ export function useAuth() {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) {
         setAuthState({
-          isAuthenticated: session.user.email === 'admin@fidipa.org',
+          isAuthenticated: session.user.email === 'admin@fidipa.com',
           isLoading: false,
           error: null,
           user: session.user
@@ -41,7 +41,7 @@ export function useAuth() {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
         setAuthState({
-          isAuthenticated: session.user.email === 'admin@fidipa.org',
+          isAuthenticated: session.user.email === 'admin@fidipa.com',
           isLoading: false,
           error: null,
           user: session.user
@@ -70,7 +70,7 @@ export function useAuth() {
 
       if (error) throw error;
 
-      return data.user.email === 'admin@fidipa.org';
+      return data.user.email === 'admin@fidipa.com';
     } catch (error) {
       setAuthState(prev => ({
         ...prev,

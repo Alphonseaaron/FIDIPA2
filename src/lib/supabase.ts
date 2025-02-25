@@ -11,7 +11,7 @@ export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
 // Admin authentication functions
 export async function adminSignIn(email: string, password: string) {
   try {
-    if (email !== 'admin@fidipa.org') {
+    if (email !== 'admin@fidipa.com') {
       throw new Error('Invalid admin credentials');
     }
 

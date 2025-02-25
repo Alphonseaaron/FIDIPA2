@@ -82,17 +82,22 @@ export default function ProjectManager() {
   };
 
   const validateCsvData = (data) => {
-    const requiredFields = ['id', 'title', 'slug', 'description'];
+    const requiredFields = ['title', 'slug', 'description'];
     const errors = [];
 
     data.forEach((row, index) => {
+      // Skip empty rows
+      if (Object.values(row).every(value => !value)) {
+        return;
+      }
+
       requiredFields.forEach(field => {
         if (!row[field]) {
           errors.push(`Row ${index + 1}: Missing required field "${field}"`);
         }
       });
 
-      // Validate slug format
+      // Validate slug format if present
       if (row.slug && !/^[a-z0-9-]+$/.test(row.slug)) {
         errors.push(`Row ${index + 1}: Invalid slug format. Use only lowercase letters, numbers, and hyphens`);
       }
@@ -102,7 +107,7 @@ export default function ProjectManager() {
         errors.push(`Row ${index + 1}: Invalid status. Must be either "ongoing" or "completed"`);
       }
 
-      // Validate dates
+      // Validate dates if present
       ['created_at', 'updated_at'].forEach(field => {
         if (row[field] && !isValidISODate(row[field])) {
           errors.push(`Row ${index + 1}: Invalid date format for ${field}. Use ISO format (e.g., 2024-02-24T00:00:00Z)`);
@@ -126,7 +131,13 @@ export default function ProjectManager() {
     for (let i = 0; i < row.length; i++) {
       const char = row[i];
       if (char === '"') {
-        insideQuotes = !insideQuotes;
+        if (insideQuotes && row[i + 1] === '"') {
+          // Handle escaped quotes
+          currentValue += '"';
+          i++;
+        } else {
+          insideQuotes = !insideQuotes;
+        }
       } else if (char === ',' && !insideQuotes) {
         values.push(currentValue.trim());
         currentValue = '';
@@ -150,7 +161,7 @@ export default function ProjectManager() {
       const headers = parseCSVRow(rows[0]).map(h => h.toLowerCase().replace(/^["']|["']$/g, ''));
       
       const projects = rows.slice(1)
-        .filter(row => row.trim())
+        .filter(row => row.trim()) // Skip empty rows
         .map(row => {
           const values = parseCSVRow(row);
           return headers.reduce((obj, header, i) => {
@@ -168,13 +179,20 @@ export default function ProjectManager() {
             obj[header] = value;
             return obj;
           }, {});
-        });
+        })
+        .filter(project => Object.values(project).some(value => value)); // Remove empty rows
 
       // Validate the data
       const validationErrors = validateCsvData(projects);
       if (validationErrors.length > 0) {
         setImportError(validationErrors.join('\n'));
         return;
+      }
+
+      // Get the current user session
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.user?.email === 'admin@fidipa.com') {
+        throw new Error('You must be logged in as an admin to import projects');
       }
 
       // Insert the projects
@@ -251,12 +269,17 @@ export default function ProjectManager() {
               {importError}
             </div>
           )}
-          <p className="text-sm text-gray-400">
-            CSV must include: id, title, slug, description (Required fields)
-          </p>
-          <p className="text-sm text-gray-400">
-            Optional fields: content, image_url, status, meta_title, meta_description, created_at, updated_at
-          </p>
+          <div className="bg-dark/50 p-4 rounded-lg">
+            <h4 className="font-medium text-white mb-2">CSV Format Requirements:</h4>
+            <ul className="list-disc list-inside space-y-1 text-sm text-gray-300">
+              <li>Required columns: title, slug, description</li>
+              <li>Slug format: lowercase letters, numbers, and hyphens only (e.g., "my-project-title")</li>
+              <li>Optional columns: content, image_url, status, meta_title, meta_description, created_at, updated_at</li>
+              <li>Status must be either "ongoing" or "completed" (defaults to "ongoing")</li>
+              <li>Dates should be in ISO format (e.g., 2024-02-24T00:00:00Z)</li>
+              <li>Empty rows will be skipped</li>
+            </ul>
+          </div>
         </div>
       </div>
 
