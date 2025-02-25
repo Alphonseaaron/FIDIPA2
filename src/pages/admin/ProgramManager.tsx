@@ -84,38 +84,53 @@ export default function ProgramManager() {
   const validateCsvData = (data) => {
     const requiredFields = ['title', 'slug', 'description'];
     const errors = [];
+    let rowNumber = 1;
 
-    data.forEach((row, index) => {
-      // Skip empty rows
-      if (Object.values(row).every(value => !value)) {
-        return;
-      }
+    data.forEach((row) => {
+      rowNumber++;
 
+      // Skip completely empty rows
+      if (Object.values(row).every(value => !value)) return;
+
+      // Check for required fields
       requiredFields.forEach(field => {
-        if (!row[field]) {
-          errors.push(`Row ${index + 1}: Missing required field "${field}"`);
+        if (!row[field] || row[field].trim() === '') {
+          errors.push(`Row ${rowNumber}: Missing required field "${field}"`);
         }
       });
 
-      // Validate slug format if present
-      if (row.slug && !/^[a-z0-9-]+$/.test(row.slug)) {
-        errors.push(`Row ${index + 1}: Invalid slug format. Use only lowercase letters, numbers, and hyphens`);
+      // Validate slug format
+      if (row.slug) {
+        if (!/^[a-z0-9-]+$/.test(row.slug)) {
+          errors.push(`Row ${rowNumber}: Invalid slug format. Use only lowercase letters, numbers, and hyphens`);
+        }
       }
 
-      // Validate dates if present
+      // Validate dates
       ['created_at', 'updated_at'].forEach(field => {
-        if (row[field] && !isValidISODate(row[field])) {
-          errors.push(`Row ${index + 1}: Invalid date format for ${field}. Use ISO format (e.g., 2024-02-24T00:00:00Z)`);
+        if (row[field]) {
+          if (!isValidISODate(row[field])) {
+            errors.push(`Row ${rowNumber}: Invalid date format for ${field}. Use ISO format (e.g., 2024-02-24T00:00:00Z)`);
+          }
         }
       });
+
+      // Validate meta fields length
+      if (row.meta_title && row.meta_title.length > 60) {
+        errors.push(`Row ${rowNumber}: Meta title exceeds 60 characters`);
+      }
+      if (row.meta_description && row.meta_description.length > 160) {
+        errors.push(`Row ${rowNumber}: Meta description exceeds 160 characters`);
+      }
     });
 
     return errors;
   };
 
   const isValidISODate = (dateString) => {
+    if (!dateString) return false;
     const date = new Date(dateString);
-    return date instanceof Date && !isNaN(date) && dateString.includes('T');
+    return date instanceof Date && !isNaN(date) && dateString.includes('T') && dateString.includes('Z');
   };
 
   const handleImportCSV = async (event) => {
@@ -130,14 +145,12 @@ export default function ProgramManager() {
       const headers = rows[0].toLowerCase().split(',').map(h => h.trim());
       
       const programs = rows.slice(1)
-        .filter(row => row.trim()) // Skip empty rows
+        .filter(row => row.trim())
         .map(row => {
           const values = row.split(',').map(v => v.trim());
           return headers.reduce((obj, header, i) => {
-            // Clean up the value and handle empty strings
             let value = values[i] || null;
             
-            // Handle specific fields
             if (header === 'created_at' || header === 'updated_at') {
               value = value || new Date().toISOString();
             }
@@ -147,14 +160,12 @@ export default function ProgramManager() {
           }, {});
         });
 
-      // Validate the data
       const validationErrors = validateCsvData(programs);
       if (validationErrors.length > 0) {
         setImportError(validationErrors.join('\n'));
         return;
       }
 
-      // Insert the programs
       for (const program of programs) {
         const { error } = await supabase
           .from('programs')
@@ -221,21 +232,42 @@ export default function ProgramManager() {
               hover:file:bg-primary/90"
           />
           {importError && (
-            <div className="text-red-500 text-sm whitespace-pre-line">
+            <div className="text-red-500 text-sm whitespace-pre-line bg-red-500/10 p-4 rounded-lg border border-red-500/20">
+              <p className="font-medium mb-2">Import Validation Errors:</p>
               {importError}
             </div>
           )}
           <div className="bg-dark/50 p-4 rounded-lg">
             <h4 className="font-medium text-white mb-2">CSV Format Requirements:</h4>
             <ul className="list-disc list-inside space-y-1 text-sm text-gray-300">
-              <li>Required columns: title, slug, description</li>
-              <li>Optional columns: content, image_url, meta_title, meta_description, created_at, updated_at</li>
-              <li>Slug format: lowercase letters, numbers, and hyphens only (e.g., "my-program-title")</li>
-              <li>Dates should be in ISO format (e.g., 2024-02-24T00:00:00Z)</li>
+              <li>Required fields: title, slug, description</li>
+              <li>Optional fields: content, image_url, meta_title, meta_description, created_at, updated_at</li>
+              <li>Title: Program name (e.g., "Gender Equality and Social Inclusion Program")</li>
+              <li>Slug: URL-friendly version of title (e.g., "gender-equality-and-social-inclusion")
+                <ul className="list-disc list-inside ml-4 mt-1">
+                  <li>Must contain only lowercase letters, numbers, and hyphens</li>
+                  <li>No spaces or special characters allowed</li>
+                  <li>Must be unique across all programs</li>
+                </ul>
+              </li>
+              <li>Description: Brief overview of the program (1-2 sentences)</li>
+              <li>Content: Detailed program information including:
+                <ul className="list-disc list-inside ml-4 mt-1">
+                  <li>Program objectives</li>
+                  <li>Key components</li>
+                  <li>Target beneficiaries</li>
+                  <li>Implementation approach</li>
+                  <li>Expected outcomes</li>
+                </ul>
+              </li>
+              <li>Image URL: Public URL for program image</li>
+              <li>Meta Title: SEO title (maximum 60 characters)</li>
+              <li>Meta Description: SEO description (maximum 160 characters)</li>
+              <li>Created/Updated At: ISO date format (YYYY-MM-DDTHH:mm:ssZ)</li>
               <li>Empty rows will be skipped</li>
               <li>First row must be column headers</li>
               <li>Values should be comma-separated</li>
-              <li>No quotes needed unless value contains commas</li>
+              <li>Use quotes for values containing commas</li>
             </ul>
           </div>
         </div>
@@ -245,7 +277,24 @@ export default function ProgramManager() {
         columns={[
           { key: 'title', header: 'Title' },
           { key: 'slug', header: 'Slug' },
-          { key: 'description', header: 'Description' },
+          { 
+            key: 'description', 
+            header: 'Description',
+            render: (value) => (
+              <div className="max-w-md">
+                <p className="line-clamp-2">{value}</p>
+              </div>
+            )
+          },
+          { 
+            key: 'content', 
+            header: 'Content',
+            render: (value) => (
+              <div className="max-w-md">
+                <p className="line-clamp-2">{value}</p>
+              </div>
+            )
+          },
           { 
             key: 'image_url', 
             header: 'Image',
@@ -254,7 +303,15 @@ export default function ProgramManager() {
             ) : 'No image'
           },
           { key: 'meta_title', header: 'Meta Title' },
-          { key: 'meta_description', header: 'Meta Description' },
+          { 
+            key: 'meta_description', 
+            header: 'Meta Description',
+            render: (value) => (
+              <div className="max-w-md">
+                <p className="line-clamp-2">{value}</p>
+              </div>
+            )
+          },
           { 
             key: 'created_at', 
             header: 'Created',
