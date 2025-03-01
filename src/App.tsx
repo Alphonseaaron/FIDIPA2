@@ -4,7 +4,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/Home';
 import ProjectsPage from './pages/Projects';
-import WriteForUsPage from './pages/WriteForUs';
 import AdminPanel from './pages/admin/AdminPanel';
 import ProgramsPage from './pages/Programs';
 import ProgramDetailPage from './pages/ProgramDetail';
@@ -34,7 +33,6 @@ function AppContent() {
           <Route path="/projects/:slug" element={<ProjectDetailPage />} />
           <Route path="/programs" element={<ProgramsPage />} />
           <Route path="/programs/:slug" element={<ProgramDetailPage />} />
-          <Route path="/write-for-us" element={<WriteForUsPage />} />
           <Route path="/admin/*" element={<AdminPanel />} />
         </Routes>
       </div>

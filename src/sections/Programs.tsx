@@ -46,11 +46,7 @@ export default function Programs() {
             >
               <div className="h-48 overflow-hidden">
                 <ImageCarousel 
-                  images={[
-                    '/src/assets/images/Women Land and Property Rights 1.jpg',
-                    '/src/assets/images/Women Land and Property Rights 2.jpg',
-                    '/src/assets/images/Women Land and Property Rights 3.jpg'
-                  ]}
+                  images={program.images}
                   className="h-full"
                   interval={4000}
                   showControls={false}

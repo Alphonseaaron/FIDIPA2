@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Globe, PenTool, Building2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Mail, Phone, MapPin, Globe, Building2 } from 'lucide-react';
 
 export default function Contact() {
   const handleEmailClick = (email: string) => {
@@ -107,21 +106,6 @@ export default function Contact() {
               <p className="text-gray-600 dark:text-gray-300 mt-2">P.O. Box 62226, Code 00200 Nairobi</p>
             </div>
           </motion.div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-12 text-center"
-        >
-          <Link 
-            to="/write-for-us"
-            className="inline-flex items-center space-x-2 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg transition-colors shadow-lg hover:shadow-xl"
-          >
-            <PenTool size={20} />
-            <span>Write for Us</span>
-          </Link>
         </motion.div>
       </div>
     </section>

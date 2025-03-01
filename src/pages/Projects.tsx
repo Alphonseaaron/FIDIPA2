@@ -29,11 +29,7 @@ export default function Projects() {
             >
               <div className="relative h-48 overflow-hidden">
                 <ImageCarousel 
-                  images={[
-                    '/src/assets/images/Community Training Initiative 1.jpg',
-                    '/src/assets/images/Community Training Initiative 2.jpg',
-                    '/src/assets/images/Community Training Initiative 3.jpg'
-                  ]}
+                  images={project.images}
                   className="h-full"
                   interval={4000}
                   showControls={false}

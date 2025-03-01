@@ -30,11 +30,7 @@ export default function Programs() {
               <div className="md:flex">
                 <div className="md:w-1/3">
                   <ImageCarousel 
-                    images={[
-                      '/src/assets/images/Women Land and Property Rights 1.jpg',
-                      '/src/assets/images/Women Land and Property Rights 2.jpg',
-                      '/src/assets/images/Women Land and Property Rights 3.jpg'
-                    ]}
+                    images={program.images}
                     className="w-full h-full object-cover"
                   />
                 </div>
