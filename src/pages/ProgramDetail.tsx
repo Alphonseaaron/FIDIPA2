@@ -9,7 +9,7 @@ export default function ProgramDetail() {
   const program = {
     title: "Gender Equality and Social Inclusion",
     description: "Empowering communities to address gender inequality and social inclusion through training community paralegals, youth, and women as community resource persons.",
-    image: "/src/assets/images/DSC05379.JPG",
+    image: "/src/assets/images/Women Land and Property Rights 1.jpg",
     content: `Our Gender Equality and Social Inclusion program is dedicated to promoting equal opportunities and social justice through comprehensive community-based initiatives.
 
     Through this program, we work closely with local communities to:

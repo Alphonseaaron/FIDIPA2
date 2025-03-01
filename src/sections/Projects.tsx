@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { projects } from '../data';
@@ -43,7 +43,11 @@ export default function Projects() {
             >
               <div className="relative h-48 overflow-hidden">
                 <ImageCarousel 
-                  images={project.images}
+                  images={[
+                    '/src/assets/images/Community Training Initiative 1.jpg',
+                    '/src/assets/images/Community Training Initiative 2.jpg',
+                    '/src/assets/images/Community Training Initiative 3.jpg'
+                  ]}
                   className="h-full"
                   interval={4000}
                   showControls={false}

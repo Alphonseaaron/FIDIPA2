@@ -7,7 +7,7 @@ const projects = {
   'community-training-initiative': {
     title: "Community Training Initiative",
     description: "Implementing comprehensive training programs and workshops to build capacity within communities.",
-    imageUrl: "/image/DSC01363.JPG",
+    imageUrl: "/src/assets/images/Community Training Initiative 1.jpg",
     status: "Ongoing",
     timeline: {
       start: "January 2024",
@@ -35,7 +35,7 @@ const projects = {
   'youth-development-program': {
     title: "Youth Development Program",
     description: "Supporting youth through education and outdoor activities to build life skills and community engagement.",
-    imageUrl: "/image/SAM_0721.JPG",
+    imageUrl: "/src/assets/images/Girls Education and Mentorship Project 1.jpg",
     status: "Ongoing",
     timeline: {
       start: "March 2024",
@@ -63,7 +63,7 @@ const projects = {
   'school-infrastructure-support': {
     title: "School Infrastructure Support",
     description: "Improving school facilities and infrastructure to enhance the learning environment for students.",
-    imageUrl: "/image/SAM_0724.JPG",
+    imageUrl: "/src/assets/images/Girls Education and Mentorship Project 2.jpg",
     status: "Ongoing",
     timeline: {
       start: "February 2024",
@@ -91,7 +91,7 @@ const projects = {
   'water-access-program': {
     title: "Water Access Program",
     description: "Improving access to clean water through infrastructure development and community management.",
-    imageUrl: "/image/SAM_1409.JPG",
+    imageUrl: "/src/assets/images/Environment, Food Security, Resilience and Livelihood Program 2.jpg",
     status: "Ongoing",
     timeline: {
       start: "April 2024",
@@ -119,7 +119,7 @@ const projects = {
   'agricultural-skills-development': {
     title: "Agricultural Skills Development",
     description: "Training students and community members in sustainable agricultural practices.",
-    imageUrl: "/image/kamulu dalawa 028.jpg",
+    imageUrl: "/src/assets/images/Agriculture and Information Technology 1.jpg",
     status: "Ongoing",
     timeline: {
       start: "May 2024",
