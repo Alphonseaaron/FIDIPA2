@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { Loader2 } from 'lucide-react';
+<<<<<<< HEAD
+=======
+import { supabase } from '../../lib/supabase';
+>>>>>>> 2235afba310fc26825bf3948de2acd839cb7377b
 import { nanoid } from 'nanoid';
 
 interface MediaUploaderProps {
@@ -25,6 +29,7 @@ export default function MediaUploader({ onUploadComplete, folder = 'uploads', ac
 
     setUploading(true);
     try {
+<<<<<<< HEAD
       // Simulate file upload with a delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
@@ -34,6 +39,21 @@ export default function MediaUploader({ onUploadComplete, folder = 'uploads', ac
       // Create a local object URL for the file
       const url = URL.createObjectURL(file);
       
+=======
+      const fileExt = file.name.split('.').pop();
+      const filePath = `${folder}/${nanoid()}.${fileExt}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('media')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl: url } } = supabase.storage
+        .from('media')
+        .getPublicUrl(filePath);
+
+>>>>>>> 2235afba310fc26825bf3948de2acd839cb7377b
       onUploadComplete(url, filePath);
     } catch (error) {
       console.error('Upload failed:', error);

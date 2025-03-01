@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+<<<<<<< HEAD
+=======
+import { supabase } from '../../lib/supabase';
+>>>>>>> 2235afba310fc26825bf3948de2acd839cb7377b
 import { Trash2, Copy, Loader2 } from 'lucide-react';
 import MediaUploader from './MediaUploader';
 import AdminHeader from './AdminHeader';
@@ -15,6 +19,7 @@ export default function MediaLibrary() {
   const [copying, setCopying] = useState<string | null>(null);
 
   useEffect(() => {
+<<<<<<< HEAD
     // Simulate loading media items
     setTimeout(() => {
       setMediaItems([
@@ -34,13 +39,59 @@ export default function MediaLibrary() {
           path: 'uploads/sample-image-3.jpg'
         }
       ]);
+=======
+    fetchMediaItems();
+  }, []);
+
+  const fetchMediaItems = async () => {
+    try {
+      const { data: files, error } = await supabase.storage
+        .from('media')
+        .list('uploads');
+
+      if (error) throw error;
+
+      const items = await Promise.all(
+        (files || []).map(async (file) => {
+          const { data: { publicUrl } } = supabase.storage
+            .from('media')
+            .getPublicUrl(`uploads/${file.name}`);
+
+          return {
+            name: file.name,
+            url: publicUrl,
+            path: `uploads/${file.name}`
+          };
+        })
+      );
+
+      setMediaItems(items);
+    } catch (error) {
+      console.error('Error fetching media items:', error);
+    } finally {
+>>>>>>> 2235afba310fc26825bf3948de2acd839cb7377b
       setLoading(false);
     }, 1000);
   }, []);
 
   const handleDelete = async (item: MediaItem) => {
     if (!window.confirm('Are you sure you want to delete this file?')) return;
+<<<<<<< HEAD
     setMediaItems(prev => prev.filter(i => i.path !== item.path));
+=======
+
+    try {
+      const { error } = await supabase.storage
+        .from('media')
+        .remove([item.path]);
+
+      if (error) throw error;
+      setMediaItems(prev => prev.filter(i => i.path !== item.path));
+    } catch (error) {
+      console.error('Error deleting file:', error);
+      alert('Failed to delete file');
+    }
+>>>>>>> 2235afba310fc26825bf3948de2acd839cb7377b
   };
 
   const copyToClipboard = async (url: string) => {
