@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Loader2 } from 'lucide-react';
-import { uploadFile } from '../../lib/supabase';
+import { nanoid } from 'nanoid';
 
 interface MediaUploaderProps {
   onUploadComplete: (url: string, path: string) => void;
@@ -25,8 +25,16 @@ export default function MediaUploader({ onUploadComplete, folder = 'uploads', ac
 
     setUploading(true);
     try {
-      const { url, path } = await uploadFile(file, folder);
-      onUploadComplete(url, path);
+      // Simulate file upload with a delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const fileExt = file.name.split('.').pop();
+      const filePath = `${folder}/${nanoid()}.${fileExt}`;
+      
+      // Create a local object URL for the file
+      const url = URL.createObjectURL(file);
+      
+      onUploadComplete(url, filePath);
     } catch (error) {
       console.error('Upload failed:', error);
       alert('Failed to upload file. Please try again.');

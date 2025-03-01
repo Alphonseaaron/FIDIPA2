@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { supabase } from '../lib/supabase';
+import { nanoid } from 'nanoid';
 import BackButton from '../components/BackButton';
 
 const schema = z.object({
@@ -46,56 +46,19 @@ export default function WriteForUs() {
 
     setSubmitting(true);
     try {
-      // Upload images to Supabase Storage
-      const coverImageExt = coverImage.name.split('.').pop();
-      const authorPhotoExt = authorPhoto.name.split('.').pop();
-      const coverImagePath = `blog/${Date.now()}-cover.${coverImageExt}`;
-      const authorPhotoPath = `authors/${Date.now()}-photo.${authorPhotoExt}`;
-
-      const [coverImageUpload, authorPhotoUpload] = await Promise.all([
-        supabase.storage.from('media').upload(coverImagePath, coverImage),
-        supabase.storage.from('media').upload(authorPhotoPath, authorPhoto)
-      ]);
-
-      if (coverImageUpload.error) throw coverImageUpload.error;
-      if (authorPhotoUpload.error) throw authorPhotoUpload.error;
-
-      const { data: { publicUrl: coverImageUrl } } = supabase.storage
-        .from('media')
-        .getPublicUrl(coverImagePath);
-
-      const { data: { publicUrl: authorPhotoUrl } } = supabase.storage
-        .from('media')
-        .getPublicUrl(authorPhotoPath);
-
-      // Save to Supabase
-      const { error } = await supabase
-        .from('blog_posts')
-        .insert([{
-          title: data.title,
-          slug: data.title.toLowerCase().replace(/\s+/g, '-'),
-          content,
-          image_url: coverImageUrl,
-          image_path: coverImagePath,
-          author: data.fullName,
-          author_photo: authorPhotoUrl,
-          author_bio: data.bio,
-          status: 'pending',
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
-        }]);
-
-      if (error) throw error;
-
-      setSubmitSuccess(true);
-      reset();
-      setContent('');
-      setCoverImage(null);
-      setAuthorPhoto(null);
+      // In a real app, we would upload the images and save the data
+      // For now, we'll just simulate a successful submission
+      setTimeout(() => {
+        setSubmitSuccess(true);
+        reset();
+        setContent('');
+        setCoverImage(null);
+        setAuthorPhoto(null);
+        setSubmitting(false);
+      }, 1500);
     } catch (error) {
       console.error('Error submitting article:', error);
       alert('Failed to submit article. Please try again.');
-    } finally {
       setSubmitting(false);
     }
   };

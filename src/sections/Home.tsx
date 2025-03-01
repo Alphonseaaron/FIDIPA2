@@ -1,80 +1,79 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import { supabase } from '../lib/supabase';
-
-const defaultSections = [
-  {
-    title: "Empowering Communities Through Sustainable Development",
-    content: "Building sustainable solutions for poverty alleviation through community-driven initiatives and innovative approaches.",
-    image_url: "/src/assets/images/Women Land and Property Rights 1.jpg"
-  },
-  {
-    title: "Gender Equality and Social Inclusion",
-    content: "Promoting equal opportunities and social inclusion through comprehensive programs and community engagement.",
-    image_url: "/src/assets/images/Women in Leadership  and Socio-economic Project 1.jpg"
-  },
-  {
-    title: "Supporting Vulnerable Communities",
-    content: "Implementing innovative approaches to create lasting positive change in communities through targeted programs and initiatives.",
-    image_url: "/src/assets/images/Orphans or Vulnerable Children Project 1.jpg"
-  },
-  {
-    title: "Environmental Conservation and Food Security",
-    content: "Working towards sustainable farming and environmental protection to ensure food security for future generations.",
-    image_url: "/src/assets/images/Environment, Food Security, Resilience and Livelihood Program 1.jpg"
-  }
-];
+import { getAllTopicImages } from '../lib/utils';
 
 interface Section {
-  title: string;
-  content: string;
-  image_url: string;
+  text: string;
+  subtext: string;
+  images: string[];
 }
 
 export default function Home() {
-  const [sections, setSections] = useState<Section[]>(defaultSections);
+  const [sections, setSections] = useState<Section[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchSections();
+    const defaultSections = [
+      {
+        text: "Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)",
+        subtext: "A holistic peaceful and democratic society with justice for all",
+        images: getAllTopicImages('women-land')
+      },
+      {
+        text: "Empowering Communities Since 2007",
+        subtext: "Registered under the NGO Act of Kenya as a National NGO",
+        images: getAllTopicImages('community')
+      },
+      {
+        text: "Fostering Unity and Effective Participation",
+        subtext: "Working with urban and rural communities for sustainable development",
+        images: getAllTopicImages('environment')
+      },
+      {
+        text: "Human Rights Based Approach",
+        subtext: "Empowering women and girls to claim their rights",
+        images: getAllTopicImages('leadership')
+      },
+      {
+        text: "Supporting Education and Infrastructure",
+        subtext: "Building better facilities and resources for our communities",
+        images: getAllTopicImages('education')
+      }
+    ];
 
-    const channel = supabase
-      .channel('sections-changes')
-      .on('postgres_changes', 
-        { event: '*', schema: 'public', table: 'sections' },
-        () => {
-          fetchSections();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
+    setSections(defaultSections);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % sections.length);
-    }, 5000);
+    if (sections.length > 0) {
+      const slideTimer = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % sections.length);
+      }, 5000);
 
-    return () => clearInterval(timer);
-  }, [sections.length]);
+      const imageTimer = setInterval(() => {
+        setCurrentImageIndex((prev) => 
+          (prev + 1) % (sections[currentSlide]?.images.length || 1)
+        );
+      }, 3000);
 
-  const fetchSections = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('sections')
-        .select('*')
-        .order('sort_order', { ascending: true });
-
-      if (error) throw error;
-      setSections(data?.length ? data : defaultSections);
-    } catch (error) {
-      console.error('Error fetching sections:', error);
+      return () => {
+        clearInterval(slideTimer);
+        clearInterval(imageTimer);
+      };
     }
-  };
+  }, [sections.length, currentSlide]);
+
+  if (loading) {
+    return (
+      <section id="home" className="min-h-screen flex items-center justify-center bg-light dark:bg-dark">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-primary"></div>
+      </section>
+    );
+  }
 
   return (
     <section id="home" className="min-h-screen relative overflow-hidden">
@@ -97,8 +96,8 @@ export default function Home() {
               className="absolute inset-0"
             >
               <img 
-                src={section.image_url} 
-                alt={section.title}
+                src={section.images[currentImageIndex % section.images.length]} 
+                alt={section.text}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-black/40" />
@@ -128,15 +127,16 @@ export default function Home() {
                   animate={{ y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  {section.title}
+                  {section.text}
                 </motion.h1>
-                <motion.div
+                <motion.p
                   className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
                   initial={{ y: 20 }}
                   animate={{ y: 0 }}
                   transition={{ delay: 0.4 }}
-                  dangerouslySetInnerHTML={{ __html: section.content }}
-                />
+                >
+                  {section.subtext}
+                </motion.p>
               </motion.div>
             ))}
           </div>

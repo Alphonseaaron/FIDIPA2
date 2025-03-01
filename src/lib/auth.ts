@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
-import { User } from '@supabase/supabase-js';
-import { supabase } from './supabase';
+
+interface User {
+  email: string;
+  role: 'admin' | 'user';
+}
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -18,59 +21,41 @@ export function useAuth() {
   });
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        setAuthState({
-          isAuthenticated: session.user.email === 'admin@fidipa.org',
-          isLoading: false,
-          error: null,
-          user: session.user
-        });
-      } else {
-        setAuthState({
-          isAuthenticated: false,
-          isLoading: false,
-          error: null,
-          user: null
-        });
-      }
-    });
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session) {
-        setAuthState({
-          isAuthenticated: session.user.email === 'admin@fidipa.org',
-          isLoading: false,
-          error: null,
-          user: session.user
-        });
-      } else {
-        setAuthState({
-          isAuthenticated: false,
-          isLoading: false,
-          error: null,
-          user: null
-        });
-      }
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
+    // Check if user is logged in from localStorage
+    const user = localStorage.getItem('user');
+    if (user) {
+      const userData = JSON.parse(user);
+      setAuthState({
+        isAuthenticated: userData.email === 'admin@fidipa.org',
+        isLoading: false,
+        error: null,
+        user: userData
+      });
+    } else {
+      setAuthState({
+        isAuthenticated: false,
+        isLoading: false,
+        error: null,
+        user: null
+      });
+    }
   }, []);
 
   const login = async (email: string, password: string) => {
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
-
-      if (error) throw error;
-
-      return data.user.email === 'admin@fidipa.org';
+      // Simple admin authentication
+      if (email === 'admin@fidipa.org' && password === 'admin123') {
+        const user = { email, role: 'admin' as const };
+        localStorage.setItem('user', JSON.stringify(user));
+        setAuthState({
+          isAuthenticated: true,
+          isLoading: false,
+          error: null,
+          user
+        });
+        return true;
+      }
+      throw new Error('Invalid credentials');
     } catch (error) {
       setAuthState(prev => ({
         ...prev,
@@ -81,11 +66,13 @@ export function useAuth() {
   };
 
   const logout = async () => {
-    try {
-      await supabase.auth.signOut();
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
+    localStorage.removeItem('user');
+    setAuthState({
+      isAuthenticated: false,
+      isLoading: false,
+      error: null,
+      user: null
+    });
   };
 
   return {

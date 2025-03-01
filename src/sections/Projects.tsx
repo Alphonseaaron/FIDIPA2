@@ -1,73 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
-import type { Database } from '../lib/database.types';
-
-type Project = Database['public']['Tables']['projects']['Row'];
+import { projects } from '../data';
+import ImageCarousel from '../components/ImageCarousel';
 
 export default function Projects() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchProjects();
-
-    const channel = supabase
-      .channel('projects-changes')
-      .on('postgres_changes', 
-        { event: '*', schema: 'public', table: 'projects' },
-        () => {
-          fetchProjects();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, []);
-
-  const fetchProjects = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(3);
-
-      if (error) throw error;
-      setProjects(data || []);
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return (
-      <section id="projects" className="py-20 bg-white dark:bg-dark-lighter">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="animate-pulse space-y-8">
-            <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/4"></div>
-            <div className="grid md:grid-cols-3 gap-8">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-white dark:bg-dark rounded-lg overflow-hidden">
-                  <div className="h-48 bg-gray-200 dark:bg-gray-700"></div>
-                  <div className="p-6 space-y-4">
-                    <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-2/3"></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  const [displayedProjects, setDisplayedProjects] = useState(projects.slice(0, 3));
 
   return (
     <section id="projects" className="py-20 bg-white dark:bg-dark-lighter">
@@ -93,7 +31,7 @@ export default function Projects() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {displayedProjects.map((project, index) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 20 }}
@@ -104,18 +42,24 @@ export default function Projects() {
               className="group bg-white dark:bg-dark shadow-lg dark:shadow-none rounded-lg overflow-hidden hover:shadow-xl dark:hover:bg-dark-accent transition-all duration-300"
             >
               <div className="relative h-48 overflow-hidden">
-                <img 
-                  src={project.image_url || 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1600'} 
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform group-hover:scale-110"
+                <ImageCarousel 
+                  images={project.images}
+                  className="h-full"
+                  interval={4000}
+                  showControls={false}
+                  showIndicators={false}
                 />
                 <div className="absolute top-4 right-4 bg-primary px-3 py-1 rounded-full text-sm font-medium text-white">
-                  {project.status || 'Ongoing'}
+                  {project.status}
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">{project.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
+                <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                  {project.description}
+                </p>
                 <Link 
                   to={`/projects/${project.slug}`}
                   className="text-primary hover:text-primary/80 transition-colors flex items-center"

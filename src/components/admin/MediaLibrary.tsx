@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { ref, listAll, getDownloadURL, StorageReference } from 'firebase/storage';
-import { storage } from '../../lib/storage';
 import { Trash2, Copy, Loader2 } from 'lucide-react';
-import { deleteFile } from '../../lib/storage';
 import MediaUploader from './MediaUploader';
+import AdminHeader from './AdminHeader';
 
 interface MediaItem {
+  name: string;
   url: string;
   path: string;
-  name: string;
-  ref: StorageReference;
 }
 
 export default function MediaLibrary() {
@@ -18,44 +15,32 @@ export default function MediaLibrary() {
   const [copying, setCopying] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchMediaItems();
-  }, []);
-
-  const fetchMediaItems = async () => {
-    try {
-      const storageRef = ref(storage, 'uploads');
-      const result = await listAll(storageRef);
-      
-      const items = await Promise.all(
-        result.items.map(async (item) => {
-          const url = await getDownloadURL(item);
-          return {
-            url,
-            path: item.fullPath,
-            name: item.name,
-            ref: item
-          };
-        })
-      );
-
-      setMediaItems(items);
-    } catch (error) {
-      console.error('Error fetching media items:', error);
-    } finally {
+    // Simulate loading media items
+    setTimeout(() => {
+      setMediaItems([
+        {
+          name: 'sample-image-1.jpg',
+          url: '/src/assets/images/DSC01363.JPG',
+          path: 'uploads/sample-image-1.jpg'
+        },
+        {
+          name: 'sample-image-2.jpg',
+          url: '/src/assets/images/SAM_0721.JPG',
+          path: 'uploads/sample-image-2.jpg'
+        },
+        {
+          name: 'sample-image-3.jpg',
+          url: '/src/assets/images/SAM_0724.JPG',
+          path: 'uploads/sample-image-3.jpg'
+        }
+      ]);
       setLoading(false);
-    }
-  };
+    }, 1000);
+  }, []);
 
   const handleDelete = async (item: MediaItem) => {
     if (!window.confirm('Are you sure you want to delete this file?')) return;
-
-    try {
-      await deleteFile(item.path);
-      setMediaItems(prev => prev.filter(i => i.path !== item.path));
-    } catch (error) {
-      console.error('Error deleting file:', error);
-      alert('Failed to delete file');
-    }
+    setMediaItems(prev => prev.filter(i => i.path !== item.path));
   };
 
   const copyToClipboard = async (url: string) => {
@@ -80,13 +65,14 @@ export default function MediaLibrary() {
 
   return (
     <div className="space-y-8">
+      <AdminHeader title="Media Library" />
+      
       <MediaUploader
         onUploadComplete={(url, path) => {
           setMediaItems(prev => [{
             url,
             path,
-            name: path.split('/').pop() || '',
-            ref: ref(storage, path)
+            name: path.split('/').pop() || ''
           }, ...prev]);
         }}
         folder="uploads"

@@ -1,47 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
+import { blogPosts } from '../data';
 
 export default function BlogSection() {
-  const [blogPosts, setBlogPosts] = useState([]);
+  const [displayedPosts, setDisplayedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchBlogPosts();
-
-    const channel = supabase
-      .channel('blog-changes')
-      .on('postgres_changes', 
-        { event: '*', schema: 'public', table: 'blog_posts' },
-        () => {
-          fetchBlogPosts();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, []);
-
-  const fetchBlogPosts = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('blog_posts')
-        .select('*')
-        .eq('status', 'published')
-        .order('created_at', { ascending: false })
-        .limit(3);
-
-      if (error) throw error;
-      setBlogPosts(data || []);
-    } catch (error) {
-      console.error('Error fetching blog posts:', error);
-    } finally {
+    // Simulate fetching data
+    setTimeout(() => {
+      setDisplayedPosts(blogPosts.slice(0, 3));
       setLoading(false);
-    }
-  };
+    }, 500);
+  }, []);
 
   if (loading) {
     return (
@@ -94,7 +66,7 @@ export default function BlogSection() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {blogPosts.map((post: any, index) => (
+          {displayedPosts.map((post: any, index) => (
             <motion.article
               key={post.id}
               initial={{ opacity: 0, y: 20 }}
@@ -106,7 +78,7 @@ export default function BlogSection() {
             >
               <div className="h-48 overflow-hidden">
                 <img 
-                  src={post.image_url || 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1600'} 
+                  src={post.images && post.images.length > 0 ? post.images[0] : 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1600'} 
                   alt={post.title}
                   className="w-full h-full object-cover transition-transform group-hover:scale-110"
                 />
@@ -120,7 +92,7 @@ export default function BlogSection() {
                 </p>
                 <div className="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400">
                   <span>{post.author}</span>
-                  <span>{new Date(post.created_at).toLocaleDateString()}</span>
+                  <span>{new Date(post.createdAt).toLocaleDateString()}</span>
                 </div>
                 <Link 
                   to={`/blog/${post.slug}`}
