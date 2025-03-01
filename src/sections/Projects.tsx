@@ -1,93 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
 import { projects } from '../data';
 import ImageCarousel from '../components/ImageCarousel';
-=======
-import { supabase } from '../lib/supabase';
-import type { Database } from '../lib/database.types';
-import { Loader2 } from 'lucide-react';
-import ImageCarousel from '../components/ImageCarousel';
-import { getAllTopicImages } from '../lib/utils';
-
-type Project = Database['public']['Tables']['projects']['Row'];
->>>>>>> 2235afba310fc26825bf3948de2acd839cb7377b
-
-interface ProjectWithImages extends Project {
-  images: string[];
-}
 
 export default function Projects() {
-<<<<<<< HEAD
   const [displayedProjects, setDisplayedProjects] = useState(projects.slice(0, 3));
-=======
-  const [projects, setProjects] = useState<ProjectWithImages[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetchProjects();
-
-    const channel = supabase
-      .channel('projects-changes')
-      .on('postgres_changes', 
-        { event: '*', schema: 'public', table: 'projects' },
-        () => {
-          fetchProjects();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, []);
-
-  const fetchProjects = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(3);
-
-      if (error) throw error;
-
-      const projectsWithImages = (data || []).map(project => ({
-        ...project,
-        images: getAllTopicImages(project.title)
-      }));
-
-      setProjects(projectsWithImages);
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-      setError('Failed to load projects');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return (
-      <section id="projects" className="py-20 bg-white dark:bg-dark-lighter">
-        <div className="max-w-7xl mx-auto px-4 flex justify-center">
-          <Loader2 className="w-8 h-8 animate-spin text-primary" />
-        </div>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section id="projects" className="py-20 bg-white dark:bg-dark-lighter">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-red-500 dark:text-red-400">{error}</p>
-        </div>
-      </section>
-    );
-  }
->>>>>>> 2235afba310fc26825bf3948de2acd839cb7377b
 
   return (
     <section id="projects" className="py-20 bg-white dark:bg-dark-lighter">

@@ -1,74 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
-import type { Database } from '../lib/database.types';
 import BackButton from '../components/BackButton';
-<<<<<<< HEAD
 import { projects } from '../data';
 import ImageCarousel from '../components/ImageCarousel';
-=======
-import { Loader2 } from 'lucide-react';
-
-type Project = Database['public']['Tables']['projects']['Row'];
->>>>>>> 2235afba310fc26825bf3948de2acd839cb7377b
 
 export default function Projects() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetchProjects();
-
-    const channel = supabase
-      .channel('projects-changes')
-      .on('postgres_changes', 
-        { event: '*', schema: 'public', table: 'projects' },
-        () => {
-          fetchProjects();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, []);
-
-  const fetchProjects = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('projects')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setProjects(data || []);
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-      setError('Failed to load projects');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-light dark:bg-dark flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-light dark:bg-dark flex items-center justify-center">
-        <p className="text-red-500 dark:text-red-400">{error}</p>
-      </div>
-    );
-  }
-
   return (
     <div className="pt-24 pb-16 min-h-screen bg-light dark:bg-dark">
       <BackButton />
@@ -91,22 +28,15 @@ export default function Projects() {
               className="bg-white dark:bg-dark-lighter rounded-lg overflow-hidden shadow-lg hover:shadow-xl dark:shadow-none transform transition-all duration-300 hover:-translate-y-1 group"
             >
               <div className="relative h-48 overflow-hidden">
-<<<<<<< HEAD
                 <ImageCarousel 
                   images={project.images}
                   className="h-full"
                   interval={4000}
                   showControls={false}
                   showIndicators={false}
-=======
-                <img 
-                  src={project.image_url || 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1600'} 
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform group-hover:scale-105"
->>>>>>> 2235afba310fc26825bf3948de2acd839cb7377b
                 />
                 <div className="absolute top-4 right-4 bg-primary px-3 py-1 rounded-full text-sm font-medium text-white">
-                  {project.status || 'Ongoing'}
+                  {project.status}
                 </div>
               </div>
               <div className="p-6">

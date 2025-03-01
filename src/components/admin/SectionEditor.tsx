@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from 'react';
-<<<<<<< HEAD
-=======
-import { supabase } from '../../lib/supabase';
->>>>>>> 2235afba310fc26825bf3948de2acd839cb7377b
 import AdminHeader from './AdminHeader';
 import DataTable from './DataTable';
 import Editor from './Editor';
@@ -24,7 +20,6 @@ export default function SectionEditor() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-<<<<<<< HEAD
     // Simulate fetching sections
     setTimeout(() => {
       const mockSections = [
@@ -103,75 +98,6 @@ export default function SectionEditor() {
       setTimeout(() => {
         setSections(prev => prev.filter(s => s.id !== section.id));
       }, 500);
-=======
-    fetchSections();
-
-    const channel = supabase
-      .channel('sections-changes')
-      .on('postgres_changes', 
-        { event: '*', schema: 'public', table: 'sections' },
-        () => {
-          fetchSections();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, []);
-
-  const fetchSections = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('sections')
-        .select('*')
-        .order('sort_order', { ascending: true });
-
-      if (error) throw error;
-      setSections(data || []);
-    } catch (error) {
-      console.error('Error fetching sections:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSave = async (section: Section) => {
-    setSaving(true);
-    try {
-      const { error } = await supabase
-        .from('sections')
-        .upsert({
-          id: section.id,
-          title: section.title,
-          content: section.content,
-          image_url: section.image_url,
-          sort_order: section.sort_order,
-          updated_at: new Date().toISOString()
-        });
-
-      if (error) throw error;
-      setEditingSection(null);
-      await fetchSections();
-    } catch (error) {
-      console.error('Error saving section:', error);
-      alert('Failed to save section');
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  const handleDelete = async (section: Section) => {
-    try {
-      const { error } = await supabase
-        .from('sections')
-        .delete()
-        .eq('id', section.id);
-
-      if (error) throw error;
-      await fetchSections();
->>>>>>> 2235afba310fc26825bf3948de2acd839cb7377b
     } catch (error) {
       console.error('Error deleting section:', error);
       alert('Failed to delete section');

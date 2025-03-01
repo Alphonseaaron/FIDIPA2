@@ -1,75 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
 import BackButton from '../components/BackButton';
 import { programs } from '../data';
 import ImageCarousel from '../components/ImageCarousel';
-=======
-import { supabase } from '../lib/supabase';
-import type { Database } from '../lib/database.types';
-import BackButton from '../components/BackButton';
-import { Loader2 } from 'lucide-react';
-
-type Program = Database['public']['Tables']['programs']['Row'];
->>>>>>> 2235afba310fc26825bf3948de2acd839cb7377b
 
 export default function Programs() {
-  const [programs, setPrograms] = useState<Program[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetchPrograms();
-
-    const channel = supabase
-      .channel('programs-changes')
-      .on('postgres_changes', 
-        { event: '*', schema: 'public', table: 'programs' },
-        () => {
-          fetchPrograms();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, []);
-
-  const fetchPrograms = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('programs')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setPrograms(data || []);
-    } catch (error) {
-      console.error('Error fetching programs:', error);
-      setError('Failed to load programs');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-light dark:bg-dark flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-light dark:bg-dark flex items-center justify-center">
-        <p className="text-red-500 dark:text-red-400">{error}</p>
-      </div>
-    );
-  }
-
   return (
     <div className="pt-24 pb-16 min-h-screen bg-light dark:bg-dark">
       <BackButton />
@@ -93,14 +29,8 @@ export default function Programs() {
             >
               <div className="md:flex">
                 <div className="md:w-1/3">
-<<<<<<< HEAD
                   <ImageCarousel 
                     images={program.images}
-=======
-                  <img 
-                    src={program.image_url || 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1600'} 
-                    alt={program.title}
->>>>>>> 2235afba310fc26825bf3948de2acd839cb7377b
                     className="w-full h-full object-cover"
                   />
                 </div>
