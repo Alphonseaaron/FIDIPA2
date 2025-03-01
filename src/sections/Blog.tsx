@@ -78,7 +78,7 @@ export default function BlogSection() {
             >
               <div className="h-48 overflow-hidden">
                 <img 
-                  src={post.images && post.images.length > 0 ? post.images[0] : 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1600'} 
+                  src={post.images && post.images.length > 0 ? post.images[0] : '/images/Women Land and Property Rights 1.jpg'} 
                   alt={post.title}
                   className="w-full h-full object-cover transition-transform group-hover:scale-110"
                 />

@@ -9,21 +9,21 @@ const blogPosts = [
     content: "Our sustainable development initiatives are transforming rural communities through innovative approaches to poverty alleviation, environmental conservation, and economic empowerment...",
     author: "Jayne Wasonga",
     date: "2024-02-15",
-    imageUrl: "/image/DSC05379.JPG"
+    imageUrl: "/images/Women Land and Property Rights 1.jpg"
   },
   {
     title: "The Impact of Gender Equality Programs",
     content: "Our gender equality initiatives have shown remarkable success in transforming communities and individual lives...",
     author: "Jayne Wasonga",
     date: "2024-02-10",
-    imageUrl: "/image/SAM_0790.JPG"
+    imageUrl: "/images/Environment, Food Security, Resilience and Livelihood Program 1.jpg"
   },
   {
     title: "Innovation in Rural Healthcare Delivery",
     content: "We're revolutionizing healthcare delivery in remote and underserved areas through innovative approaches and community partnerships...",
     author: "Jayne Wasonga",
     date: "2024-02-05",
-    imageUrl: "/image/IMG_20141007_172002.jpg"
+    imageUrl: "/images/Girls Education and Mentorship Project 1.jpg"
   }
 ];
 

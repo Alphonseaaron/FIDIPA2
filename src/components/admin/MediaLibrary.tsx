@@ -20,17 +20,17 @@ export default function MediaLibrary() {
       setMediaItems([
         {
           name: 'sample-image-1.jpg',
-          url: '/src/assets/images/DSC01363.JPG',
+          url: '/images/Women Land and Property Rights 1.jpg',
           path: 'uploads/sample-image-1.jpg'
         },
         {
           name: 'sample-image-2.jpg',
-          url: '/src/assets/images/SAM_0721.JPG',
+          url: '/images/Environment, Food Security, Resilience and Livelihood Program 1.jpg',
           path: 'uploads/sample-image-2.jpg'
         },
         {
           name: 'sample-image-3.jpg',
-          url: '/src/assets/images/SAM_0724.JPG',
+          url: '/images/Girls Education and Mentorship Project 1.jpg',
           path: 'uploads/sample-image-3.jpg'
         }
       ]);

@@ -6,4 +6,8 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  assetsInclude: ['**/*.jpg', '**/*.jpeg', '**/*.png', '**/*.gif', '**/*.svg'],
+  build: {
+    assetsInlineLimit: 0, // Disable inlining assets as base64
+  },
 });

@@ -99,7 +99,7 @@ const blogPosts = {
     Through these comprehensive efforts, we're building resilient communities that can sustainably manage their resources and continue developing long after our initial intervention.`,
     author: "Jayne Wasonga",
     date: "2024-02-15",
-    imageUrl: "/image/DSC05379.JPG"
+    imageUrl: "/images/Women Land and Property Rights 1.jpg"
   },
   'the-impact-of-gender-equality-programs': {
     title: "The Impact of Gender Equality Programs",
@@ -218,7 +218,7 @@ const blogPosts = {
       - Impact measurement`,
     author: "Jayne Wasonga",
     date: "2024-02-10",
-    imageUrl: "/image/SAM_0790.JPG"
+    imageUrl: "/images/Environment, Food Security, Resilience and Livelihood Program 1.jpg"
   },
   'innovation-in-rural-healthcare-delivery': {
     title: "Innovation in Rural Healthcare Delivery",
@@ -337,7 +337,7 @@ const blogPosts = {
       - Research initiatives`,
     author: "Jayne Wasonga",
     date: "2024-02-05",
-    imageUrl: "/image/IMG_20141007_172002.jpg"
+    imageUrl: "/images/Girls Education and Mentorship Project 1.jpg"
   }
 };
 

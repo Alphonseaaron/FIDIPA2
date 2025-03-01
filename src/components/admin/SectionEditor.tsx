@@ -27,14 +27,14 @@ export default function SectionEditor() {
           id: '1',
           title: 'Home Section',
           content: 'Welcome to FIDIPA',
-          image_url: '/src/assets/images/DSC01363.JPG',
+          image_url: '/images/Women Land and Property Rights 1.jpg',
           sort_order: 0
         },
         {
           id: '2',
           title: 'About Section',
           content: 'FIDIPA is a Non-Governmental Organization registered in Kenya in 2007.',
-          image_url: '/src/assets/images/SAM_0721.JPG',
+          image_url: '/images/Environment, Food Security, Resilience and Livelihood Program 1.jpg',
           sort_order: 1
         }
       ];
@@ -52,14 +52,14 @@ export default function SectionEditor() {
           id: '1',
           title: 'Home Section',
           content: 'Welcome to FIDIPA',
-          image_url: '/src/assets/images/DSC01363.JPG',
+          image_url: '/images/Women Land and Property Rights 1.jpg',
           sort_order: 0
         },
         {
           id: '2',
           title: 'About Section',
           content: 'FIDIPA is a Non-Governmental Organization registered in Kenya in 2007.',
-          image_url: '/src/assets/images/SAM_0721.JPG',
+          image_url: '/images/Environment, Food Security, Resilience and Livelihood Program 1.jpg',
           sort_order: 1
         }
       ];

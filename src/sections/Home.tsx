@@ -20,51 +20,51 @@ export default function Home() {
         text: "Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)",
         subtext: "A holistic peaceful and democratic society with justice for all",
         images: [
-          '/src/assets/images/Women Land and Property Rights 1.jpg',
-          '/src/assets/images/Women Land and Property Rights 2.jpg',
-          '/src/assets/images/Women Land and Property Rights 3.jpg',
-          '/src/assets/images/Women Land and Property Rights 4.jpg',
-          '/src/assets/images/Women Land and Property Rights 5.jpg'
+          '/images/Women Land and Property Rights 1.jpg',
+          '/images/Women Land and Property Rights 2.jpg',
+          '/images/Women Land and Property Rights 3.jpg',
+          '/images/Women Land and Property Rights 4.jpg',
+          '/images/Women Land and Property Rights 5.jpg'
         ]
       },
       {
         text: "Empowering Communities Since 2007",
         subtext: "Registered under the NGO Act of Kenya as a National NGO",
         images: [
-          '/src/assets/images/Women Land and Property Rights 1.jpg',
-          '/src/assets/images/Environment, Food Security, Resilience and Livelihood Program 1.jpg',
-          '/src/assets/images/Girls Education and Mentorship Project 1.jpg',
-          '/src/assets/images/Agriculture and Information Technology 1.jpg'
+          '/images/Women Land and Property Rights 1.jpg',
+          '/images/Environment, Food Security, Resilience and Livelihood Program 1.jpg',
+          '/images/Girls Education and Mentorship Project 1.jpg',
+          '/images/Agriculture and Information Technology 1.jpg'
         ]
       },
       {
         text: "Fostering Unity and Effective Participation",
         subtext: "Working with urban and rural communities for sustainable development",
         images: [
-          '/src/assets/images/Environment, Food Security, Resilience and Livelihood Program 1.jpg',
-          '/src/assets/images/Environment, Food Security, Resilience and Livelihood Program 2.jpg',
-          '/src/assets/images/Environment, Food Security, Resilience and Livelihood Program 3.jpg',
-          '/src/assets/images/Environment, Food Security, Resilience and Livelihood Program 4.jpg'
+          '/images/Environment, Food Security, Resilience and Livelihood Program 1.jpg',
+          '/images/Environment, Food Security, Resilience and Livelihood Program 2.jpg',
+          '/images/Environment, Food Security, Resilience and Livelihood Program 3.jpg',
+          '/images/Environment, Food Security, Resilience and Livelihood Program 4.jpg'
         ]
       },
       {
         text: "Human Rights Based Approach",
         subtext: "Empowering women and girls to claim their rights",
         images: [
-          '/src/assets/images/Women in Leadership  and Socio-economic Project 1.jpg',
-          '/src/assets/images/Women in Leadership  and Socio-economic Project 2.jpg',
-          '/src/assets/images/Women in Leadership  and Socio-economic Project 3.jpg',
-          '/src/assets/images/Women in Leadership  and Socio-economic Project 4.jpg'
+          '/images/Women in Leadership  and Socio-economic Project 1.jpg',
+          '/images/Women in Leadership  and Socio-economic Project 2.jpg',
+          '/images/Women in Leadership  and Socio-economic Project 3.jpg',
+          '/images/Women in Leadership  and Socio-economic Project 4.jpg'
         ]
       },
       {
         text: "Supporting Education and Infrastructure",
         subtext: "Building better facilities and resources for our communities",
         images: [
-          '/src/assets/images/Girls Education and Mentorship Project 1.jpg',
-          '/src/assets/images/Girls Education and Mentorship Project 2.jpg',
-          '/src/assets/images/Girls Education and Mentorship Project 3.jpg',
-          '/src/assets/images/Girls Education and Mentorship Project 4.jpg'
+          '/images/Girls Education and Mentorship Project 1.jpg',
+          '/images/Girls Education and Mentorship Project 2.jpg',
+          '/images/Girls Education and Mentorship Project 3.jpg',
+          '/images/Girls Education and Mentorship Project 4.jpg'
         ]
       }
     ];
