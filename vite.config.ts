@@ -9,5 +9,16 @@ export default defineConfig({
   assetsInclude: ['**/*.jpg', '**/*.jpeg', '**/*.png', '**/*.gif', '**/*.svg'],
   build: {
     assetsInlineLimit: 0, // Disable inlining assets as base64
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          // Keep original extension for jpg files
+          if (assetInfo.name.endsWith('.jpg') || assetInfo.name.endsWith('.jpeg')) {
+            return 'assets/[name][extname]';
+          }
+          return 'assets/[name]-[hash][extname]';
+        }
+      }
+    }
   },
 });
