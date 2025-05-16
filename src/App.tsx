@@ -31,15 +31,11 @@ function AppContent() {
   }, [isEditMode]);
 
   const handleToggleEdit = () => {
-    if (isEditing) {
-      // Remove /edit from URL when canceling edit mode
-      const newPath = location.pathname.replace('/edit', '');
-      window.history.pushState({}, '', newPath);
-    } else {
-      // Add /edit to URL when entering edit mode
-      const newPath = location.pathname + '/edit';
-      window.history.pushState({}, '', newPath);
-    }
+    const newPath = isEditing 
+      ? location.pathname.replace('/edit', '') 
+      : location.pathname + '/edit';
+      
+    window.history.pushState({}, '', newPath);
     setIsEditing(!isEditing);
   };
 
@@ -62,14 +58,18 @@ function AppContent() {
       <div className="flex-1">
         <Routes>
           <Route path="/" element={<HomePage isEditing={isEditing} />} />
+          <Route path="/edit" element={<HomePage isEditing={isEditing} />} />
           <Route path="/projects" element={<ProjectsPage isEditing={isEditing} />} />
+          <Route path="/projects/edit" element={<ProjectsPage isEditing={isEditing} />} />
           <Route path="/projects/:slug" element={<ProjectDetailPage isEditing={isEditing} />} />
+          <Route path="/projects/:slug/edit" element={<ProjectDetailPage isEditing={isEditing} />} />
           <Route path="/programs" element={<ProgramsPage isEditing={isEditing} />} />
+          <Route path="/programs/edit" element={<ProgramsPage isEditing={isEditing} />} />
           <Route path="/programs/:slug" element={<ProgramDetailPage isEditing={isEditing} />} />
+          <Route path="/programs/:slug/edit" element={<ProgramDetailPage isEditing={isEditing} />} />
           <Route path="/admin/*" element={<AdminPanel />} />
         </Routes>
       </div>
-      {!isAdmin && <Footer />}
       {!isAdmin && (
         <EditButton
           isEditing={isEditing}
@@ -77,6 +77,7 @@ function AppContent() {
           onSave={handleSave}
         />
       )}
+      {!isAdmin && <Footer />}
     </div>
   );
 }
