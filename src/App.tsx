@@ -24,57 +24,47 @@ function AppContent() {
   const location = useLocation();
   const isAdmin = location.pathname.startsWith('/admin');
   const isEditMode = location.pathname.includes('/edit');
-  const [isEditing, setIsEditing] = useState(false);
-
-  useEffect(() => {
-    setIsEditing(isEditMode);
-  }, [isEditMode]);
-
-  const handleToggleEdit = () => {
-    const newPath = isEditing 
-      ? location.pathname.replace('/edit', '') 
-      : location.pathname + '/edit';
-      
-    window.history.pushState({}, '', newPath);
-    setIsEditing(!isEditing);
-  };
-
-  const handleSave = async () => {
-    try {
-      // Here you would implement the logic to save changes to the backend
-      console.log('Saving changes...');
-      
-      // After successful save, exit edit mode
-      handleToggleEdit();
-    } catch (error) {
-      console.error('Error saving changes:', error);
-      alert('Failed to save changes. Please try again.');
-    }
-  };
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-dark text-dark dark:text-white">
       {!isAdmin && <Navbar />}
       <div className="flex-1">
         <Routes>
-          <Route path="/" element={<HomePage isEditing={isEditing} />} />
-          <Route path="/edit" element={<HomePage isEditing={isEditing} />} />
-          <Route path="/projects" element={<ProjectsPage isEditing={isEditing} />} />
-          <Route path="/projects/edit" element={<ProjectsPage isEditing={isEditing} />} />
-          <Route path="/projects/:slug" element={<ProjectDetailPage isEditing={isEditing} />} />
-          <Route path="/projects/:slug/edit" element={<ProjectDetailPage isEditing={isEditing} />} />
-          <Route path="/programs" element={<ProgramsPage isEditing={isEditing} />} />
-          <Route path="/programs/edit" element={<ProgramsPage isEditing={isEditing} />} />
-          <Route path="/programs/:slug" element={<ProgramDetailPage isEditing={isEditing} />} />
-          <Route path="/programs/:slug/edit" element={<ProgramDetailPage isEditing={isEditing} />} />
+          <Route path="/" element={<HomePage isEditing={isEditMode} />} />
+          <Route path="/edit" element={<HomePage isEditing={isEditMode} />} />
+          <Route path="/projects" element={<ProjectsPage isEditing={isEditMode} />} />
+          <Route path="/projects/edit" element={<ProjectsPage isEditing={isEditMode} />} />
+          <Route path="/projects/:slug" element={<ProjectDetailPage isEditing={isEditMode} />} />
+          <Route path="/projects/:slug/edit" element={<ProjectDetailPage isEditing={isEditMode} />} />
+          <Route path="/programs" element={<ProgramsPage isEditing={isEditMode} />} />
+          <Route path="/programs/edit" element={<ProgramsPage isEditing={isEditMode} />} />
+          <Route path="/programs/:slug" element={<ProgramDetailPage isEditing={isEditMode} />} />
+          <Route path="/programs/:slug/edit" element={<ProgramDetailPage isEditing={isEditMode} />} />
           <Route path="/admin/*" element={<AdminPanel />} />
         </Routes>
       </div>
-      {!isAdmin && (
+      {!isAdmin && isEditMode && (
         <EditButton
-          isEditing={isEditing}
-          onToggleEdit={handleToggleEdit}
-          onSave={handleSave}
+          isEditing={isEditMode}
+          onToggleEdit={() => {
+            const newPath = isEditMode 
+              ? location.pathname.replace('/edit', '') 
+              : location.pathname + '/edit';
+            window.history.pushState({}, '', newPath);
+          }}
+          onSave={async () => {
+            try {
+              // Here you would implement the logic to save changes to the backend
+              console.log('Saving changes...');
+              
+              // After successful save, exit edit mode
+              const newPath = location.pathname.replace('/edit', '');
+              window.history.pushState({}, '', newPath);
+            } catch (error) {
+              console.error('Error saving changes:', error);
+              alert('Failed to save changes. Please try again.');
+            }
+          }}
         />
       )}
       {!isAdmin && <Footer />}
