@@ -11,9 +11,8 @@ export default function Navbar() {
     home: true,
     about: true,
     programs: true,
-    projects: true,
     team: true,
-    blog: false, // Blog section hidden
+    gallery: true,
     contact: true
   });
 
@@ -26,8 +25,8 @@ export default function Navbar() {
     { title: 'Home', id: 'home' },
     { title: 'About', id: 'about' },
     { title: 'Programs', id: 'programs' },
-    { title: 'Projects', id: 'projects' },
     { title: 'Team', id: 'team' },
+    { title: 'Gallery', id: 'gallery' },
     { title: 'Contact', id: 'contact' },
   ].filter(item => visibleSections[item.id]);
 

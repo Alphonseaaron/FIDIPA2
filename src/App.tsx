@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/Home';
-import ProjectsPage from './pages/Projects';
-import AdminPanel from './pages/admin/AdminPanel';
 import ProgramsPage from './pages/Programs';
+import AdminPanel from './pages/admin/AdminPanel';
 import ProgramDetailPage from './pages/ProgramDetail';
-import ProjectDetailPage from './pages/ProjectDetail';
+import Gallery from './pages/Gallery';
 import EditButton from './components/EditButton';
 
 function ScrollToTop() {
@@ -32,14 +31,11 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<HomePage isEditing={isEditMode} />} />
           <Route path="/edit" element={<HomePage isEditing={isEditMode} />} />
-          <Route path="/projects" element={<ProjectsPage isEditing={isEditMode} />} />
-          <Route path="/projects/edit" element={<ProjectsPage isEditing={isEditMode} />} />
-          <Route path="/projects/:slug" element={<ProjectDetailPage isEditing={isEditMode} />} />
-          <Route path="/projects/:slug/edit" element={<ProjectDetailPage isEditing={isEditMode} />} />
           <Route path="/programs" element={<ProgramsPage isEditing={isEditMode} />} />
           <Route path="/programs/edit" element={<ProgramsPage isEditing={isEditMode} />} />
           <Route path="/programs/:slug" element={<ProgramDetailPage isEditing={isEditMode} />} />
           <Route path="/programs/:slug/edit" element={<ProgramDetailPage isEditing={isEditMode} />} />
+          <Route path="/gallery" element={<Gallery />} />
           <Route path="/admin/*" element={<AdminPanel />} />
         </Routes>
       </div>
@@ -54,10 +50,7 @@ function AppContent() {
           }}
           onSave={async () => {
             try {
-              // Here you would implement the logic to save changes to the backend
               console.log('Saving changes...');
-              
-              // After successful save, exit edit mode
               const newPath = location.pathname.replace('/edit', '');
               window.history.pushState({}, '', newPath);
             } catch (error) {
