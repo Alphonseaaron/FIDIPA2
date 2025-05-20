@@ -74,7 +74,6 @@ export interface SiteConfig {
   };
 }
 
-// Site Configuration
 export const siteConfig: SiteConfig = {
   name: 'FIDIPA',
   metaTitle: 'FIDIPA - Friendly Integrated Development Initiative in Poverty Alleviation',
@@ -94,105 +93,117 @@ export const siteConfig: SiteConfig = {
   }
 };
 
-// Staff Members
 export const staffMembers: TeamMember[] = [
   {
     id: '1',
     name: 'Ms Jayne A. I. Wasonga',
     role: 'Board Secretary and Chief Executive Officer',
+    photoUrl: '/images/Women Land and Property Rights 1.jpg',
     sortOrder: 1
   },
   {
     id: '2',
     name: 'Ms Jesca Mitaya',
     role: 'Finance and Administration FAM Manager',
+    photoUrl: '/images/Women Land and Property Rights 2.jpg',
     sortOrder: 2
   },
   {
     id: '3',
     name: 'Ms Linda Otieno',
     role: 'Project Lead (Volunteer)',
+    photoUrl: '/images/Women Land and Property Rights 3.jpg',
     sortOrder: 3
   },
   {
     id: '4',
     name: 'Rev. Walter Ang\'ienda',
     role: 'Program Officer Peace Project (Volunteer)',
+    photoUrl: '/images/Women Land and Property Rights 4.jpg',
     sortOrder: 4
   },
   {
     id: '5',
     name: 'Phillip Noel',
     role: 'Volunteer, Soft Skills (Water and Sanitation)',
+    photoUrl: '/images/Women Land and Property Rights 5.jpg',
     sortOrder: 5
   },
   {
     id: '6',
     name: 'Jackson Lesian',
     role: 'Office Assistant/Driver',
+    photoUrl: '/images/Women Land and Property Rights 6.jpg',
     sortOrder: 6
   },
   {
     id: '7',
     name: 'Jamima Mtuli',
     role: 'Administer/Programs Assistant',
+    photoUrl: '/images/Women Land and Property Rights 7.jpg',
     sortOrder: 7
   }
 ];
 
-// Board Members
 export const boardMembers: TeamMember[] = [
   {
     id: '1',
     name: 'Mrs Rosemary Meyo',
     role: 'Chairperson - Governance and Administration Expert',
+    photoUrl: '/images/Women in Leadership  and Socio-economic Project 1.jpg',
     sortOrder: 1
   },
   {
     id: '2',
     name: 'Dr. Josephine Munthali',
     role: 'Vice Chairperson - Gender and Education Expert',
+    photoUrl: '/images/Women in Leadership  and Socio-economic Project 2.jpg',
     sortOrder: 2
   },
   {
     id: '3',
     name: 'Ms Jayne A. Wasonga',
     role: 'Chief Executive Officer and Board Secretary',
+    photoUrl: '/images/Women in Leadership  and Socio-economic Project 3.jpg',
     sortOrder: 3
   },
   {
     id: '4',
     name: 'Sr. Mildred Mayeye',
     role: 'Treasurer',
+    photoUrl: '/images/Women in Leadership  and Socio-economic Project 4.jpg',
     sortOrder: 4
   },
   {
     id: '5',
     name: 'Dr. Rev. Simon Oriedo',
     role: 'Committee Member',
+    photoUrl: '/images/Women in Leadership  and Socio-economic Project 5.jpg',
     sortOrder: 5
   },
   {
     id: '6',
     name: 'Mr. Samwel Otieno',
     role: 'Committee Member',
+    photoUrl: '/images/Women in Leadership  and Socio-economic Project 6.jpg',
     sortOrder: 6
   },
   {
     id: '7',
     name: 'Prof. Esther Mombo',
     role: 'Committee Member',
+    photoUrl: '/images/Women in Leadership  and Socio-economic Project 1.jpg',
     sortOrder: 7
   },
   {
     id: '8',
     name: 'Ms Leah O. Wanaswa',
     role: 'Committee Member',
+    photoUrl: '/images/Women in Leadership  and Socio-economic Project 2.jpg',
     sortOrder: 8
   }
 ];
 
-// Programs data (previously from CSV)
 export const programs: Program[] = [
   {
     id: "d290f1ee-6c54-4b01-90e6-d701748f0851",
@@ -256,7 +267,6 @@ export const programs: Program[] = [
   }
 ];
 
-// Projects data (previously from CSV)
 export const projects: Project[] = [
   {
     id: "d290f1ee-6c54-4b01-90e6-d701748f0861",
@@ -325,7 +335,6 @@ export const projects: Project[] = [
   }
 ];
 
-// Blog Posts
 export const blogPosts = [
   {
     id: 'empowering-communities',

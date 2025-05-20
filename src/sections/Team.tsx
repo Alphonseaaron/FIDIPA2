@@ -146,8 +146,18 @@ function TeamCarousel({ members }: { members: any[] }) {
               className="bg-white dark:bg-dark-lighter rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 dark:border-gray-700"
             >
               <div className="flex flex-col h-full items-center text-center">
-                <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                  <User size={24} className="text-primary" />
+                <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden">
+                  {member.photoUrl ? (
+                    <img 
+                      src={member.photoUrl} 
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-primary/10 flex items-center justify-center">
+                      <User size={32} className="text-primary" />
+                    </div>
+                  )}
                 </div>
                 <div className="flex-1 flex flex-col items-center w-full">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
