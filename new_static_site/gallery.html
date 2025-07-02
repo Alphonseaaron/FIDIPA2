@@ -126,7 +126,7 @@
                         Photo Gallery
                     </h1>
 
-                    <div id="gallery-grid-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 animate-on-scroll fade-in-up" style="transition-delay: 0.2s;">
+                    <div id="gallery-grid-container" class="gallery-masonry-container animate-on-scroll fade-in-up" style="transition-delay: 0.2s;">
                         <!-- Gallery items will be injected here by JS -->
                         <p class="text-center text-gray-500 dark:text-gray-400 col-span-full">Loading gallery...</p>
                     </div>
@@ -141,6 +141,8 @@
                 <button id="lightbox-close" class="lightbox-close" aria-label="Close lightbox">
                     &times; <!-- Simple 'X' icon -->
                 </button>
+                <button id="lightbox-prev" class="lightbox-nav prev" aria-label="Previous image">&#10094;</button>
+                <button id="lightbox-next" class="lightbox-nav next" aria-label="Next image">&#10095;</button>
             </div>
         </div>
 

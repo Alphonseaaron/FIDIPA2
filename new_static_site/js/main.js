@@ -641,16 +641,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightbox-image');
     const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxPrev = document.getElementById('lightbox-prev');
+    const lightboxNext = document.getElementById('lightbox-next');
 
-    if (!gridContainer || !lightbox || !lightboxImage || !lightboxClose) return; // Only run on gallery.html
+    let currentLightboxIndex = 0;
+
+    if (!gridContainer || !lightbox || !lightboxImage || !lightboxClose || !lightboxPrev || !lightboxNext) return; // Only run on gallery.html
 
     gridContainer.innerHTML = ''; // Clear loading/placeholder
 
     galleryImagesData.forEach((imageSrc, index) => {
       const item = document.createElement('div');
+      // Ensure class `gallery-item` is used for masonry CSS
       item.className = 'gallery-item relative group cursor-pointer aspect-square overflow-hidden rounded-lg animate-on-scroll fade-in-up';
-      item.style.transitionDelay = `${index * 0.05}s`; // Stagger animation slightly less than programs
-      item.addEventListener('click', () => openLightbox(imageSrc));
+      item.style.transitionDelay = `${index * 0.05}s`;
+      item.addEventListener('click', () => openLightbox(index)); // Pass index
 
       item.innerHTML = `
         <img src="${imageSrc}" alt="Gallery image ${index + 1}" class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110">
@@ -665,32 +670,60 @@ document.addEventListener('DOMContentLoaded', () => {
     const newAnimatedElements = gridContainer.querySelectorAll('.animate-on-scroll');
     newAnimatedElements.forEach(el => scrollObserver.observe(el));
 
+    function updateLightboxNavButtons() {
+        lightboxPrev.disabled = currentLightboxIndex === 0;
+        lightboxNext.disabled = currentLightboxIndex === galleryImagesData.length - 1;
+    }
 
-    function openLightbox(imageSrc) {
-      lightboxImage.src = imageSrc;
+    function openLightbox(index) {
+      currentLightboxIndex = index;
+      lightboxImage.src = galleryImagesData[currentLightboxIndex];
       lightbox.classList.add('open');
-      // Optional: disable body scroll when lightbox is open
       document.body.style.overflow = 'hidden';
+      updateLightboxNavButtons();
     }
 
     function closeLightbox() {
       lightbox.classList.remove('open');
-      // Optional: re-enable body scroll
       document.body.style.overflow = '';
     }
 
+    function showPrevImage() {
+      if (currentLightboxIndex > 0) {
+        currentLightboxIndex--;
+        lightboxImage.src = galleryImagesData[currentLightboxIndex];
+        updateLightboxNavButtons();
+      }
+    }
+
+    function showNextImage() {
+      if (currentLightboxIndex < galleryImagesData.length - 1) {
+        currentLightboxIndex++;
+        lightboxImage.src = galleryImagesData[currentLightboxIndex];
+        updateLightboxNavButtons();
+      }
+    }
+
     lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', showPrevImage);
+    lightboxNext.addEventListener('click', showNextImage);
+
     lightbox.addEventListener('click', (e) => {
-      // Close if clicked on the background (lightbox itself), not on the content/image
       if (e.target === lightbox) {
         closeLightbox();
       }
     });
-    // Optional: Close lightbox with Escape key
+
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightbox.classList.contains('open')) {
-            closeLightbox();
+      if (lightbox.classList.contains('open')) {
+        if (e.key === 'Escape') {
+          closeLightbox();
+        } else if (e.key === 'ArrowLeft') {
+          showPrevImage();
+        } else if (e.key === 'ArrowRight') {
+          showNextImage();
         }
+      }
     });
   }
 
