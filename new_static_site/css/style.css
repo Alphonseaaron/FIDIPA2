@@ -1382,9 +1382,15 @@ html.dark .moon-icon {
 }
 
 @media (min-width: 1024px) { /* lg breakpoint */
-  #gallery-grid-container.gallery-masonry-container { /* Specific to gallery page if needed, or remove ID for general use */
+  .gallery-masonry-container { /* General rule for all masonry containers */
     column-count: 4;
   }
+  /* If gallery page (#gallery-grid-container) needs a different lg column count than homepage,
+     it can be specified like:
+     #gallery-grid-container.gallery-masonry-container { column-count: 4; }
+     #homepage-gallery-grid.gallery-masonry-container { column-count: 3; } // Example
+     For now, making it consistent at 4 columns for lg.
+  */
 }
 
 .gallery-item {
