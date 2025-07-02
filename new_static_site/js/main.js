@@ -143,51 +143,51 @@ document.addEventListener('DOMContentLoaded', () => {
       text: "Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)",
       subtext: "A holistic peaceful and democratic society with justice for all",
       images: [
-        'images/Women Land and Property Rights 1.jpg', // Adjusted path
-        'images/Women Land and Property Rights 2.jpg',
-        'images/Women Land and Property Rights 3.jpg',
-        'images/Women Land and Property Rights 4.jpg',
-        'images/Women Land and Property Rights 5.jpg'
+        'assets/random_image_10.jpg',
+        'assets/random_image_11.jpg',
+        'assets/random_image_12.jpg',
+        'assets/random_image_13.jpg',
+        'assets/random_image_14.jpg'
       ]
     },
     {
       text: "Empowering Communities Since 2007",
       subtext: "Registered under the NGO Act of Kenya as a National NGO",
       images: [
-        'images/Women Land and Property Rights 1.jpg', // Placeholder, adjust as needed
-        'images/Environment, Food Security, Resilience and Livelihood Program 1.jpg',
-        'images/Girls Education and Mentorship Project 1.jpg',
-        'images/Agriculture and Information Technology 1.jpg'
+        'assets/random_image_15.jpg',
+        'assets/random_image_16.jpg',
+        'assets/random_image_17.jpg',
+        'assets/random_image_18.jpg'
       ]
     },
     {
       text: "Fostering Unity and Effective Participation",
       subtext: "Working with urban and rural communities for sustainable development",
       images: [
-        'images/Environment, Food Security, Resilience and Livelihood Program 1.jpg',
-        'images/Environment, Food Security, Resilience and Livelihood Program 2.jpg',
-        'images/Environment, Food Security, Resilience and Livelihood Program 3.jpg',
-        'images/Environment, Food Security, Resilience and Livelihood Program 4.jpg'
+        'assets/random_image_19.jpg',
+        'assets/random_image_20.jpg',
+        'assets/random_image_21.jpg',
+        'assets/random_image_22.jpg'
       ]
     },
     {
       text: "Human Rights Based Approach",
       subtext: "Empowering women and girls to claim their rights",
       images: [
-        'images/Women in Leadership  and Socio-economic Project 1.jpg',
-        'images/Women in Leadership  and Socio-economic Project 2.jpg',
-        'images/Women in Leadership  and Socio-economic Project 3.jpg',
-        'images/Women in Leadership  and Socio-economic Project 4.jpg'
+        'assets/random_image_23.jpg',
+        'assets/random_image_24.jpg',
+        'assets/random_image_25.jpg',
+        'assets/random_image_26.jpg'
       ]
     },
     {
       text: "Supporting Education and Infrastructure",
       subtext: "Building better facilities and resources for our communities",
       images: [
-        'images/Girls Education and Mentorship Project 1.jpg',
-        'images/Girls Education and Mentorship Project 2.jpg',
-        'images/Girls Education and Mentorship Project 3.jpg',
-        'images/Girls Education and Mentorship Project 4.jpg'
+        'assets/random_image_27.jpg',
+        'assets/random_image_28.jpg',
+        'assets/random_image_29.jpg',
+        'assets/random_image_30.jpg'
       ]
     }
   ];
@@ -517,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "agriculture-it",
       title: "Agriculture and Information Technology",
       description: "Empowering local farmers with modern agricultural techniques and digital literacy to enhance productivity and market access. This program focuses on sustainable farming, use of technology for market information, and financial literacy for agribusiness.",
-      images: ['images/Agriculture and Information Technology 1.jpg', 'images/Agriculture and Information Technology 2.jpg', 'images/Agriculture and Information Technology 3.jpg'],
+      images: ['assets/random_image_31.jpg', 'assets/random_image_32.jpg', 'assets/random_image_33.jpg'],
       content: "• Training on climate-resilient crops • Workshops on mobile banking and market apps • Support for forming farmer cooperatives • Introduction to small-scale irrigation techniques"
     },
     {
@@ -525,7 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "girls-education-mentorship",
       title: "Girls Education and Mentorship Project",
       description: "Providing educational support, scholarships, and mentorship to young girls in underserved communities to foster leadership, academic excellence, and personal development. We aim to break barriers to girls' education.",
-      images: ['images/Girls Education and Mentorship Project 1.jpg', 'images/Girls Education and Mentorship Project 2.jpg', 'images/Girls Education and Mentorship Project 3.jpg'],
+      images: ['assets/random_image_34.jpg', 'assets/random_image_35.jpg', 'assets/random_image_36.jpg'],
       content: "• Scholarship programs for secondary and tertiary education • Mentorship pairings with professional women • Life skills workshops (hygiene, confidence, rights) • STEM career awareness campaigns"
     },
     {
@@ -533,7 +533,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "env-food-security",
       title: "Environment, Food Security, Resilience and Livelihood Program",
       description: "Promoting sustainable environmental practices and ensuring food security for vulnerable communities through resilient livelihood programs. This includes agroforestry, water conservation, and income-generating activities.",
-      images: ['images/Environment, Food Security, Resilience and Livelihood Program 1.jpg', 'images/Environment, Food Security, Resilience and Livelihood Program 2.jpg'],
+      images: ['assets/random_image_37.jpg', 'assets/random_image_38.jpg'],
       content: "• Tree planting and soil conservation initiatives • Training on kitchen gardening and nutrition • Support for alternative income sources (e.g., beekeeping, poultry) • Water harvesting and management education"
     },
     {
@@ -541,7 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "women-land-property-rights",
       title: "Women Land and Property Rights",
       description: "Advocating for and supporting women's rights to land and property through legal aid, awareness campaigns, and policy engagement. Empowering women economically and socially by securing their property rights.",
-      images: ['images/Women Land and Property Rights 1.jpg', 'images/Women Land and Property Rights 2.jpg'],
+      images: ['assets/random_image_39.jpg', 'assets/random_image_40.jpg'],
       content: "• Legal clinics and paralegal training • Community dialogues on gender and land • Advocacy for policy reforms • Support for women's groups in land claims"
     },
      {
@@ -549,7 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "soft-skills-leadership",
       title: "Soft Skills Training and Leadership training",
       description: "Equipping youth and community leaders with essential soft skills such as communication, problem-solving, teamwork, and leadership qualities to foster personal and community development.",
-      images: ['images/Soft Skills Training and Leadership training 1.jpg', 'images/Soft Skills Training and Leadership training 2.jpg'],
+      images: ['assets/random_image_41.jpg', 'assets/random_image_42.jpg'],
       content: "• Workshops on public speaking and presentation • Conflict resolution and negotiation training • Team building and collaborative project exercises • Ethical leadership and decision-making modules"
     }
   ];
@@ -612,28 +612,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Gallery Page Logic ---
   const galleryImagesData = [
-    'images/Women Land and Property Rights 1.jpg',
-    'images/Women Land and Property Rights 2.jpg',
-    'images/Women Land and Property Rights 3.jpg',
-    'images/Women Land and Property Rights 4.jpg',
-    'images/Women in and out of prisons project 1.jpg',
-    'images/Women in and out of prisons project 2.jpg',
-    'images/Women in and out of prisons project 3.jpg',
-    'images/Girls Education and Mentorship Project 1.jpg',
-    'images/Girls Education and Mentorship Project 2.jpg',
-    'images/Girls Education and Mentorship Project 3.jpg',
-    'images/Environment, Food Security, Resilience and Livelihood Program 1.jpg',
-    'images/Environment, Food Security, Resilience and Livelihood Program 2.jpg',
-    'images/Environment, Food Security, Resilience and Livelihood Program 3.jpg',
-    'images/Agriculture and Information Technology 1.jpg',
-    'images/Agriculture and Information Technology 2.jpg',
-    'images/Agriculture and Information Technology 3.jpg',
-    'images/Soft Skills Training and Leadership training 1.jpg',
-    'images/Soft Skills Training and Leadership training 2.jpg',
-    'images/Soft Skills Training and Leadership training 3.jpg',
-    'images/Women in Leadership  and Socio-economic Project 1.jpg',
-    'images/Women in Leadership  and Socio-economic Project 2.jpg',
-    'images/Women in Leadership  and Socio-economic Project 3.jpg',
+    'assets/random_image_43.jpg',
+    'assets/random_image_44.jpg',
+    'assets/random_image_45.jpg',
+    'assets/random_image_46.jpg',
+    'assets/random_image_47.jpg',
+    'assets/random_image_48.jpg',
+    'assets/random_image_49.jpg',
+    'assets/random_image_50.jpg',
+    'assets/random_image_51.jpg',
+    'assets/random_image_52.jpg', // Starting to use more than the initial 51
+    'assets/random_image_53.jpg',
+    'assets/random_image_54.jpg',
+    'assets/random_image_55.jpg',
+    'assets/random_image_56.jpg',
+    'assets/random_image_57.jpg',
+    'assets/random_image_58.jpg',
+    'assets/random_image_59.jpg',
+    'assets/random_image_60.jpg',
+    'assets/random_image_61.jpg',
+    'assets/random_image_62.jpg',
+    'assets/random_image_63.jpg',
+    'assets/random_image_64.jpg',
   ];
 
   function renderGalleryPage() {
