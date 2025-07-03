@@ -196,19 +196,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const textContainer = document.getElementById('hero-text-container');
   const dotsContainer = document.getElementById('hero-dots-container');
   const scrollDownChevron = document.getElementById('scroll-down-chevron');
+  console.log('[FIDIPA Slideshow] DOM Elements Check:', {
+      slidesContainerExists: !!slidesContainer,
+      textContainerExists: !!textContainer,
+      dotsContainerExists: !!dotsContainer
+  });
 
   let currentSlideIndex = 0;
   let currentImageSubIndex = 0;
   let slideTextTimer, imageTimer;
 
   function createSlides() {
-    if (!slidesContainer || !textContainer || !dotsContainer) return;
+    console.log('[FIDIPA Slideshow] createSlides function called.');
+    if (!slidesContainer || !textContainer || !dotsContainer) {
+        console.error('[FIDIPA Slideshow] ERROR: One or more main containers not found. Cannot create slides.', {
+            slidesContainer, textContainer, dotsContainer
+        });
+        return;
+    }
 
-    slidesContainer.innerHTML = ''; // Clear previous slides
-    textContainer.innerHTML = '';   // Clear previous text
-    dotsContainer.innerHTML = '';   // Clear previous dots
+    slidesContainer.innerHTML = '';
+    textContainer.innerHTML = '';
+    dotsContainer.innerHTML = '';
+    console.log('[FIDIPA Slideshow] Cleared old slide/text/dot content.');
 
     heroSlidesData.forEach((slideData, index) => {
+      if (index === 0) {
+          console.log('[FIDIPA Slideshow] Creating slide for index 0 with data:', slideData);
+      }
       // Create image slide elements
       const imageSlideDiv = document.createElement('div');
       imageSlideDiv.className = 'hero-slide-image'; // Initially opacity 0
@@ -245,46 +260,78 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       dotsContainer.appendChild(dotButton);
     });
+    console.log(`[FIDIPA Slideshow] Finished creating ${heroSlidesData.length} slides, texts, and dots.`);
   }
 
   function updateSlideAppearance(newIndex) {
+    console.log(`[FIDIPA Slideshow] updateSlideAppearance called for index: ${newIndex}`);
+
+    if (!slidesContainer || !textContainer || !dotsContainer) {
+        console.error('[FIDIPA Slideshow] ERROR in updateSlideAppearance: Main containers not found.');
+        return;
+    }
+
+    const textSlides = textContainer.querySelectorAll('.hero-slide-text');
+    console.log(`[FIDIPA Slideshow] Found ${textSlides.length} text slide elements to update.`);
+
     // Update image slides
     slidesContainer.querySelectorAll('.hero-slide-image').forEach((div, i) => {
       div.classList.toggle('active', i === newIndex);
       if (i === newIndex) {
         // Update image within the active slide if multiple images exist for it
+        // This part of image update on text slide change is tricky.
+        // The current logic updates the image of the *newly active* slide immediately.
+        // And `updateImageOnly` handles timed updates for the *currently displayed* slide.
+        // For simplicity, let's ensure the first image of the new slide is set.
         const imgElement = div.querySelector('img');
-        if (imgElement) {
-            currentImageSubIndex = (currentImageSubIndex + 1) % heroSlidesData[newIndex].images.length;
-            imgElement.src = heroSlidesData[newIndex].images[currentImageSubIndex];
+        if (imgElement && heroSlidesData[newIndex].images && heroSlidesData[newIndex].images.length > 0) {
+            // Reset sub-index or set to 0 when text slide changes, then let `updateImageOnly` handle further cycling.
+            // currentImageSubIndex = 0; // Resetting here might be too aggressive if updateImageOnly is also running.
+            imgElement.src = heroSlidesData[newIndex].images[0]; // Always show first image of new slide
         }
       }
     });
 
     // Update text slides
-    textContainer.querySelectorAll('.hero-slide-text').forEach((div, i) => {
-      div.classList.toggle('active', i === newIndex);
+    textSlides.forEach((div, i) => {
+      const isActive = i === newIndex;
+      div.classList.toggle('active', isActive);
+      if (isActive) {
+          console.log(`[FIDIPA Slideshow] Text slide ${i} is now active.`);
+      }
     });
 
     // Update dots
     dotsContainer.querySelectorAll('.hero-dot').forEach((button, i) => {
       button.classList.toggle('active', i === newIndex);
     });
+    console.log(`[FIDIPA Slideshow] Finished updating appearance for index: ${newIndex}.`);
   }
 
   function updateImageOnly(slideIdx) {
+    // console.log(`[FIDIPA Slideshow] updateImageOnly for slide index: ${slideIdx}`);
+    if (!slidesContainer || !heroSlidesData[slideIdx]) {
+        // console.warn(`[FIDIPA Slideshow] updateImageOnly: slidesContainer or heroSlidesData for index ${slideIdx} not found.`);
+        return;
+    }
+
     const activeImageSlide = slidesContainer.querySelector(`.hero-slide-image[data-slide-index="${slideIdx}"].active`);
-    if(activeImageSlide) {
+    if (activeImageSlide) {
         const imgElement = activeImageSlide.querySelector('img');
-        if (imgElement && heroSlidesData[slideIdx].images.length > 1) {
+        if (imgElement && heroSlidesData[slideIdx].images && heroSlidesData[slideIdx].images.length > 0) {
             currentImageSubIndex = (currentImageSubIndex + 1) % heroSlidesData[slideIdx].images.length;
             imgElement.src = heroSlidesData[slideIdx].images[currentImageSubIndex];
+            // console.log(`[FIDIPA Slideshow] Image updated for slide ${slideIdx} to ${heroSlidesData[slideIdx].images[currentImageSubIndex]}`);
+        } else if (imgElement && (!heroSlidesData[slideIdx].images || heroSlidesData[slideIdx].images.length === 0)) {
+            // console.warn(`[FIDIPA Slideshow] No images found for slide index ${slideIdx} in updateImageOnly`);
         }
+    } else {
+        // console.warn(`[FIDIPA Slideshow] updateImageOnly: No active image slide found for index ${slideIdx}`);
     }
   }
 
-
   function goToSlide(index) {
+    console.log(`[FIDIPA Slideshow] goToSlide called for index: ${index}`);
     currentSlideIndex = index;
     currentImageSubIndex = 0; // Reset image index for new text slide
     updateSlideAppearance(currentSlideIndex);
@@ -296,25 +343,37 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function startTimers() {
+    console.log('[FIDIPA Slideshow] startTimers called.');
     clearInterval(slideTextTimer);
     clearInterval(imageTimer);
 
-    slideTextTimer = setInterval(nextSlide, 5000); // Change text slide every 5 seconds
+    slideTextTimer = setInterval(nextSlide, 5000);
+    console.log('[FIDIPA Slideshow] slideTextTimer started.');
 
-    // Change image within the current text slide every 3 seconds
     imageTimer = setInterval(() => {
+        // console.log('[FIDIPA Slideshow] imageTimer interval: calling updateImageOnly for currentSlideIndex:', currentSlideIndex);
         updateImageOnly(currentSlideIndex);
     }, 3000);
+    console.log('[FIDIPA Slideshow] imageTimer started.');
   }
 
   function resetTimers() {
+    console.log('[FIDIPA Slideshow] resetTimers called.');
     startTimers();
   }
 
   if (slidesContainer && textContainer && dotsContainer) {
-    createSlides();
-    goToSlide(0); // Show first slide initially
-    startTimers();
+    console.log('[FIDIPA Slideshow] Initializing slideshow...');
+    try {
+        createSlides();
+        goToSlide(0);
+        startTimers();
+        console.log('[FIDIPA Slideshow] Slideshow initialized successfully.');
+    } catch (error) {
+        console.error('[FIDIPA Slideshow] ERROR during slideshow initialization:', error);
+    }
+  } else {
+    console.error('[FIDIPA Slideshow] Slideshow NOT initialized because one or more main containers are missing from the DOM on load.');
   }
 
   // Scroll down chevron smooth scroll (already partially handled by general nav link handler, but specific target)
