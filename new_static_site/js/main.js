@@ -479,7 +479,8 @@ document.addEventListener('DOMContentLoaded', () => {
       else itemsPerPage = 3;
 
       // Adjust viewport width based on itemsPerPage
-      viewport.style.maxWidth = `${itemsPerPage * cardWidth + (itemsPerPage - 1) * cardGap}px`;
+      // Add a small buffer (e.g., 2px) to prevent clipping of the last card's shadow/border by overflow-hidden.
+      viewport.style.maxWidth = `${itemsPerPage * cardWidth + (itemsPerPage - 1) * cardGap + 2}px`;
       renderCards(); // Re-render or adjust track for new itemsPerPage
       goToIndex(0, true); // Reset to first slide
     }
@@ -500,7 +501,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         card.innerHTML = `
           <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center">
-            ${userIconSvg}
             ${member.photoUrl ? `<img src="${member.photoUrl}" alt="${member.name}" class="w-full h-full object-cover">` : userIconSvg}
           </div>
           <div class="flex-1 flex flex-col items-center w-full">
@@ -508,11 +508,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <p class="text-primary font-medium text-sm">${member.role}</p>
           </div>
         `;
-        // If using actual photo, replace userIconSvg in the condition above
-        if(member.photoUrl){
-            const imgContainer = card.querySelector('.bg-primary\\/10'); // Escape slash for querySelector
-            if(imgContainer) imgContainer.innerHTML = `<img src="${member.photoUrl}" alt="${member.name}" class="w-full h-full object-cover">`;
-        }
         track.appendChild(card);
       });
       // Remove margin from the last card
