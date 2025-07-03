@@ -1502,6 +1502,64 @@ html.dark .moon-icon {
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
 }
 
+/* Lightbox Core Styles (previously in gallery.html <style>) */
+.lightbox {
+  display: none; /* Hidden by default, JS toggles to flex */
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.9);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.lightbox.open {
+  display: flex; /* Show when open */
+  opacity: 1;
+}
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.95);
+  transition: transform 0.3s ease-in-out;
+}
+.lightbox.open .lightbox-content {
+  transform: scale(1);
+}
+.lightbox img { /* Targets #lightbox-image */
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 0.5rem;
+}
+.lightbox-close { /* Targets #lightbox-close */
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: background-color 0.2s;
+  z-index: 110; /* Ensure close button is above image and nav buttons */
+}
+.lightbox-close:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
 /* Lightbox Navigation Buttons */
 .lightbox-nav {
   position: absolute;
@@ -1540,6 +1598,34 @@ html.dark .moon-icon {
   opacity: 0.3;
   cursor: not-allowed;
   background-color: rgba(0,0,0,0.1);
+}
+
+/* Custom Aspect Ratio Utilities (if not using @tailwindcss/aspect-ratio plugin) */
+.aspect-w-1 { --tw-aspect-w: 1; }
+.aspect-h-1 { --tw-aspect-h: 1; }
+.aspect-w-2 { --tw-aspect-w: 2; }
+.aspect-h-2 { --tw-aspect-h: 2; }
+.aspect-w-3 { --tw-aspect-w: 3; }
+.aspect-h-3 { --tw-aspect-h: 3; }
+.aspect-w-4 { --tw-aspect-w: 4; }
+.aspect-h-4 { --tw-aspect-h: 4; }
+.aspect-w-5 { --tw-aspect-w: 5; }
+.aspect-h-5 { --tw-aspect-h: 5; }
+.aspect-w-16 { --tw-aspect-w: 16; }
+.aspect-h-9 { --tw-aspect-h: 9; }
+
+[class*='aspect-w-'] {
+  position: relative;
+  padding-bottom: calc(var(--tw-aspect-h, 1) / var(--tw-aspect-w, 1) * 100%);
+}
+[class*='aspect-w-'] > * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 

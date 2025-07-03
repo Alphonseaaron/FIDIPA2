@@ -9,65 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/svg+xml" href="vite.svg" />
-    <style>
-        /* Lightbox specific styles */
-        .lightbox {
-            display: none; /* Hidden by default */
-            position: fixed;
-            inset: 0;
-            background-color: rgba(0,0,0,0.9);
-            z-index: 100; /* High z-index */
-            display: flex; /* Will be toggled by JS */
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-        .lightbox.open {
-            display: flex;
-            opacity: 1;
-        }
-        .lightbox-content {
-            position: relative;
-            max-width: 90vw; /* Max width for image container */
-            max-height: 90vh; /* Max height for image container */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: scale(0.95);
-            transition: transform 0.3s ease-in-out;
-        }
-        .lightbox.open .lightbox-content {
-            transform: scale(1);
-        }
-        .lightbox img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            border-radius: 0.5rem; /* rounded-lg */
-        }
-        .lightbox-close {
-            position: absolute;
-            top: -10px; /* Adjust as needed based on image size and padding */
-            right: -10px; /* Adjust */
-            background-color: rgba(0,0,0,0.5);
-            color: white;
-            border: none;
-            border-radius: 9999px; /* rounded-full */
-            width: 2.5rem; /* w-10 */
-            height: 2.5rem; /* h-10 */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.5rem; /* For 'X' text or SVG size */
-            transition: background-color 0.2s;
-        }
-        .lightbox-close:hover {
-            background-color: rgba(0,0,0,0.8);
-        }
-    </style>
 </head>
 <body class="bg-light dark:bg-dark text-dark dark:text-white antialiased">
     <div id="app-container" class="min-h-screen flex flex-col">

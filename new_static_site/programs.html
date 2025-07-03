@@ -78,6 +78,19 @@
             </div>
         </main>
 
+        <!-- Lightbox Structure (copied from gallery.html for program image popups) -->
+        <div id="lightbox" class="lightbox">
+            <div class="lightbox-content">
+                <img id="lightbox-image" src="" alt="Selected program image" />
+                <button id="lightbox-close" class="lightbox-close" aria-label="Close lightbox">
+                    &times; <!-- Simple 'X' icon -->
+                </button>
+                {/* Navigation buttons are part of the structure but will be hidden by JS for single program images */}
+                <button id="lightbox-prev" class="lightbox-nav prev" aria-label="Previous image" style="display: none;">&#10094;</button>
+                <button id="lightbox-next" class="lightbox-nav next" aria-label="Next image" style="display: none;">&#10095;</button>
+            </div>
+        </div>
+
         <!-- Footer Placeholder - Will be copied from index.html or dynamically inserted -->
         <footer id="footer-container" class="py-4 bg-white dark:bg-dark-lighter border-t border-gray-200 dark:border-gray-800">
              <div class="max-w-7xl mx-auto px-4">
