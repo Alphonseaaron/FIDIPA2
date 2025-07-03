@@ -509,9 +509,8 @@ document.addEventListener('DOMContentLoaded', () => {
   setupTeamCarousel('staff-carousel', staffMembersData);
   setupTeamCarousel('board-carousel', boardMembersData);
 
-  // --- Programs Page Logic ---
+  // --- Programs Data (moved to be accessible by multiple functions) ---
   const programsData = [
-    // Sample data structure, more items would come from a full data source
     {
       id: "1",
       slug: "agriculture-it",
@@ -554,6 +553,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
+  // --- Programs Page Logic (Listing on programs.html) ---
   function renderProgramsPage() {
     const container = document.getElementById('programs-list-container');
     if (!container) return; // Only run on programs.html
@@ -572,13 +572,12 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>`).join('')
         : '';
 
-      const learnMoreLink = `program-detail.html#${program.slug}`; // Simplified detail page link
+      const learnMoreLink = `program-detail.html#${program.slug}`;
 
       programElement.innerHTML = `
         <div class="md:flex">
           <div class="md:w-1/3">
             <img src="${program.images[0]}" alt="${program.title}" class="w-full h-64 md:h-full object-cover">
-            <!-- Simplified: No JS carousel here, just first image -->
           </div>
           <div class="p-6 md:w-2/3">
             <h2 class="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">${program.title}</h2>
@@ -596,18 +595,80 @@ document.addEventListener('DOMContentLoaded', () => {
       container.appendChild(programElement);
     });
 
-    // Re-initialize IntersectionObserver for newly added animated elements on this page
     const newAnimatedElements = container.querySelectorAll('.animate-on-scroll');
-    newAnimatedElements.forEach(el => {
-        // Ensure this doesn't re-observe elements already handled by the main page observer
-        // For simplicity here, we just observe. A more robust solution might check if already observed.
-        scrollObserver.observe(el);
-    });
+    newAnimatedElements.forEach(el => scrollObserver.observe(el));
   }
+
+  // --- Program Detail Page Logic (program-detail.html) ---
+  function renderProgramDetail() {
+    const container = document.getElementById('program-detail-content');
+    if (!container) return; // Only run on program-detail.html
+
+    const slug = window.location.hash.substring(1); // Get slug from URL hash (e.g., #agriculture-it -> agriculture-it)
+    if (!slug) {
+      container.innerHTML = '<p class="text-center text-red-500">No program specified.</p>';
+      return;
+    }
+
+    const program = programsData.find(p => p.slug === slug);
+
+    if (!program) {
+      container.innerHTML = `<p class="text-center text-red-500">Program not found: ${slug}</p>`;
+      return;
+    }
+
+    // Update page title
+    document.title = `${program.title} - FIDIPA`;
+
+    // Add the title to the title container
+    const titleContainer = document.getElementById('program-title-container');
+    if (titleContainer) {
+        const titleElement = document.createElement('h1');
+        titleElement.className = 'text-3xl md:text-4xl font-bold text-gray-900 dark:text-white'; // Matching gallery/programs page
+        titleElement.textContent = program.title;
+        // Insert title after the back button (which is the first child)
+        if (titleContainer.children.length > 0) {
+             titleContainer.insertBefore(titleElement, titleContainer.children[0].nextSibling);
+        } else {
+            titleContainer.appendChild(titleElement); // Fallback if no back button somehow
+        }
+    }
+
+    let imagesHTML = '';
+    if (program.images && program.images.length > 0) {
+      imagesHTML += '<div class="program-image-gallery mb-6">'; // Added mb-6 for spacing
+      program.images.forEach(imgSrc => {
+        imagesHTML += `<img src="${imgSrc}" alt="${program.title} image" class="max-h-80 rounded-md shadow-md">`; // Added classes for styling
+      });
+      imagesHTML += '</div>';
+    }
+
+    const contentPointsHTML = program.content
+      ? '<ul>' + program.content.split('•').slice(1).map(point => `<li class="mb-2 ml-4">${point.trim()}</li>`).join('') + '</ul>'
+      : '<p>Further details about this program are not yet available.</p>';
+
+    // Content for the article section, excluding the main H1 which is now in program-title-container
+    container.innerHTML = `
+      ${imagesHTML}
+      <p class="text-lg leading-relaxed mb-6">${program.description}</p>
+      <h2 class="text-2xl font-semibold mt-8 mb-4 text-gray-900 dark:text-white">Key Activities & Focus Areas:</h2>
+      <div class="prose prose-lg dark:prose-invert max-w-none">${contentPointsHTML}</div>
+    `;
+
+    // Initialize scroll animations for any new elements if necessary
+    const newAnimatedElements = container.querySelectorAll('.animate-on-scroll'); // If any are added
+    newAnimatedElements.forEach(el => scrollObserver.observe(el));
+  }
+
 
   // Call render functions specific to pages if their containers exist
   if (document.getElementById('programs-list-container')) {
     renderProgramsPage();
+  }
+  if (document.getElementById('program-detail-content')) {
+    renderProgramDetail();
+    // Also, listen for hash changes if the user navigates within the same page (though less likely for this setup)
+    window.addEventListener('hashchange', renderProgramDetail, false);
   }
 
   // --- Gallery Page Logic ---
