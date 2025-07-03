@@ -57,16 +57,17 @@
         </header>
 
         <main class="flex-1 pt-16 bg-light dark:bg-dark">
-            <a href="javascript:history.back()" title="Go Back"
-               class="fixed top-20 left-4 sm:top-8 sm:left-8 z-[60] bg-white dark:bg-dark-lighter hover:bg-light-darker dark:hover:bg-dark-accent p-3 sm:p-4 rounded-lg transition-all duration-300 group shadow-lg">
-                <svg class="w-6 h-6 text-primary group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-            </a>
-
             <div class="pt-12 pb-16 min-h-screen">
                 <div class="max-w-7xl mx-auto px-4">
-                    <h1 class="text-4xl font-bold mb-12 text-center text-gray-900 dark:text-white animate-on-scroll fade-in-up">
-                        Our Programs
-                    </h1>
+                    <div class="flex items-center mb-12 animate-on-scroll fade-in-up">
+                        <a href="javascript:history.back()" title="Go Back"
+                           class="back-button-ui bg-white dark:bg-dark-lighter hover:bg-light-darker dark:hover:bg-dark-accent p-3 sm:p-4 rounded-lg transition-all duration-300 group shadow-lg mr-4">
+                            <svg class="w-6 h-6 text-primary group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                        </a>
+                        <h1 class="text-4xl font-bold text-gray-900 dark:text-white">
+                            Our Programs
+                        </h1>
+                    </div>
 
                     <div id="programs-list-container" class="space-y-12 animate-on-scroll fade-in-up" style="transition-delay: 0.2s;">
                         <!-- Program items will be injected here by JS -->
