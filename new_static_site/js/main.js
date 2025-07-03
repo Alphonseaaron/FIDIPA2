@@ -42,6 +42,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- Capacity Statement Read More Toggle ---
+  const capacityReadMoreButton = document.getElementById('capacity-read-more-button');
+  const capacityStatementContent = document.getElementById('capacity-statement-content');
+
+  if (capacityReadMoreButton && capacityStatementContent) {
+    const buttonText = capacityReadMoreButton.querySelector('span');
+    const chevronDown = capacityReadMoreButton.querySelector('.chevron-down');
+    const chevronUp = capacityReadMoreButton.querySelector('.chevron-up');
+
+    capacityReadMoreButton.addEventListener('click', () => {
+      const isOpen = capacityStatementContent.classList.toggle('open');
+      // Max height for transition will be handled by CSS: .collapsible-content and .collapsible-content.open
+      // JS just toggles the class.
+
+      if (buttonText) buttonText.textContent = isOpen ? "Show Less" : "Read More";
+      if (chevronDown) chevronDown.classList.toggle('hidden', isOpen);
+      if (chevronUp) chevronUp.classList.toggle('hidden', !isOpen);
+    });
+  }
+
   // Close mobile menu when a link is clicked
   const mobileNavLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
   mobileNavLinks.forEach(link => {
@@ -142,53 +162,27 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       text: "Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)",
       subtext: "A holistic peaceful and democratic society with justice for all",
-      images: [
-        'assets/JP and girls visioning at Sabako.jpg',
-        'assets/Team picture.jpg',
-        'assets/Training sessions at Sabaki.jpg',
-        'assets/Women in action for climate change.jpg',
-        'assets/Youth engagement in land advocacy.jpg'
-      ]
+      image: 'assets/Team picture.jpg' // High-resolution, general image
     },
     {
       text: "Empowering Communities Since 2007",
       subtext: "Registered under the NGO Act of Kenya as a National NGO",
-      images: [
-        'assets/Enterpreneuship training sessions.jpg',
-        'assets/FARM 1 - WWD .JPG',
-        'assets/Gift to PWD - nyakach.jpg',
-        'assets/SOFT SKILLS SESSIONS.jpg'
-      ]
+      image: 'assets/Enterpreneuship training sessions.jpg'
     },
     {
       text: "Fostering Unity and Effective Participation",
       subtext: "Working with urban and rural communities for sustainable development",
-      images: [
-        'assets/Au Zambia presentation.jpg',
-        'assets/Follow up visit.jpg',
-        'assets/Leadership training sessions in Kwale.jpg',
-        'assets/Paralegals follow-up on women land rights.jpg'
-      ]
+      image: 'assets/Au Zambia presentation.jpg'
     },
     {
       text: "Human Rights Based Approach",
       subtext: "Empowering women and girls to claim their rights",
-      images: [
-        'assets/Women Land Rights and food security 1.jpg',
-        'assets/Women champions of land rights.jpg',
-        'assets/Voiceless speaking after training.jpg',
-        'assets/Millys house- she is locked out.jpg'
-      ]
+      image: 'assets/Women Land Rights and food security 1.jpg'
     },
     {
       text: "Supporting Education and Livelihoods",
       subtext: "Building better futures for our communities",
-      images: [
-        'assets/School children with new desks.jpg',
-        'assets/OVCs firewood.jpg',
-        'assets/YOUTH PROGRAM AT SABAKI.jpg',
-        'assets/Grandmothers and Orphans or Vulnerable Children Project.png'
-      ]
+      image: 'assets/School children with new desks.jpg'
     }
   ];
 
@@ -196,41 +190,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const textContainer = document.getElementById('hero-text-container');
   const dotsContainer = document.getElementById('hero-dots-container');
   const scrollDownChevron = document.getElementById('scroll-down-chevron');
-  console.log('[FIDIPA Slideshow] DOM Elements Check:', {
-      slidesContainerExists: !!slidesContainer,
-      textContainerExists: !!textContainer,
-      dotsContainerExists: !!dotsContainer
-  });
+  // console.log('[FIDIPA Slideshow] DOM Elements Check:', { // Reduced console logging
+  //     slidesContainerExists: !!slidesContainer,
+  //     textContainerExists: !!textContainer,
+  //     dotsContainerExists: !!dotsContainer
+  // });
 
   let currentSlideIndex = 0;
-  let currentImageSubIndex = 0;
-  let slideTextTimer, imageTimer;
+  let slideTextTimer; // Removed imageTimer and currentImageSubIndex
 
   function createSlides() {
-    console.log('[FIDIPA Slideshow] createSlides function called.');
+    // console.log('[FIDIPA Slideshow] createSlides function called.');
     if (!slidesContainer || !textContainer || !dotsContainer) {
-        console.error('[FIDIPA Slideshow] ERROR: One or more main containers not found. Cannot create slides.', {
-            slidesContainer, textContainer, dotsContainer
-        });
+        console.error('[FIDIPA Slideshow] ERROR: One or more main containers not found. Cannot create slides.');
         return;
     }
 
     slidesContainer.innerHTML = '';
     textContainer.innerHTML = '';
     dotsContainer.innerHTML = '';
-    console.log('[FIDIPA Slideshow] Cleared old slide/text/dot content.');
+    // console.log('[FIDIPA Slideshow] Cleared old slide/text/dot content.');
 
     heroSlidesData.forEach((slideData, index) => {
-      if (index === 0) {
-          console.log('[FIDIPA Slideshow] Creating slide for index 0 with data:', slideData);
-      }
       // Create image slide elements
       const imageSlideDiv = document.createElement('div');
-      imageSlideDiv.className = 'hero-slide-image'; // Initially opacity 0
+      imageSlideDiv.className = 'hero-slide-image';
       imageSlideDiv.dataset.slideIndex = index;
-      // Preload first image of each slide, others can be lazy or preloaded too
       const img = document.createElement('img');
-      img.src = slideData.images[0]; // Default to first image for initial display
+      img.src = slideData.image; // Use single image property
       img.alt = slideData.text;
       imageSlideDiv.appendChild(img);
       // Add overlay
@@ -264,111 +251,68 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateSlideAppearance(newIndex) {
-    console.log(`[FIDIPA Slideshow] updateSlideAppearance called for index: ${newIndex}`);
+    // console.log(`[FIDIPA Slideshow] updateSlideAppearance called for index: ${newIndex}`);
 
     if (!slidesContainer || !textContainer || !dotsContainer) {
         console.error('[FIDIPA Slideshow] ERROR in updateSlideAppearance: Main containers not found.');
         return;
     }
 
+    const imageSlides = slidesContainer.querySelectorAll('.hero-slide-image');
     const textSlides = textContainer.querySelectorAll('.hero-slide-text');
-    console.log(`[FIDIPA Slideshow] Found ${textSlides.length} text slide elements to update.`);
+    const dots = dotsContainer.querySelectorAll('.hero-dot');
 
-    // Update image slides
-    slidesContainer.querySelectorAll('.hero-slide-image').forEach((div, i) => {
+    imageSlides.forEach((div, i) => {
       div.classList.toggle('active', i === newIndex);
-      if (i === newIndex) {
-        // Update image within the active slide if multiple images exist for it
-        // This part of image update on text slide change is tricky.
-        // The current logic updates the image of the *newly active* slide immediately.
-        // And `updateImageOnly` handles timed updates for the *currently displayed* slide.
-        // For simplicity, let's ensure the first image of the new slide is set.
-        const imgElement = div.querySelector('img');
-        if (imgElement && heroSlidesData[newIndex].images && heroSlidesData[newIndex].images.length > 0) {
-            // Reset sub-index or set to 0 when text slide changes, then let `updateImageOnly` handle further cycling.
-            // currentImageSubIndex = 0; // Resetting here might be too aggressive if updateImageOnly is also running.
-            imgElement.src = heroSlidesData[newIndex].images[0]; // Always show first image of new slide
-        }
-      }
+      // Image src is now set during createSlides and doesn't change per text slide independently
     });
 
-    // Update text slides
     textSlides.forEach((div, i) => {
-      const isActive = i === newIndex;
-      div.classList.toggle('active', isActive);
-      if (isActive) {
-          console.log(`[FIDIPA Slideshow] Text slide ${i} is now active.`);
-      }
+      div.classList.toggle('active', i === newIndex);
     });
 
-    // Update dots
-    dotsContainer.querySelectorAll('.hero-dot').forEach((button, i) => {
+    dots.forEach((button, i) => {
       button.classList.toggle('active', i === newIndex);
     });
-    console.log(`[FIDIPA Slideshow] Finished updating appearance for index: ${newIndex}.`);
+    // console.log(`[FIDIPA Slideshow] Finished updating appearance for index: ${newIndex}.`);
   }
 
-  function updateImageOnly(slideIdx) {
-    // console.log(`[FIDIPA Slideshow] updateImageOnly for slide index: ${slideIdx}`);
-    if (!slidesContainer || !heroSlidesData[slideIdx]) {
-        // console.warn(`[FIDIPA Slideshow] updateImageOnly: slidesContainer or heroSlidesData for index ${slideIdx} not found.`);
-        return;
-    }
-
-    const activeImageSlide = slidesContainer.querySelector(`.hero-slide-image[data-slide-index="${slideIdx}"].active`);
-    if (activeImageSlide) {
-        const imgElement = activeImageSlide.querySelector('img');
-        if (imgElement && heroSlidesData[slideIdx].images && heroSlidesData[slideIdx].images.length > 0) {
-            currentImageSubIndex = (currentImageSubIndex + 1) % heroSlidesData[slideIdx].images.length;
-            imgElement.src = heroSlidesData[slideIdx].images[currentImageSubIndex];
-            // console.log(`[FIDIPA Slideshow] Image updated for slide ${slideIdx} to ${heroSlidesData[slideIdx].images[currentImageSubIndex]}`);
-        } else if (imgElement && (!heroSlidesData[slideIdx].images || heroSlidesData[slideIdx].images.length === 0)) {
-            // console.warn(`[FIDIPA Slideshow] No images found for slide index ${slideIdx} in updateImageOnly`);
-        }
-    } else {
-        // console.warn(`[FIDIPA Slideshow] updateImageOnly: No active image slide found for index ${slideIdx}`);
-    }
-  }
+  // updateImageOnly function is removed as it's no longer needed.
 
   function goToSlide(index) {
-    console.log(`[FIDIPA Slideshow] goToSlide called for index: ${index}`);
+    // console.log(`[FIDIPA Slideshow] goToSlide called for index: ${index}`);
     currentSlideIndex = index;
-    currentImageSubIndex = 0; // Reset image index for new text slide
     updateSlideAppearance(currentSlideIndex);
+    // Reset timer when explicitly navigating or when a dot is clicked (handled in createSlides)
+    resetSlideTimer();
   }
 
   function nextSlide() {
     const newIndex = (currentSlideIndex + 1) % heroSlidesData.length;
-    goToSlide(newIndex);
+    // console.log(`[FIDIPA Slideshow] nextSlide progressing to: ${newIndex}`);
+    currentSlideIndex = newIndex; // Update currentSlideIndex here
+    updateSlideAppearance(currentSlideIndex);
   }
 
-  function startTimers() {
-    console.log('[FIDIPA Slideshow] startTimers called.');
-    clearInterval(slideTextTimer);
-    clearInterval(imageTimer);
-
-    slideTextTimer = setInterval(nextSlide, 5000);
-    console.log('[FIDIPA Slideshow] slideTextTimer started.');
-
-    imageTimer = setInterval(() => {
-        // console.log('[FIDIPA Slideshow] imageTimer interval: calling updateImageOnly for currentSlideIndex:', currentSlideIndex);
-        updateImageOnly(currentSlideIndex);
-    }, 3000);
-    console.log('[FIDIPA Slideshow] imageTimer started.');
+  function startSlideTimer() {
+    // console.log('[FIDIPA Slideshow] startSlideTimer called.');
+    clearInterval(slideTextTimer); // Clear existing timer before starting a new one
+    slideTextTimer = setInterval(nextSlide, 5000); // Only one timer for text and its corresponding image
+    // console.log('[FIDIPA Slideshow] slideTextTimer started.');
   }
 
-  function resetTimers() {
-    console.log('[FIDIPA Slideshow] resetTimers called.');
-    startTimers();
+  function resetSlideTimer() {
+    // console.log('[FIDIPA Slideshow] resetSlideTimer called.');
+    startSlideTimer();
   }
 
   if (slidesContainer && textContainer && dotsContainer) {
-    console.log('[FIDIPA Slideshow] Initializing slideshow...');
+    // console.log('[FIDIPA Slideshow] Initializing slideshow...');
     try {
-        createSlides();
-        goToSlide(0);
-        startTimers();
-        console.log('[FIDIPA Slideshow] Slideshow initialized successfully.');
+        createSlides(); // This also attaches dot click listeners which call resetSlideTimer
+        updateSlideAppearance(currentSlideIndex); // Show the first slide
+        startSlideTimer(); // Start the main timer
+        // console.log('[FIDIPA Slideshow] Slideshow initialized successfully.');
     } catch (error) {
         console.error('[FIDIPA Slideshow] ERROR during slideshow initialization:', error);
     }
@@ -510,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <div class="flex-1 flex flex-col items-center w-full">
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">${member.name}</h3>
-            <p class="text-primary font-medium text-sm">${member.role}</p>
+            <p class="text-primary font-medium text-sm line-clamp-2">${member.role}</p>
           </div>
         `;
         track.appendChild(card);
@@ -680,7 +624,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // We need to find this image's actual index if it were part of galleryImagesData, or pass src directly.
           imagesHTML += `
             <div class="aspect-w-4 aspect-h-3 rounded-lg overflow-hidden group">
-              <img src="${imgSrc}" alt="${program.title} image ${imgIndex + 1}" class="w-full h-full object-cover cursor-pointer transform transition-transform duration-300 group-hover:scale-105" onclick="window.openProgramImageLightbox('${imgSrc}', '${program.title} image ${imgIndex + 1}')">
+              <img src="${imgSrc}" alt="${program.title} image ${imgIndex + 1}" class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-105">
             </div>`;
         });
         imagesHTML += `</div>`;

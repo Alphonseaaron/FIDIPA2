@@ -668,10 +668,19 @@ body {
   margin-top: 1rem;
 }
 
+.line-clamp-2,
 .line-clamp-3 {
-  overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Added for better truncation indication */
+}
+
+.line-clamp-2 {
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
   -webkit-line-clamp: 3;
 }
 
@@ -1333,12 +1342,25 @@ html.dark .moon-icon {
 }
 
 /* About Section Styles */
+/* General collapsible content styling */
+.collapsible-content {
+  max-height: 5em; /* Adjust to show a few lines initially, e.g., 3-4 lines of text */
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 0.7; /* Slightly faded when collapsed */
+}
 
-#read-more-content.open {
-  max-height: 1000px;
-  /* Adjust as needed, large enough for content */
+.collapsible-content.open {
+  max-height: 1000px; /* Large enough for any content */
   opacity: 1;
 }
+
+/* Specific to the old read-more-button if it's still used elsewhere */
+#read-more-content.open { /* This might be for a different read more section */
+  max-height: 1000px;
+  opacity: 1;
+}
+
 
 .icon-hover-scale {
   transition: transform 0.3s ease-in-out;
