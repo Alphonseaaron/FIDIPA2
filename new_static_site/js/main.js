@@ -438,25 +438,21 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --- Team Section Carousel Logic ---
-  const staffMembersData = [
-    { id: "1", name: "Ms Jayne A. I. Wasonga", role: "Board Secretary and Chief Executive Officer" },
-    { id: "2", name: "Ms Jesca Mitaya", role: "Finance and Administration FAM Manager" },
-    { id: "3", name: "Ms Linda Otieno", role: "Project Lead (Volunteer)" },
-    { id: "4", name: "Rev. Walter Ang'ienda", role: "Program Officer Peace Project (Volunteer)" },
-    { id: "5", name: "Phillip Noel", role: "Volunteer, Soft Skills (Water and Sanitation)" },
-    { id: "6", name: "Jackson Lesian", role: "Office Assistant/Driver" },
-    { id: "7", name: "Jamima Mtuli", role: "Administer/Programs Assistant" }
+  const boardOfDirectorsData = [
+    { name: "Mrs Rosemary N. Meyo", role: "Vice Chairperson - Administration and governance Expert - MBA 2010 – Maseno University" },
+    { name: "Dr. Josephine Munthali", role: "Vice Chairperson - Gender and Education Expert - University of Edinburgh UK (2001)" },
+    { name: "Ms Jayne A. I. Wasonga", role: "Secretary and CEO - Gender and Project Management Specialist - Catholic University of Eastern Africa 2016" },
+    { name: "Sr. Mildred Mayeye", role: "Treasurer – Lwak Mission" },
+    { name: "Dr. Rev. Simon Oriedo", role: "Committee Member - Theology and Development Expert - Africa International University" },
+    { name: "Mr. Samwel O. Onyango", role: "Committee Member - Business Management Specialist - The University of Nairobi 2017" }
   ];
 
-  const boardMembersData = [
-    { id: "1", name: "Mrs Rosemary Meyo", role: "Chairperson - Governance and Administration Expert" },
-    { id: "2", name: "Dr. Josephine Munthali", role: "Vice Chairperson - Gender and Education Expert" },
-    { id: "3", name: "Ms Jayne A. Wasonga", role: "Chief Executive Officer and Board Secretary" },
-    { id: "4", name: "Sr. Mildred Mayeye", role: "Treasurer" },
-    { id: "5", name: "Dr. Rev. Simon Oriedo", role: "Committee Member" },
-    { id: "6", name: "Mr. Samwel Otieno", role: "Committee Member" },
-    { id: "7", name: "Prof. Esther Mombo", role: "Committee Member" },
-    { id: "8", name: "Ms Leah O. Wanaswa", role: "Committee Member" }
+  const managementCommitteeData = [
+    { name: "Prof. Esther Mombo", role: "Theology and Gender Expert – University of Wales" },
+    { name: "Ms. Grace Ananda", role: "Policy and Governance Expert – University of Nairobi" },
+    { name: "Ms. Christine Sanguli", role: "Gender Expert – Masinde Muliro University" },
+    { name: "Jayne A. I. Wasonga", role: "Gender, Project Management Expert" },
+    { name: "Juliet Dima", role: "Legal Expert - University of Nairobi" }
   ];
 
   function setupTeamCarousel(carouselId, membersData) {
@@ -565,51 +561,74 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Initialize carousels
-  setupTeamCarousel('staff-carousel', staffMembersData);
-  setupTeamCarousel('board-carousel', boardMembersData);
+  setupTeamCarousel('board-carousel', boardOfDirectorsData); // Changed 'staff-carousel' to 'board-carousel' and used new data
+  setupTeamCarousel('management-committee-carousel', managementCommitteeData); // Added new carousel for management committee
 
   // --- Programs Page Logic ---
   const programsData = [
-    // Sample data structure, more items would come from a full data source
     {
       id: "1",
-      slug: "agriculture-it",
-      title: "Agriculture and Information Technology",
-      description: "Empowering local farmers with modern agricultural techniques and digital literacy to enhance productivity and market access. This program focuses on sustainable farming, use of technology for market information, and financial literacy for agribusiness.",
-      images: ['assets/random_image_31.jpg', 'assets/random_image_32.jpg', 'assets/random_image_33.jpg'],
-      content: "• Training on climate-resilient crops • Workshops on mobile banking and market apps • Support for forming farmer cooperatives • Introduction to small-scale irrigation techniques"
+      slug: "women-land-rights-food-security",
+      title: "Women Land Rights and food security",
+      description: "FIDIPA advocates for women's land rights and food security. The project believes that the Rights-holders become champions: rather than beneficiaries who are dependent on aid, the target group becomes champions, influencing peers and others to change for their improved livelihood.",
+      images: ['assets/random_image_1.jpg', 'assets/random_image_2.jpg'], // Placeholder images, update as needed
+      content: "" // No specific bullet points provided for this one
     },
     {
       id: "2",
-      slug: "girls-education-mentorship",
-      title: "Girls Education and Mentorship Project",
-      description: "Providing educational support, scholarships, and mentorship to young girls in underserved communities to foster leadership, academic excellence, and personal development. We aim to break barriers to girls' education.",
-      images: ['assets/random_image_34.jpg', 'assets/random_image_35.jpg', 'assets/random_image_36.jpg'],
-      content: "• Scholarship programs for secondary and tertiary education • Mentorship pairings with professional women • Life skills workshops (hygiene, confidence, rights) • STEM career awareness campaigns"
+      slug: "women-leadership-socio-economic",
+      title: "Women Leadership and Socio-economic Project",
+      description: "Historically, cultural and institutional structures have created gender relationships that have led to the subordination of women in various social spheres, leading to gender inequalities and leadership underrepresentation. FIDIPA train both women and girls on soft skills, leadership, entrepreneurship and group dynamics with emphasis on empowerment arise and shine.",
+      images: ['assets/random_image_3.jpg', 'assets/random_image_4.jpg'], // Placeholder images
+      content: ""
     },
     {
       id: "3",
-      slug: "env-food-security",
-      title: "Environment, Food Security, Resilience and Livelihood Program",
-      description: "Promoting sustainable environmental practices and ensuring food security for vulnerable communities through resilient livelihood programs. This includes agroforestry, water conservation, and income-generating activities.",
-      images: ['assets/random_image_37.jpg', 'assets/random_image_38.jpg'],
-      content: "• Tree planting and soil conservation initiatives • Training on kitchen gardening and nutrition • Support for alternative income sources (e.g., beekeeping, poultry) • Water harvesting and management education"
+      slug: "climate-justice-resilience",
+      title: "Climate Justice - Resilience Environment and Livelihood Project",
+      description: "FIDIPA recognizes that environmental degradation and climate change are serious global problems. The organization is committed to minimizing her impact on the environment and climate. To meet this goal FIDIPA aims to reduce her carbon footprint as well as minimize actions that can contribute to environmental degradation. FIDIPA is working with farmer community-based organizations and stakeholders to drive towards the desired change. The project seeks to achieve the following four outcomes:",
+      images: ['assets/random_image_5.jpg', 'assets/random_image_6.jpg'], // Placeholder images
+      content: "• Outcome 1: Individuals practicing sustainable land management practices. • Outcome 2: Households with stable sources of income. • Outcome 3: CSOs influencing stakeholders on sustainable use of natural resource in the target area. • Outcome 4: Institutions have adopted strategies for sustainable use of natural resource"
     },
     {
       id: "4",
-      slug: "women-land-property-rights",
-      title: "Women Land and Property Rights",
-      description: "Advocating for and supporting women's rights to land and property through legal aid, awareness campaigns, and policy engagement. Empowering women economically and socially by securing their property rights.",
-      images: ['assets/random_image_39.jpg', 'assets/random_image_40.jpg'],
-      content: "• Legal clinics and paralegal training • Community dialogues on gender and land • Advocacy for policy reforms • Support for women's groups in land claims"
+      slug: "widows-disability-agribusiness",
+      title: "Widows and women with disability agribusiness project",
+      description: "FIDIPA has remained sensitive to the needs of the vulnerable and marginalized women in and out of prison to restore their sense of pride and hope, giving them the confidence to take responsibility for those who are suffering. FIDIPA help them sale some of their products. The women are involved in small scale farming for their food and surplus for income.",
+      images: ['assets/random_image_7.jpg', 'assets/random_image_8.jpg'], // Placeholder images
+      content: ""
     },
-     {
+    {
       id: "5",
-      slug: "soft-skills-leadership",
-      title: "Soft Skills Training and Leadership training",
-      description: "Equipping youth and community leaders with essential soft skills such as communication, problem-solving, teamwork, and leadership qualities to foster personal and community development.",
-      images: ['assets/random_image_41.jpg', 'assets/random_image_42.jpg'],
-      content: "• Workshops on public speaking and presentation • Conflict resolution and negotiation training • Team building and collaborative project exercises • Ethical leadership and decision-making modules"
+      slug: "women-prison-project",
+      title: "Women prison project",
+      description: "The women in and out of prison are targeted because other than the reason for their conviction they have also experienced harassment, oppression, stigma, and discrimination among others that need socio-economic empowerment.",
+      images: ['assets/random_image_9.jpg', 'assets/random_image_10.jpg'], // Placeholder images
+      content: ""
+    },
+    {
+      id: "6",
+      slug: "grandmothers-ovc-project",
+      title: "Grandmothers and Orphans/Vulnerable Children Project",
+      description: "The project support the granny’s taking care of the orphans and vulnerable children (OVC) improve food security, nutrition and health, and livelihood.",
+      images: ['assets/random_image_11.jpg', 'assets/random_image_12.jpg'], // Placeholder images
+      content: ""
+    },
+    {
+      id: "7",
+      slug: "youth-engagement",
+      title: "Youth Engagement",
+      description: "The youth soft skills and advocacy project envisions recognized, respected, engaged youth able to redefine their identities and working to improve their socio-economic situations through inclusion in development processes business start-up skills, developing an entrepreneurial mindset, creative thinking, visionary leadership, resourcefulness, and resource mobilization in Kenya. FIDIPA FIDIPA work in Kisumu and Kwale Counties.",
+      images: ['assets/random_image_13.jpg', 'assets/random_image_14.jpg'], // Placeholder images
+      content: ""
+    },
+    {
+      id: "8",
+      slug: "school-mentorship-program",
+      title: "School mentorship program",
+      description: "The program seeks to empower both boys and girls from rural primary schools in Kenya with soft skills and career development. Mainly the project seeks to reduce the high rate of teenage pregnancy and school dropout and improve girls’ education standard in marginalized communities.",
+      images: ['assets/random_image_15.jpg', 'assets/random_image_16.jpg'], // Placeholder images
+      content: ""
     }
   ];
 
