@@ -305,22 +305,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
         card.className = cardClasses;
 
-        const imageSizeClass = "w-24 h-24"; // Consistent 96x96px size
+        const imageContainerSizeClass = "w-24 h-24"; // Consistent 96x96px size for the container
         const nameTextClass = screenWidth < 768 ? 'text-base md:text-lg' : 'text-lg lg:text-xl'; // Mobile: 16px, Desktop: 18-20px
         const roleTextClass = screenWidth < 768 ? 'text-xs md:text-sm' : 'text-sm lg:text-base'; // Mobile: 12-13px, Desktop: 14-16px
 
-        const placeholderImageSrc = "assets/default-avatar.svg"; // Use the newly created SVG placeholder
+        const placeholderImageSrc = "assets/default-avatar.svg";
 
         let imageContent;
+        // Added class `team-member-photo` to the img tag itself
         if (member.photoUrl && member.photoUrl.trim() !== "") {
-          // Check if photoUrl is not undefined, null, or an empty string
-          imageContent = `<img src="${member.photoUrl}" alt="${member.name}" class="w-full h-full object-cover">`;
+          imageContent = `<img src="${member.photoUrl}" alt="${member.name}" class="team-member-photo w-full h-full object-cover">`;
         } else {
-          imageContent = `<img src="${placeholderImageSrc}" alt="Default avatar for ${member.name}" class="w-full h-full object-cover">`;
+          imageContent = `<img src="${placeholderImageSrc}" alt="Default avatar for ${member.name}" class="team-member-photo w-full h-full object-cover">`;
         }
 
+        // Added class `team-member-photo-container` to the div wrapping the image
         card.innerHTML = `
-          <div class="${imageSizeClass} mx-auto mb-2 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center border dark:border-gray-700 shrink-0">
+          <div class="team-member-photo-container ${imageContainerSizeClass} mx-auto mb-2 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center border dark:border-gray-700 shrink-0">
             ${imageContent}
           </div>
           <div class="flex-1 flex flex-col items-center justify-center w-full">
