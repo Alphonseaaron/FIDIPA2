@@ -1923,6 +1923,8 @@ html.dark .moon-icon {
   transform: scale(1.1); /* Initial state for Ken Burns */
   transition: transform 7s ease-out; /* Ken Burns duration for active slide */
   will-change: transform;
+  position: relative; /* Ensure it establishes a stacking context if needed */
+  z-index: 1;        /* Base layer for slide content */
 }
 
 .css-slide-overlay {
@@ -1930,7 +1932,7 @@ html.dark .moon-icon {
   inset: 0;
   /* Gradient from original JS slideshow */
   background-image: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
-  z-index: 1;
+  z-index: 2; /* Overlay on top of image */
 }
 
 .css-slide-text-content {
@@ -1938,7 +1940,7 @@ html.dark .moon-icon {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2; /* Above overlay */
+  z-index: 3; /* Text on top of overlay */
   text-align: center;
   width: 90%; /* Max width for text block */
   max-width: 56rem; /* max-w-4xl */
