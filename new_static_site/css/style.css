@@ -1344,15 +1344,18 @@ html.dark .moon-icon {
 /* About Section Styles */
 /* General collapsible content styling */
 .collapsible-content {
-  max-height: 5em; /* Adjust to show a few lines initially, e.g., 3-4 lines of text */
+  max-height: 0; /* Changed from 5em - content starts fully collapsed */
   overflow: hidden;
-  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
-  opacity: 0.7; /* Slightly faded when collapsed */
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, visibility 0s linear 0.5s; /* Delay visibility transition for closing */
+  opacity: 0;    /* Changed from 0.7 - content starts fully transparent */
+  visibility: hidden; /* Start hidden to prevent interaction and layout space */
 }
 
 .collapsible-content.open {
-  max-height: 1000px; /* Large enough for any content */
+  max-height: 1000px; /* Large enough for typical content, adjust if needed */
   opacity: 1;
+  visibility: visible;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, visibility 0s linear 0s; /* Visibility changes immediately on open */
 }
 
 /* Specific to the old read-more-button if it's still used elsewhere */
@@ -1884,6 +1887,146 @@ html.dark .moon-icon {
 
 .group:hover .dark\:group-hover\:opacity-20:is(.dark *) {
   opacity: 0.2;
+}
+
+/* CSS-only Slideshow Styles */
+.css-slideshow-container {
+  height: 100vh; /* Full viewport height */
+}
+
+.css-slide-input {
+  display: none; /* Hide the actual radio buttons */
+}
+
+.slides-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.css-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  visibility: hidden; /* To prevent interaction with hidden slides */
+  will-change: opacity;
+}
+.css-slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures image covers the slide, might crop */
+  transform: scale(1.1); /* Initial state for Ken Burns */
+  transition: transform 7s ease-out; /* Ken Burns duration for active slide */
+  will-change: transform;
+}
+
+.css-slide-overlay {
+  position: absolute;
+  inset: 0;
+  /* Gradient from original JS slideshow */
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
+  z-index: 1;
+}
+
+.css-slide-text-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2; /* Above overlay */
+  text-align: center;
+  width: 90%; /* Max width for text block */
+  max-width: 56rem; /* max-w-4xl */
+  padding: 1rem; /* px-4 */
+}
+
+.css-slide-text-content h1,
+.css-slide-text-content p {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out 0.3s, transform 0.8s ease-out 0.3s; /* Delay text animation slightly after slide fades in */
+  will-change: opacity, transform;
+}
+
+/* Show active slide and animate its content */
+#slide-radio-1:checked ~ .slides-wrapper .css-slide[data-slide-index="1"],
+#slide-radio-2:checked ~ .slides-wrapper .css-slide[data-slide-index="2"],
+#slide-radio-3:checked ~ .slides-wrapper .css-slide[data-slide-index="3"],
+#slide-radio-4:checked ~ .slides-wrapper .css-slide[data-slide-index="4"],
+#slide-radio-5:checked ~ .slides-wrapper .css-slide[data-slide-index="5"] {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1; /* Active slide on top */
+}
+
+#slide-radio-1:checked ~ .slides-wrapper .css-slide[data-slide-index="1"] .css-slide-image,
+#slide-radio-2:checked ~ .slides-wrapper .css-slide[data-slide-index="2"] .css-slide-image,
+#slide-radio-3:checked ~ .slides-wrapper .css-slide[data-slide-index="3"] .css-slide-image,
+#slide-radio-4:checked ~ .slides-wrapper .css-slide[data-slide-index="4"] .css-slide-image,
+#slide-radio-5:checked ~ .slides-wrapper .css-slide[data-slide-index="5"] .css-slide-image {
+  transform: scale(1); /* Ken Burns effect: zoom out to normal scale */
+}
+
+#slide-radio-1:checked ~ .slides-wrapper .css-slide[data-slide-index="1"] .css-slide-text-content h1,
+#slide-radio-1:checked ~ .slides-wrapper .css-slide[data-slide-index="1"] .css-slide-text-content p,
+#slide-radio-2:checked ~ .slides-wrapper .css-slide[data-slide-index="2"] .css-slide-text-content h1,
+#slide-radio-2:checked ~ .slides-wrapper .css-slide[data-slide-index="2"] .css-slide-text-content p,
+#slide-radio-3:checked ~ .slides-wrapper .css-slide[data-slide-index="3"] .css-slide-text-content h1,
+#slide-radio-3:checked ~ .slides-wrapper .css-slide[data-slide-index="3"] .css-slide-text-content p,
+#slide-radio-4:checked ~ .slides-wrapper .css-slide[data-slide-index="4"] .css-slide-text-content h1,
+#slide-radio-4:checked ~ .slides-wrapper .css-slide[data-slide-index="4"] .css-slide-text-content p,
+#slide-radio-5:checked ~ .slides-wrapper .css-slide[data-slide-index="5"] .css-slide-text-content h1,
+#slide-radio-5:checked ~ .slides-wrapper .css-slide[data-slide-index="5"] .css-slide-text-content p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#slide-radio-1:checked ~ .slides-wrapper .css-slide[data-slide-index="1"] .css-slide-text-content p,
+#slide-radio-2:checked ~ .slides-wrapper .css-slide[data-slide-index="2"] .css-slide-text-content p,
+#slide-radio-3:checked ~ .slides-wrapper .css-slide[data-slide-index="3"] .css-slide-text-content p,
+#slide-radio-4:checked ~ .slides-wrapper .css-slide[data-slide-index="4"] .css-slide-text-content p,
+#slide-radio-5:checked ~ .slides-wrapper .css-slide[data-slide-index="5"] .css-slide-text-content p {
+  transition-delay: 0.5s; /* Stagger subtext animation */
+}
+
+
+/* Slide Dots Navigation */
+.css-slide-dots {
+  position: absolute;
+  bottom: 8rem; /* bottom-32 */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem; /* space-x-2 */
+  z-index: 3; /* Above slides */
+}
+
+.css-dot {
+  width: 0.75rem; /* A bit larger than original for easier clicking */
+  height: 0.75rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5); /* bg-white/50 */
+  cursor: pointer;
+  transition: background-color 0.3s ease, width 0.3s ease; /* Added width transition */
+}
+
+.css-dot:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Active dot style */
+#slide-radio-1:checked ~ .css-slide-dots .css-dot[data-dot-index="1"],
+#slide-radio-2:checked ~ .css-slide-dots .css-dot[data-dot-index="2"],
+#slide-radio-3:checked ~ .css-slide-dots .css-dot[data-dot-index="3"],
+#slide-radio-4:checked ~ .css-slide-dots .css-dot[data-dot-index="4"],
+#slide-radio-5:checked ~ .css-slide-dots .css-dot[data-dot-index="5"] {
+  background-color: #10b981; /* text-primary (assuming it's the desired active color) */
+  width: 2rem; /* w-8, elongated active dot */
 }
 
 @media (min-width: 640px) {
