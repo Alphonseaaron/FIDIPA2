@@ -1895,49 +1895,6 @@ html.dark .moon-icon {
   opacity: 0.2;
 }
 
-/* Simplified Header Styles */
-#simplified-header-container {
-  /* General fixed properties are already applied by classes:
-     fixed w-full z-50 bg-white/95 dark:bg-dark/95 backdrop-blur-sm shadow-md
-     h-16 is applied by the inner div's flex properties ensuring height.
-  */
-}
-
-#simplified-header-title {
-  /* Text color and font handled by classes:
-     text-xl font-semibold text-dark dark:text-white
-     Adjust margin if needed, but flex justify-between should handle spacing.
-     Consider text overflow for very long titles on small screens.
-  */
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  margin: 0 1rem; /* Add some horizontal margin */
-}
-
-.fidipa-logo-simplified {
-  /* Styling is mostly via classes. This is a placeholder if specific style is needed. */
-  /* Ensure it's visually distinct if necessary from main logo, though classes are similar */
-}
-
-/* Padding for body when simplified header is used */
-.body-simplified-header-padding {
-  padding-top: 4rem; /* h-16, matches header height */
-}
-
-/* Ensure theme toggle icons in simplified header behave like the main ones */
-#theme-toggle-simplified .moon-icon {
-  display: none;
-}
-
-html.dark #theme-toggle-simplified .sun-icon {
-  display: none;
-}
-
-html.dark #theme-toggle-simplified .moon-icon {
-  display: inline-block; /* Or block if needed */
-}
-
 /* CSS-only Slideshow Styles */
 .css-slideshow-container {
   height: 100vh; /* Full viewport height */
