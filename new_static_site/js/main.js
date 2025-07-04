@@ -156,178 +156,19 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', updateActiveLink);
   updateActiveLink(); // Initial check on load
 
-
-  // --- Hero Slideshow ---
-  const heroSlidesData = [
-    {
-      text: "Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)",
-      subtext: "A holistic peaceful and democratic society with justice for all",
-      image: 'assets/Team picture.jpg' // High-resolution, general image
-    },
-    {
-      text: "Empowering Communities Since 2007",
-      subtext: "Registered under the NGO Act of Kenya as a National NGO",
-      image: 'assets/Enterpreneuship training sessions.jpg'
-    },
-    {
-      text: "Fostering Unity and Effective Participation",
-      subtext: "Working with urban and rural communities for sustainable development",
-      image: 'assets/Au Zambia presentation.jpg'
-    },
-    {
-      text: "Human Rights Based Approach",
-      subtext: "Empowering women and girls to claim their rights",
-      image: 'assets/Women Land Rights and food security 1.jpg'
-    },
-    {
-      text: "Supporting Education and Livelihoods",
-      subtext: "Building better futures for our communities",
-      image: 'assets/School children with new desks.jpg'
-    }
-  ];
-
-  const slidesContainer = document.getElementById('hero-slides-container');
-  const textContainer = document.getElementById('hero-text-container');
-  const dotsContainer = document.getElementById('hero-dots-container');
-  const scrollDownChevron = document.getElementById('scroll-down-chevron');
-  // console.log('[FIDIPA Slideshow] DOM Elements Check:', { // Reduced console logging
-  //     slidesContainerExists: !!slidesContainer,
-  //     textContainerExists: !!textContainer,
-  //     dotsContainerExists: !!dotsContainer
-  // });
-
-  let currentSlideIndex = 0;
-  let slideTextTimer; // Removed imageTimer and currentImageSubIndex
-
-  function createSlides() {
-    // console.log('[FIDIPA Slideshow] createSlides function called.');
-    if (!slidesContainer || !textContainer || !dotsContainer) {
-        console.error('[FIDIPA Slideshow] ERROR: One or more main containers not found. Cannot create slides.');
-        return;
-    }
-
-    slidesContainer.innerHTML = '';
-    textContainer.innerHTML = '';
-    dotsContainer.innerHTML = '';
-    // console.log('[FIDIPA Slideshow] Cleared old slide/text/dot content.');
-
-    heroSlidesData.forEach((slideData, index) => {
-      // Create image slide elements
-      const imageSlideDiv = document.createElement('div');
-      imageSlideDiv.className = 'hero-slide-image';
-      imageSlideDiv.dataset.slideIndex = index;
-      const img = document.createElement('img');
-      img.src = slideData.image; // Use single image property
-      img.alt = slideData.text;
-      imageSlideDiv.appendChild(img);
-      // Add overlay
-      const overlayDiv = document.createElement('div');
-      overlayDiv.className = 'absolute inset-0 bg-gradient-to-b from-black/70 to-black/40';
-      imageSlideDiv.appendChild(overlayDiv);
-      slidesContainer.appendChild(imageSlideDiv);
-
-      // Create text slide elements
-      const textSlideDiv = document.createElement('div');
-      textSlideDiv.className = 'hero-slide-text'; // Initially opacity 0, transformY 20
-      textSlideDiv.dataset.slideIndex = index;
-      textSlideDiv.innerHTML = `
-        <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight">${slideData.text}</h1>
-        <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">${slideData.subtext}</p>
-      `;
-      textContainer.appendChild(textSlideDiv);
-
-      // Create dot indicators
-      const dotButton = document.createElement('button');
-      dotButton.className = 'hero-dot';
-      dotButton.dataset.slideTo = index;
-      dotButton.setAttribute('aria-label', `Go to slide ${index + 1}`);
-      dotButton.addEventListener('click', () => {
-        goToSlide(index);
-        resetTimers();
-      });
-      dotsContainer.appendChild(dotButton);
-    });
-    console.log(`[FIDIPA Slideshow] Finished creating ${heroSlidesData.length} slides, texts, and dots.`);
-  }
-
-  function updateSlideAppearance(newIndex) {
-    // console.log(`[FIDIPA Slideshow] updateSlideAppearance called for index: ${newIndex}`);
-
-    if (!slidesContainer || !textContainer || !dotsContainer) {
-        console.error('[FIDIPA Slideshow] ERROR in updateSlideAppearance: Main containers not found.');
-        return;
-    }
-
-    const imageSlides = slidesContainer.querySelectorAll('.hero-slide-image');
-    const textSlides = textContainer.querySelectorAll('.hero-slide-text');
-    const dots = dotsContainer.querySelectorAll('.hero-dot');
-
-    imageSlides.forEach((div, i) => {
-      div.classList.toggle('active', i === newIndex);
-      // Image src is now set during createSlides and doesn't change per text slide independently
-    });
-
-    textSlides.forEach((div, i) => {
-      div.classList.toggle('active', i === newIndex);
-    });
-
-    dots.forEach((button, i) => {
-      button.classList.toggle('active', i === newIndex);
-    });
-    // console.log(`[FIDIPA Slideshow] Finished updating appearance for index: ${newIndex}.`);
-  }
-
-  // updateImageOnly function is removed as it's no longer needed.
-
-  function goToSlide(index) {
-    // console.log(`[FIDIPA Slideshow] goToSlide called for index: ${index}`);
-    currentSlideIndex = index;
-    updateSlideAppearance(currentSlideIndex);
-    // Reset timer when explicitly navigating or when a dot is clicked (handled in createSlides)
-    resetSlideTimer();
-  }
-
-  function nextSlide() {
-    const newIndex = (currentSlideIndex + 1) % heroSlidesData.length;
-    // console.log(`[FIDIPA Slideshow] nextSlide progressing to: ${newIndex}`);
-    currentSlideIndex = newIndex; // Update currentSlideIndex here
-    updateSlideAppearance(currentSlideIndex);
-  }
-
-  function startSlideTimer() {
-    // console.log('[FIDIPA Slideshow] startSlideTimer called.');
-    clearInterval(slideTextTimer); // Clear existing timer before starting a new one
-    slideTextTimer = setInterval(nextSlide, 5000); // Only one timer for text and its corresponding image
-    // console.log('[FIDIPA Slideshow] slideTextTimer started.');
-  }
-
-  function resetSlideTimer() {
-    // console.log('[FIDIPA Slideshow] resetSlideTimer called.');
-    startSlideTimer();
-  }
-
-  if (slidesContainer && textContainer && dotsContainer) {
-    // console.log('[FIDIPA Slideshow] Initializing slideshow...');
-    try {
-        createSlides(); // This also attaches dot click listeners which call resetSlideTimer
-        updateSlideAppearance(currentSlideIndex); // Show the first slide
-        startSlideTimer(); // Start the main timer
-        // console.log('[FIDIPA Slideshow] Slideshow initialized successfully.');
-    } catch (error) {
-        console.error('[FIDIPA Slideshow] ERROR during slideshow initialization:', error);
-    }
-  } else {
-    console.error('[FIDIPA Slideshow] Slideshow NOT initialized because one or more main containers are missing from the DOM on load.');
-  }
-
   // Scroll down chevron smooth scroll (already partially handled by general nav link handler, but specific target)
+  // Note: The old JS slideshow logic has been removed. The new slideshow is CSS-only.
+  const scrollDownChevron = document.getElementById('scroll-down-chevron');
   if (scrollDownChevron) {
     scrollDownChevron.addEventListener('click', function(e) {
       e.preventDefault();
       const targetElement = document.getElementById('about');
       if (targetElement) {
+        // Recalculate navbarHeight here or ensure it's available in this scope
+        // For simplicity, assuming navbarHeight is still accessible or re-fetched if needed.
+        // If not, it would be: const navbarHeight = document.getElementById('navbar-container')?.offsetHeight || 64;
         const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-        const offsetPosition = elementPosition - navbarHeight; // navbarHeight from nav.js
+        const offsetPosition = elementPosition - navbarHeight;
 
         window.scrollTo({
           top: offsetPosition,
@@ -386,18 +227,18 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: "Mrs Rosemary N. Meyo", role: "Chairperson - Administration and governance Expert - MBA 2010 – Maseno University", photoUrl: "assets/Mrs. Rosemary N. Meyo - Chairperson.jpg" },
     { name: "Dr. Josephine Munthali", role: "Vice Chairperson - Gender and Education Expert - University of Edinburgh UK (2001)", photoUrl: "assets/Dr. Josephine Munthali - Vice Chairperson.png" },
     { name: "Ms Jayne A. I. Wasonga", role: "Secretary and CEO - Gender and Project Management Specialist - Catholic University of Eastern Africa 2016", photoUrl: "assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg" },
-    { name: "Sr. Mildred Mayeye", role: "Treasurer – Lwak Mission", photoUrl: "assets/user-placeholder.png" }, // Placeholder if specific image not found
+    { name: "Sr. Mildred Mayeye", role: "Treasurer – Lwak Mission" }, // Placeholder if specific image not found
     { name: "Dr. Rev. Simon Oriedo", role: "Committee Member - Theology and Development Expert - Africa International University", photoUrl: "assets/Dr. Rev. Simon Oriedo - Committee Member.png" },
     { name: "Mr. Samwel O. Onyango", role: "Committee Member - Business Management Specialist - The University of Nairobi 2017", photoUrl: "assets/Mr. Samwel O. Onyango - Committee Member.png" }
   ];
 
   const managementCommitteeData = [
-    { name: "Prof. Esther Mombo", role: "Theology and Gender Expert – University of Wales", photoUrl: "assets/user-placeholder.png" }, // Placeholder
-    { name: "Ms. Grace Ananda", role: "Policy and Governance Expert – University of Nairobi", photoUrl: "assets/user-placeholder.png" }, // Placeholder
-    { name: "Ms. Christine Sanguli", role: "Gender Expert – Masinde Muliro University", photoUrl: "assets/user-placeholder.png" }, // Placeholder
+    { name: "Prof. Esther Mombo", role: "Theology and Gender Expert – University of Wales" }, // Placeholder
+    { name: "Ms. Grace Ananda", role: "Policy and Governance Expert – University of Nairobi" }, // Placeholder
+    { name: "Ms. Christine Sanguli", role: "Gender Expert – Masinde Muliro University" }, // Placeholder
     // Assuming "Jayne A. I. Wasonga" in management is the same as CEO, using her photo. If different, needs a new photo.
     { name: "Jayne A. I. Wasonga", role: "Gender, Project Management Expert", photoUrl: "assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg" },
-    { name: "Juliet Dima", role: "Legal Expert - University of Nairobi", photoUrl: "assets/user-placeholder.png" } // Placeholder
+    { name: "Juliet Dima", role: "Legal Expert - University of Nairobi" } // Placeholder
   ];
 
   function setupTeamCarousel(carouselId, membersData) {
@@ -434,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
       track.innerHTML = ''; // Clear existing cards
       membersData.forEach(member => {
         const card = document.createElement('div');
-        card.className = 'team-member-card bg-white dark:bg-dark-lighter rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 dark:border-gray-700 flex flex-col h-full items-center text-center';
+        card.className = 'team-member-card bg-white dark:bg-dark-lighter rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 dark:border-gray-700 flex flex-col h-80 items-center text-center';
         // card.style.width = `${cardWidth}px`; // Ensure fixed width
         card.style.marginRight = `${cardGap}px`; // Apply gap
 
@@ -515,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "women-land-rights-food-security",
       title: "Women Land Rights and food security",
       description: "FIDIPA advocates for women's land rights and food security. The project believes that the Rights-holders become champions: rather than beneficiaries who are dependent on aid, the target group becomes champions, influencing peers and others to change for their improved livelihood.",
-      images: ['assets/Women Land Rights and food security 1.jpg', 'assets/Paralegals follow-up on women land rights.jpg', 'assets/Women champions of land rights.jpg'],
+      images: ['assets/Women Land Rights and food security 1.jpg', 'assets/Paralegals follow-up on women land rights.jpg', 'assets/Women Champions of land rights.jpg'],
       content: "" // No specific bullet points provided for this one
     },
     {

@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <!-- Assuming vite.svg would be copied to new_static_site/vite.svg or new_static_site/images/vite.svg -->
-    <link rel="icon" type="image/svg+xml" href="vite.svg" />
   </head>
   <body class="bg-white dark:bg-dark text-dark dark:text-white antialiased">
     <div id="app-container" class="min-h-screen flex flex-col">
@@ -66,19 +65,68 @@
       </header>
 
       <main class="flex-1 pt-16"> <!-- pt-16 for fixed navbar -->
-        <section id="home" class="min-h-screen relative overflow-hidden">
-          <div class="relative h-screen" id="hero-slides-container">
-            <!-- Slides will be injected here by JS -->
+        <section id="home" class="css-slideshow-container min-h-screen relative overflow-hidden">
+          <!-- Hidden radio buttons for slide control -->
+          <input type="radio" name="css-slide" id="slide-radio-1" class="css-slide-input" checked>
+          <input type="radio" name="css-slide" id="slide-radio-2" class="css-slide-input">
+          <input type="radio" name="css-slide" id="slide-radio-3" class="css-slide-input">
+          <input type="radio" name="css-slide" id="slide-radio-4" class="css-slide-input">
+          <input type="radio" name="css-slide" id="slide-radio-5" class="css-slide-input">
+
+          <div class="slides-wrapper">
+            <!-- Slide 1 -->
+            <div class="css-slide" data-slide-index="1">
+              <img src="assets/Team picture.jpg" alt="FIDIPA Team" class="css-slide-image">
+              <div class="css-slide-overlay"></div>
+              <div class="css-slide-text-content">
+                <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight">Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)</h1>
+                <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">A holistic peaceful and democratic society with justice for all</p>
+              </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="css-slide" data-slide-index="2">
+              <img src="assets/Enterpreneuship training sessions.jpg" alt="Empowering Communities Since 2007" class="css-slide-image">
+              <div class="css-slide-overlay"></div>
+              <div class="css-slide-text-content">
+                <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight">Empowering Communities Since 2007</h1>
+                <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">Registered under the NGO Act of Kenya as a National NGO</p>
+              </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="css-slide" data-slide-index="3">
+              <img src="assets/Au Zambia presentation.jpg" alt="Fostering Unity and Effective Participation" class="css-slide-image">
+              <div class="css-slide-overlay"></div>
+              <div class="css-slide-text-content">
+                <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight">Fostering Unity and Effective Participation</h1>
+                <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">Working with urban and rural communities for sustainable development</p>
+              </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="css-slide" data-slide-index="4">
+              <img src="assets/Women Land Rights and food security 1.jpg" alt="Human Rights Based Approach" class="css-slide-image">
+              <div class="css-slide-overlay"></div>
+              <div class="css-slide-text-content">
+                <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight">Human Rights Based Approach</h1>
+                <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">Empowering women and girls to claim their rights</p>
+              </div>
+            </div>
+            <!-- Slide 5 -->
+            <div class="css-slide" data-slide-index="5">
+              <img src="assets/School children with new desks.jpg" alt="Supporting Education and Livelihoods" class="css-slide-image">
+              <div class="css-slide-overlay"></div>
+              <div class="css-slide-text-content">
+                <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight">Supporting Education and Livelihoods</h1>
+                <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">Building better futures for our communities</p>
+              </div>
+            </div>
           </div>
 
-          <div class="relative z-10 h-full flex flex-col justify-center items-center">
-            <div class="max-w-4xl mx-auto px-4 text-center" id="hero-text-container">
-              <!-- Text content for slides will be injected here by JS -->
-            </div>
-
-            <div class="absolute bottom-32 flex justify-center space-x-2" id="hero-dots-container">
-              <!-- Slide indicator dots will be injected here by JS -->
-            </div>
+          <div class="css-slide-dots">
+            <label for="slide-radio-1" class="css-dot" data-dot-index="1"></label>
+            <label for="slide-radio-2" class="css-dot" data-dot-index="2"></label>
+            <label for="slide-radio-3" class="css-dot" data-dot-index="3"></label>
+            <label for="slide-radio-4" class="css-dot" data-dot-index="4"></label>
+            <label for="slide-radio-5" class="css-dot" data-dot-index="5"></label>
           </div>
 
           <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
@@ -102,11 +150,13 @@
                       FIDIPA evolves around ways of linking rights awareness with poverty alleviation. FIDIPA has a vast experience in capacity building and community empowerment since 2007. FIDIPA has highly qualified advisory board members responsible for the formulation and review of policy frameworks executed by the management committee. The management structure ensures that the project is implemented by the desired standards established by the respective funding partner and organization policies. FIDIPA has a well-established network of more than 200 community paralegals working as volunteers, responsible for educating their respective community members and linking rights with development initiatives. Financially the organization has a transparent, accountable, and user-friendly human resource administration and financial manual in place. The books of accounts are annually audited by a reputable audit firm and submitted to the government relevant authorities.
                     </p>
                   </div>
-                  <button id="capacity-read-more-button" class="text-primary hover:text-primary/80 transition-colors mt-2 inline-flex items-center">
-                    <span>Read More</span>
-                    <svg class="chevron-down w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    <svg class="chevron-up w-4 h-4 ml-1 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
-                  </button>
+                  <div class="flex justify-center mt-4">
+                    <button id="capacity-read-more-button" class="text-primary hover:text-primary/80 transition-colors inline-flex items-center">
+                      <span>Read More</span>
+                      <svg class="chevron-down w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                      <svg class="chevron-up w-4 h-4 ml-1 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
