@@ -1447,6 +1447,12 @@ html.dark .moon-icon {
 }
 
 /* Team Section Carousel Styles */
+/* Ensure team member photos are consistently sized */
+.team-member-photo-container .team-member-photo {
+  width: 6rem; /* Corresponds to w-24 */
+  height: 6rem; /* Corresponds to h-24 */
+  object-fit: cover;
+}
 
 .team-carousel .carousel-viewport {
   /* Max width is set inline for responsiveness based on card count */
