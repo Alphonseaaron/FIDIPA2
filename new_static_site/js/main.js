@@ -253,35 +253,64 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!viewport || !track || !prevButton || !nextButton) return;
 
     let currentIndex = 0;
-    let itemsPerPage = 3;
-    let cardWidth = 288; // Default card width (w-72 from original Tailwind was likely 18rem = 288px)
-    const cardGap = 24; // gap-6 from original Tailwind (1.5rem = 24px)
+    let itemsPerPage = 3; // Default for desktop
+    let cardWidth = 280; // Approx. 250-300px range, adjusted for gap. (w-72 is 288px)
+    const cardGap = 24; // gap-6 (1.5rem)
     let isAnimating = false;
     let totalItems = membersData.length;
 
-    function updateItemsPerPage() {
-      if (window.innerWidth < 640) itemsPerPage = 1;
-      else if (window.innerWidth < 1024) itemsPerPage = 2;
-      else itemsPerPage = 3;
+    function updateCarouselState() {
+      const screenWidth = window.innerWidth;
+      if (screenWidth < 768) { // Mobile
+        itemsPerPage = 1;
+        // For mobile, cardWidth will be effectively 100% of viewport minus padding.
+        // The viewport itself might not need a max-width, or it's 100vw.
+        // We'll make the cards themselves take full width within the track.
+      } else if (screenWidth < 1024) { // Tablet
+        itemsPerPage = 2;
+        cardWidth = 260; // Adjust for tablet if needed
+      } else { // Desktop
+        itemsPerPage = 3;
+        cardWidth = 280; // Desktop card width
+      }
 
-      // Adjust viewport width based on itemsPerPage
-      // Add a small buffer (e.g., 2px) to prevent clipping of the last card's shadow/border by overflow-hidden.
-      viewport.style.maxWidth = `${itemsPerPage * cardWidth + (itemsPerPage - 1) * cardGap + 2}px`;
-      renderCards(); // Re-render or adjust track for new itemsPerPage
-      goToIndex(0, true); // Reset to first slide
+      // Adjust viewport width for desktop/tablet to show multiple cards
+      if (screenWidth >= 768) {
+        viewport.style.maxWidth = `${itemsPerPage * cardWidth + (itemsPerPage - 1) * cardGap + 2}px`;
+      } else {
+        viewport.style.maxWidth = '100%'; // Full width on mobile
+      }
+      renderCards();
+      goToIndex(0, true);
     }
 
     function renderCards() {
       track.innerHTML = ''; // Clear existing cards
+      const screenWidth = window.innerWidth;
+
       membersData.forEach(member => {
         const card = document.createElement('div');
-        card.className = 'team-member-card bg-white dark:bg-dark-lighter rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 dark:border-gray-700 flex flex-col h-80 items-center text-center';
-        // card.style.width = `${cardWidth}px`; // Ensure fixed width
-        card.style.marginRight = `${cardGap}px`; // Apply gap
+        // Base classes
+        let cardClasses = 'team-member-card bg-white dark:bg-dark-lighter rounded-lg p-4 md:p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 dark:border-gray-700 flex flex-col items-center text-center';
 
-        // User icon SVG (placeholder for photoUrl)
+        // Responsive classes
+        if (screenWidth < 768) { // Mobile
+          cardClasses += ' w-full h-auto'; // Full width, auto height
+          card.style.marginRight = '0px'; // No gap for single full-width card
+        } else { // Tablet/Desktop
+          cardClasses += ` md:w-[${cardWidth}px] h-[380px]`; // Fixed width for carousel, height can be auto or fixed
+          card.style.width = `${cardWidth}px`;
+          card.style.marginRight = `${cardGap}px`;
+        }
+
+        card.className = cardClasses;
+
+        const imageSizeClass = screenWidth < 768 ? 'w-20 h-20 md:w-24 md:h-24' : 'w-24 h-24 lg:w-28 lg:h-28'; // Mobile: 80px, Desktop: 96px-112px
+        const nameTextClass = screenWidth < 768 ? 'text-base md:text-lg' : 'text-lg lg:text-xl'; // Mobile: 16px, Desktop: 18-20px
+        const roleTextClass = screenWidth < 768 ? 'text-xs md:text-sm' : 'text-sm lg:text-base'; // Mobile: 12-13px, Desktop: 14-16px
+
         const userIconSvg = `
-          <svg class="w-12 h-12 text-primary opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg class="${imageSizeClass} text-primary opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
           </svg>`;
 
@@ -290,42 +319,51 @@ document.addEventListener('DOMContentLoaded', () => {
           : userIconSvg;
 
         card.innerHTML = `
-          <div class="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center border dark:border-gray-700">
+          <div class="${imageSizeClass} mx-auto mb-3 md:mb-4 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center border dark:border-gray-700 shrink-0">
             ${imageContent}
           </div>
-          <div class="flex-1 flex flex-col items-center w-full">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">${member.name}</h3>
-            <p class="text-primary font-medium text-sm line-clamp-2">${member.role}</p>
+          <div class="flex-1 flex flex-col items-center justify-center w-full">
+            <h3 class="${nameTextClass} font-semibold text-gray-900 dark:text-white mb-1 md:mb-2">${member.name}</h3>
+            <p class="text-primary font-medium ${roleTextClass} line-clamp-2">${member.role}</p>
           </div>
         `;
         track.appendChild(card);
       });
-      // Remove margin from the last card
-      if (track.lastChild) {
+
+      if (screenWidth >= 768 && track.lastChild) {
         track.lastChild.style.marginRight = '0px';
       }
     }
 
     function goToIndex(index, immediate = false) {
-        if (index < 0) index = 0;
-        if (index > totalItems - itemsPerPage) index = Math.max(0, totalItems - itemsPerPage);
+      if (window.innerWidth < 768) { // Mobile: handle as a simple scroll, or disable carousel buttons
+        // For now, let's assume carousel buttons still work, but itemsPerPage is 1
+        // If we want native scroll, this whole function needs rethink for mobile
+      }
 
-        currentIndex = index;
-        const offset = -currentIndex * (cardWidth + cardGap);
+      if (index < 0) index = 0;
+      // Ensure index doesn't go too far right if totalItems < itemsPerPage (e.g. only 1 or 2 items)
+      const maxIndex = Math.max(0, totalItems - itemsPerPage);
+      if (index > maxIndex) index = maxIndex;
 
-        if(immediate) track.style.transition = 'none'; // Disable transition for immediate jump
-        track.style.transform = `translateX(${offset}px)`;
-        if(immediate) {
-            // Force reflow to apply transform immediately then re-enable transition
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-            track.offsetHeight;
-            track.style.transition = 'transform 0.5s ease-in-out';
-        }
 
-        isAnimating = true;
-        setTimeout(() => { isAnimating = false; }, immediate ? 50 : 500); // Shorter for immediate
+      currentIndex = index;
+      // Calculate offset based on current cardWidth (which might change on resize)
+      const currentCardWidth = (window.innerWidth < 768) ? viewport.offsetWidth : cardWidth; // Full viewport width for mobile cards
+      const currentGap = (window.innerWidth < 768) ? 0 : cardGap;
+      const offset = -currentIndex * (currentCardWidth + currentGap);
+
+
+      if(immediate) track.style.transition = 'none';
+      track.style.transform = `translateX(${offset}px)`;
+      if(immediate) {
+        track.offsetHeight; // Force reflow
+        track.style.transition = 'transform 0.5s ease-in-out';
+      }
+
+      isAnimating = true;
+      setTimeout(() => { isAnimating = false; }, immediate ? 50 : 500);
     }
-
 
     prevButton.addEventListener('click', () => {
       if (isAnimating) return;
@@ -338,11 +376,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.addEventListener('resize', () => {
-        updateItemsPerPage(); // This will re-render and reset to index 0
+        updateCarouselState();
     });
 
     // Initial setup
-    updateItemsPerPage(); // This calls renderCards and goToIndex(0)
+    updateCarouselState();
   }
 
   // Initialize carousels
