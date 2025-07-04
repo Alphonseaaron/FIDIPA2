@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- Mobile Menu (Only for main navbar, so check if it exists) ---
+  // --- Mobile Menu ---
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
   const menuIcon = document.getElementById('menu-icon');
@@ -35,25 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const isOpen = mobileMenu.classList.toggle('open');
       mobileMenu.classList.toggle('max-h-0', !isOpen);
       mobileMenu.classList.toggle('opacity-0', !isOpen);
+      // mobileMenu.classList.toggle('max-h-screen'); // Or a specific max height like max-h-[calc(100vh-4rem)]
+
       menuIcon.classList.toggle('hidden', isOpen);
       xIcon.classList.toggle('hidden', !isOpen);
     });
-
-    // Close mobile menu when a link is clicked (specific to main navbar's mobile menu)
-    const mobileNavLinks = mobileMenu.querySelectorAll('a');
-    mobileNavLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        if (mobileMenu.classList.contains('open')) {
-          mobileMenu.classList.remove('open');
-          mobileMenu.classList.add('max-h-0', 'opacity-0');
-          if(menuIcon) menuIcon.classList.remove('hidden');
-          if(xIcon) xIcon.classList.add('hidden');
-        }
-      });
-    });
   }
 
-  // --- Capacity Statement Read More Toggle (on index.html) ---
+  // --- Capacity Statement Read More Toggle ---
   const capacityReadMoreButton = document.getElementById('capacity-read-more-button');
   const capacityStatementContent = document.getElementById('capacity-statement-content');
 
@@ -64,103 +53,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
     capacityReadMoreButton.addEventListener('click', () => {
       const isOpen = capacityStatementContent.classList.toggle('open');
+      // Max height for transition will be handled by CSS: .collapsible-content and .collapsible-content.open
+      // JS just toggles the class.
+
       if (buttonText) buttonText.textContent = isOpen ? "Show Less" : "Read More";
       if (chevronDown) chevronDown.classList.toggle('hidden', isOpen);
       if (chevronUp) chevronUp.classList.toggle('hidden', !isOpen);
     });
   }
 
-  // --- Smooth Scrolling & Active Section Highlighting (Only for main navbar on index.html) ---
-  const mainNavbar = document.getElementById('navbar-container'); // This ID is on the main navbar
-  const pageHeader = document.getElementById('page-header-container'); // This ID is on the new page headers
-
-  if (mainNavbar && !pageHeader) { // Only run this block if it's the main page with the full navbar
-    const navLinks = mainNavbar.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('section[id]'); // Assumes sections are direct children or easily queryable
-    const navbarHeight = mainNavbar.offsetHeight || 64;
-
-    navLinks.forEach(link => {
-      link.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('href');
-        // Only prevent default for internal links on the main page
-        if (targetId && targetId.startsWith('#')) {
-          e.preventDefault();
-          const targetElement = document.querySelector(targetId);
-          if (targetElement) {
-            const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-            const offsetPosition = elementPosition - navbarHeight;
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            });
-          }
-        }
-        // For links like "programs.html", let the default navigation happen.
-      });
-    });
-
-    const updateActiveLink = () => {
-      let currentActiveId = null;
-      const scrollPosition = window.scrollY + navbarHeight + 1;
-
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-          currentActiveId = section.getAttribute('id');
-        }
-      });
-
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2) {
-        const lastSection = sections[sections.length - 1];
-        if (lastSection) currentActiveId = lastSection.id;
+  // Close mobile menu when a link is clicked
+  const mobileNavLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (mobileMenu.classList.contains('open')) {
+        mobileMenu.classList.remove('open');
+        mobileMenu.classList.add('max-h-0', 'opacity-0');
+        menuIcon.classList.remove('hidden');
+        xIcon.classList.add('hidden');
       }
+    });
+  });
 
-      navLinks.forEach(link => {
-        const navId = link.getAttribute('data-navid');
-        if (navId === currentActiveId) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
+
+  // --- Smooth Scrolling & Active Section Highlighting ---
+  const navLinks = document.querySelectorAll('.nav-link'); // Covers both desktop and mobile
+  const sections = document.querySelectorAll('section[id]');
+  const navbarHeight = document.getElementById('navbar-container')?.offsetHeight || 64; // h-16
+
+  // Smooth scroll for all nav links
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId.startsWith('#')) {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - navbarHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
         }
-      });
-    };
+      }
+    });
+  });
 
-    window.addEventListener('scroll', updateActiveLink);
-    updateActiveLink(); // Initial check
-  }
-
-  // Smooth scroll for FIDIPA logo (present on all pages, but behavior might differ)
-  // On index.html, it scrolls to #home. On other pages, it links to index.html#home.
-  // The `<a>` tag itself handles the navigation for non-index pages.
-  // We only need special JS handling for smooth scroll on index.html.
-  const logoLinks = document.querySelectorAll('.fidipa-logo'); // Might be multiple logos now
-  logoLinks.forEach(logoLink => {
-    if (logoLink) {
-      logoLink.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('href');
-        if (targetId && targetId.startsWith('index.html#') && window.location.pathname.endsWith('index.html')) {
-          // If on index.html and clicking logo to go to a section on index.html
-          e.preventDefault();
-          const sectionId = targetId.split('#')[1];
-          const targetElement = document.getElementById(sectionId);
-          if (targetElement) {
-            const navbarHeight = document.getElementById('navbar-container')?.offsetHeight || 64; // Main navbar
-            const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-            const offsetPosition = elementPosition - navbarHeight;
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            });
-          }
-        } else if (targetId && targetId.startsWith('#') && mainNavbar && !pageHeader) {
-          // If on index.html and clicking logo to go to #home (or other section)
-          e.preventDefault();
-          const targetElement = document.querySelector(targetId);
-          if (targetElement) {
-            const navbarHeight = mainNavbar.offsetHeight || 64;
-            const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-            const offsetPosition = elementPosition - navbarHeight;
+  // Smooth scroll for FIDIPA logo
+  const logoLink = document.querySelector('.fidipa-logo');
+  if (logoLink) {
+    logoLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+       if (targetId && targetId.startsWith('#')) {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - navbarHeight;
 
           window.scrollTo({
             top: offsetPosition,
