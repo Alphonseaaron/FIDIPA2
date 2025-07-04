@@ -450,7 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Youth Engagement",
       description: "The youth soft skills and advocacy project envisions recognized, respected, engaged youth able to redefine their identities and working to improve their socio-economic situations through inclusion in development processes business start-up skills, developing an entrepreneurial mindset, creative thinking, visionary leadership, resourcefulness, and resource mobilization in Kenya. FIDIPA FIDIPA work in Kisumu and Kwale Counties.",
       images: [
-        'assets/YOUTH PROGRAM AT SABAKI.jpg',
+        'assets/YOUTH PROGRAM AT SABAKI.JPG',
         'assets/Youth engagement in land advocacy.jpg',
         'assets/SOFT SKILLS SESSIONS.jpg',
         'assets/Linda talking girls Sabako.jpg',
@@ -654,7 +654,7 @@ window.openProgramImageLightbox = (src, altText) => {
     'assets/Women in action for climate change.jpg',
     'assets/Women in leadership training.jpg',
     'assets/Women reading a book.jpg',
-    'assets/YOUTH PROGRAM AT SABAKI.jpg',
+    'assets/YOUTH PROGRAM AT SABAKI.JPG',
     'assets/YOUTH-LED COMMUNITY DIALOGUE.jpg',
     'assets/Youth engagement in land advocacy.jpg',
     'assets/Youth program by Linda.jpg'
