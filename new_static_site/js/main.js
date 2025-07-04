@@ -309,14 +309,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameTextClass = screenWidth < 768 ? 'text-base md:text-lg' : 'text-lg lg:text-xl'; // Mobile: 16px, Desktop: 18-20px
         const roleTextClass = screenWidth < 768 ? 'text-xs md:text-sm' : 'text-sm lg:text-base'; // Mobile: 12-13px, Desktop: 14-16px
 
-        const userIconSvg = `
-          <svg class="${imageSizeClass} text-primary opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-          </svg>`;
+        const placeholderImageSrc = "assets/default-avatar.png"; // Use the user-provided filename
 
-        const imageContent = (member.photoUrl && member.photoUrl !== "assets/user-placeholder.png")
-          ? `<img src="${member.photoUrl}" alt="${member.name}" class="w-full h-full object-cover">`
-          : userIconSvg;
+        let imageContent;
+        if (member.photoUrl && member.photoUrl.trim() !== "") {
+          // Check if photoUrl is not undefined, null, or an empty string
+          imageContent = `<img src="${member.photoUrl}" alt="${member.name}" class="w-full h-full object-cover">`;
+        } else {
+          imageContent = `<img src="${placeholderImageSrc}" alt="Default avatar for ${member.name}" class="w-full h-full object-cover">`;
+        }
 
         card.innerHTML = `
           <div class="${imageSizeClass} mx-auto mb-3 md:mb-4 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center border dark:border-gray-700 shrink-0">
