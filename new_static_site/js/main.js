@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameTextClass = screenWidth < 768 ? 'text-base md:text-lg' : 'text-lg lg:text-xl'; // Mobile: 16px, Desktop: 18-20px
         const roleTextClass = screenWidth < 768 ? 'text-xs md:text-sm' : 'text-sm lg:text-base'; // Mobile: 12-13px, Desktop: 14-16px
 
-        const placeholderImageSrc = "assets/default-avatar.png"; // Use the user-provided filename
+        const placeholderImageSrc = "assets/default-avatar.svg"; // Use the newly created SVG placeholder
 
         let imageContent;
         if (member.photoUrl && member.photoUrl.trim() !== "") {
