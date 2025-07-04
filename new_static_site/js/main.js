@@ -335,6 +335,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (screenWidth >= 768 && track.lastChild) {
         track.lastChild.style.marginRight = '0px';
       }
+      // Add padding to the track itself to prevent last card from being flush with viewport edge
+      track.style.paddingRight = (screenWidth < 768 || totalItems <= itemsPerPage) ? '0px' : `${cardGap}px`;
     }
 
     function goToIndex(index, immediate = false) {
@@ -344,10 +346,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (index < 0) index = 0;
-      // Ensure index doesn't go too far right if totalItems < itemsPerPage (e.g. only 1 or 2 items)
-      const maxIndex = Math.max(0, totalItems - itemsPerPage);
-      if (index > maxIndex) index = maxIndex;
+      // Ensure index doesn't go too far right
+      // The max starting index should allow the last 'itemsPerPage' items to be shown.
+      // If totalItems <= itemsPerPage, maxIndex should be 0.
+      let maxIndex = 0;
+      if (totalItems > itemsPerPage) {
+        maxIndex = totalItems - itemsPerPage;
+      }
 
+      if (index > maxIndex) index = maxIndex;
 
       currentIndex = index;
       // Calculate offset based on current cardWidth (which might change on resize)
