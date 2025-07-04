@@ -11,28 +11,45 @@
 </head>
 <body class="bg-light dark:bg-dark text-dark dark:text-white antialiased">
     <div id="app-container" class="min-h-screen flex flex-col">
-        <!-- Simplified Page Header -->
-        <header id="page-header-container" class="fixed w-full z-50 bg-white/95 dark:bg-dark/95 backdrop-blur-sm shadow-md">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Navbar Placeholder -->
+        <header id="navbar-container" class="fixed w-full z-50 bg-white/95 dark:bg-dark/95 backdrop-blur-sm">
+             <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-16">
-                    <!-- Back Button -->
-                    <a href="javascript:history.back()" title="Go Back" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-dark-lighter transition-colors group">
-                        <svg class="w-6 h-6 text-primary group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                    </a>
-
-                    <!-- Page Title -->
-                    <h1 class="text-xl font-semibold text-dark dark:text-white">Photo Gallery</h1>
-
-                    <!-- Right side items: Logo (small) and Theme Toggle -->
-                    <div class="flex items-center space-x-4">
-                        <a href="index.html#home" class="fidipa-logo text-dark dark:text-white font-bold text-lg hover:scale-105 active:scale-95 transition-transform duration-150">
-                            FIDIPA
-                        </a>
-                        <button id="theme-toggle-page" aria-label="Toggle theme" class="theme-toggle-button p-2 rounded-full hover:bg-gray-100 dark:hover:bg-dark-lighter transition-colors hover:scale-110 active:scale-90 duration-150">
+                    <a href="index.html#home" class="fidipa-logo text-dark dark:text-white font-bold text-xl hover:scale-105 active:scale-95 transition-transform duration-150">FIDIPA</a>
+                    <div class="hidden md:flex items-center space-x-4">
+                        <div class="flex items-baseline space-x-1" id="desktop-nav-links">
+                            <a href="index.html#home" data-navid="home" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white transition-colors duration-300 relative">Home <span class="active-indicator"></span></a>
+                            <a href="index.html#about" data-navid="about" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white transition-colors duration-300 relative">About <span class="active-indicator"></span></a>
+                            <a href="index.html#programs" data-navid="programs" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white transition-colors duration-300 relative">Programs <span class="active-indicator"></span></a>
+                            <a href="index.html#team" data-navid="team" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white transition-colors duration-300 relative">Team <span class="active-indicator"></span></a>
+                            <a href="index.html#gallery" data-navid="gallery" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white transition-colors duration-300 relative">Gallery <span class="active-indicator"></span></a>
+                            <a href="index.html#contact" data-navid="contact" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white transition-colors duration-300 relative">Contact <span class="active-indicator"></span></a>
+                        </div>
+                        <button id="theme-toggle-desktop" aria-label="Toggle theme" class="theme-toggle-button p-2 rounded-full hover:bg-gray-100 dark:hover:bg-dark-lighter transition-colors hover:scale-110 active:scale-90 duration-150">
                             <svg class="sun-icon w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.66-15.66l-.707.707M4.04 19.96l-.707.707M21 12h-1M4 12H3m15.66 8.66l-.707-.707M4.04 4.04l-.707-.707"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18a6 6 0 100-12 6 6 0 000 12z"></path></svg>
                             <svg class="moon-icon w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                         </button>
                     </div>
+                    <div class="md:hidden flex items-center space-x-2">
+                        <button id="theme-toggle-mobile" aria-label="Toggle theme" class="theme-toggle-button p-2 text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:scale-110 active:scale-90 transition-transform duration-150">
+                            <svg class="sun-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.66-15.66l-.707.707M4.04 19.96l-.707.707M21 12h-1M4 12H3m15.66 8.66l-.707-.707M4.04 4.04l-.707-.707"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18a6 6 0 100-12 6 6 0 000 12z"></path></svg>
+                            <svg class="moon-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        </button>
+                        <button id="mobile-menu-button" aria-label="Open menu" class="p-2 text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:scale-110 active:scale-90 transition-transform duration-150">
+                            <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                            <svg id="x-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+            <div id="mobile-menu" class="md:hidden bg-white/95 dark:bg-dark-lighter/95 backdrop-blur-sm overflow-hidden max-h-0 opacity-0">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3" id="mobile-nav-links">
+                    <a href="index.html#home" data-navid="home" class="nav-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:bg-gray-100/30 dark:hover:bg-dark-accent/30">Home</a>
+                    <a href="index.html#about" data-navid="about" class="nav-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:bg-gray-100/30 dark:hover:bg-dark-accent/30">About</a>
+                    <a href="index.html#programs" data-navid="programs" class="nav-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:bg-gray-100/30 dark:hover:bg-dark-accent/30">Programs</a>
+                    <a href="index.html#team" data-navid="team" class="nav-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:bg-gray-100/30 dark:hover:bg-dark-accent/30">Team</a>
+                    <a href="index.html#gallery" data-navid="gallery" class="nav-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:bg-gray-100/30 dark:hover:bg-dark-accent/30">Gallery</a>
+                    <a href="index.html#contact" data-navid="contact" class="nav-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:bg-gray-100/30 dark:hover:bg-dark-accent/30">Contact</a>
                 </div>
             </div>
         </header>
@@ -40,7 +57,10 @@
         <main class="flex-1 pt-16 bg-light dark:bg-dark">
             <div class="pt-12 pb-16 min-h-screen">
                 <div class="max-w-7xl mx-auto px-4">
-                    <!-- Removed the old back button that was here -->
+                    <a href="javascript:history.back()" title="Go Back"
+                       class="mb-4 sm:mb-6 lg:mb-8 bg-white dark:bg-dark-lighter hover:bg-light-darker dark:hover:bg-dark-accent p-3 sm:p-4 rounded-lg transition-all duration-300 group shadow-lg inline-block">
+                        <svg class="w-6 h-6 text-primary group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                    </a>
                     <h1 class="text-4xl font-bold mb-12 text-center text-gray-900 dark:text-white animate-on-scroll fade-in-up">
                         Photo Gallery
                     </h1>
