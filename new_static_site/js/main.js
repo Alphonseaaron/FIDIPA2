@@ -298,14 +298,14 @@ document.addEventListener('DOMContentLoaded', () => {
           cardClasses += ' w-full h-auto'; // Full width, auto height
           card.style.marginRight = '0px'; // No gap for single full-width card
         } else { // Tablet/Desktop
-          cardClasses += ` md:w-[${cardWidth}px] h-[380px]`; // Fixed width for carousel, height can be auto or fixed
+          cardClasses += ` md:w-[${cardWidth}px] h-[320px]`; // Fixed width for carousel, reduced height
           card.style.width = `${cardWidth}px`;
           card.style.marginRight = `${cardGap}px`;
         }
 
         card.className = cardClasses;
 
-        const imageSizeClass = screenWidth < 768 ? 'w-20 h-20 md:w-24 md:h-24' : 'w-24 h-24 lg:w-28 lg:h-28'; // Mobile: 80px, Desktop: 96px-112px
+        const imageSizeClass = "w-24 h-24"; // Consistent 96x96px size
         const nameTextClass = screenWidth < 768 ? 'text-base md:text-lg' : 'text-lg lg:text-xl'; // Mobile: 16px, Desktop: 18-20px
         const roleTextClass = screenWidth < 768 ? 'text-xs md:text-sm' : 'text-sm lg:text-base'; // Mobile: 12-13px, Desktop: 14-16px
 
@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         card.innerHTML = `
-          <div class="${imageSizeClass} mx-auto mb-3 md:mb-4 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center border dark:border-gray-700 shrink-0">
+          <div class="${imageSizeClass} mx-auto mb-2 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center border dark:border-gray-700 shrink-0">
             ${imageContent}
           </div>
           <div class="flex-1 flex flex-col items-center justify-center w-full">
