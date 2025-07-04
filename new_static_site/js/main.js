@@ -763,4 +763,97 @@ window.openProgramImageLightbox = (src, altText) => {
     renderGalleryPage();
   }
 
+  // --- CSS Slideshow Auto-play ---
+  const slideshowContainer = document.querySelector('.css-slideshow-container');
+  if (slideshowContainer) {
+    const slideRadios = document.querySelectorAll('.css-slide-input');
+    const numSlides = slideRadios.length;
+    let currentSlideIndex = 0; // Used to determine starting point, will be updated
+    const autoPlayInterval = 7000; // 7 seconds
+    let slideshowTimer;
+
+    const playNextSlide = () => {
+      // Find currently checked radio to ensure we know the actual current slide
+      for (let i = 0; i < numSlides; i++) {
+        if (slideRadios[i].checked) {
+          currentSlideIndex = i;
+          break;
+        }
+      }
+
+      // slideRadios[currentSlideIndex].checked = false; // Not strictly necessary as radio group behavior handles this
+      currentSlideIndex = (currentSlideIndex + 1) % numSlides; // Move to next, loop
+      slideRadios[currentSlideIndex].checked = true; // Check next
+
+      // Dispatch a change event, as programmatic checking might not trigger it for CSS transitions or JS listeners
+      const event = new Event('change', { bubbles: true });
+      slideRadios[currentSlideIndex].dispatchEvent(event);
+    };
+
+    const startAutoPlay = () => {
+      stopAutoPlay(); // Clear any existing timer
+      if (numSlides > 1) { // Only start if there's more than one slide
+        slideshowTimer = setInterval(playNextSlide, autoPlayInterval);
+      }
+    };
+
+    const stopAutoPlay = () => {
+      clearInterval(slideshowTimer);
+    };
+
+    if (numSlides > 0) { // Initialize based on the initially checked slide
+        for (let i = 0; i < numSlides; i++) {
+            if (slideRadios[i].checked) {
+                currentSlideIndex = i;
+                break;
+            }
+        }
+    }
+
+    if (numSlides > 1) {
+      startAutoPlay();
+
+      // Optional: Pause on hover over the slideshow container
+      slideshowContainer.addEventListener('mouseenter', stopAutoPlay);
+      slideshowContainer.addEventListener('mouseleave', startAutoPlay);
+
+      // Optional: Pause and reset timer when dots are clicked (user interaction)
+      const slideDots = document.querySelectorAll('.css-dot');
+      slideDots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          // When a dot is clicked, the corresponding radio is already checked by the label.
+          // We need to find out which one was just clicked to update currentSlideIndex
+          const radioId = dot.getAttribute('for');
+          const clickedRadio = document.getElementById(radioId);
+          if (clickedRadio) {
+            for(let i=0; i<slideRadios.length; i++) {
+              if(slideRadios[i].id === radioId) {
+                currentSlideIndex = i;
+                slideRadios[i].checked = true; // Ensure it's checked
+                break;
+              }
+            }
+          }
+          startAutoPlay(); // Restart the timer from this point
+        });
+      });
+
+      // Also reset timer if radio buttons are changed directly by other means (e.g. keyboard nav if implemented)
+      slideRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          if (radio.checked) { // When a radio becomes checked
+            for(let i=0; i<slideRadios.length; i++) { // Update currentSlideIndex
+                if(slideRadios[i].id === radio.id) {
+                    currentSlideIndex = i;
+                    break;
+                }
+            }
+            // If the change was user-initiated (not by playNextSlide), reset autoplay
+            // This is tricky to distinguish. For now, any programmatic change will also restart timer.
+            startAutoPlay();
+          }
+        });
+      });
+    }
+  }
 });

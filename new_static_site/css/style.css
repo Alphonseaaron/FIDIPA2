@@ -1972,7 +1972,8 @@ html.dark .moon-icon {
 #slide-radio-5:checked ~ .slides-wrapper .css-slide[data-slide-index="5"] {
   opacity: 1;
   visibility: visible;
-  z-index: 1; /* Active slide on top */
+  z-index: 10; /* Increased z-index for the active slide container */
+  display: block; /* Explicit display */
 }
 
 #slide-radio-1:checked ~ .slides-wrapper .css-slide[data-slide-index="1"] .css-slide-image,
@@ -1981,6 +1982,9 @@ html.dark .moon-icon {
 #slide-radio-4:checked ~ .slides-wrapper .css-slide[data-slide-index="4"] .css-slide-image,
 #slide-radio-5:checked ~ .slides-wrapper .css-slide[data-slide-index="5"] .css-slide-image {
   transform: scale(1); /* Ken Burns effect: zoom out to normal scale */
+  opacity: 1; /* Ensure image itself is opaque */
+  visibility: visible; /* Ensure image itself is visible */
+  /* z-index: 1; is already on .css-slide-image by default, which is fine within its parent stacking context */
 }
 
 #slide-radio-1:checked ~ .slides-wrapper .css-slide[data-slide-index="1"] .css-slide-text-content h1,
