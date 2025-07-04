@@ -29,20 +29,106 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileMenu = document.getElementById('mobile-menu');
   const menuIcon = document.getElementById('menu-icon');
   const xIcon = document.getElementById('x-icon');
+  const mainNavbar = document.getElementById('navbar-container'); // Check for the main navbar
 
-  if (mobileMenuButton && mobileMenu && menuIcon && xIcon) {
-    mobileMenuButton.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.toggle('open');
-      mobileMenu.classList.toggle('max-h-0', !isOpen);
-      mobileMenu.classList.toggle('opacity-0', !isOpen);
-      // mobileMenu.classList.toggle('max-h-screen'); // Or a specific max height like max-h-[calc(100vh-4rem)]
+  if (mainNavbar) { // Only initialize main navbar features if it exists
+    if (mobileMenuButton && mobileMenu && menuIcon && xIcon) {
+      mobileMenuButton.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        mobileMenu.classList.toggle('max-h-0', !isOpen);
+        mobileMenu.classList.toggle('opacity-0', !isOpen);
+        menuIcon.classList.toggle('hidden', isOpen);
+        xIcon.classList.toggle('hidden', !isOpen);
+      });
 
-      menuIcon.classList.toggle('hidden', isOpen);
-      xIcon.classList.toggle('hidden', !isOpen);
-    });
-  }
+      // Close mobile menu when a link is clicked (specific to main navbar's mobile menu)
+      const mobileNavLinks = mobileMenu.querySelectorAll('a.nav-link'); // Ensure these are from the main mobile menu
+      mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (mobileMenu.classList.contains('open')) {
+            mobileMenu.classList.remove('open');
+            mobileMenu.classList.add('max-h-0', 'opacity-0');
+            if(menuIcon) menuIcon.classList.remove('hidden');
+            if(xIcon) xIcon.classList.add('hidden');
+          }
+        });
+      });
+    }
 
-  // --- Capacity Statement Read More Toggle ---
+    // --- Smooth Scrolling & Active Section Highlighting (for main navbar) ---
+    const navLinks = mainNavbar.querySelectorAll('.nav-link'); // Query within mainNavbar
+    const sections = document.querySelectorAll('section[id]'); // These are page-wide
+    const navbarHeight = mainNavbar.offsetHeight || 64;
+
+    if (navLinks.length > 0 && sections.length > 0) {
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          const targetId = this.getAttribute('href');
+          // Check if it's an internal link for the current page
+          if (targetId && targetId.startsWith('#')) {
+            e.preventDefault();
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+              const offsetPosition = elementPosition - navbarHeight;
+              window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            }
+          }
+          // If it's a link to another page (e.g., index.html#about from programs.html), let default behavior handle it.
+          // The conditional `e.preventDefault()` handles this.
+        });
+      });
+
+      const updateActiveLink = () => {
+        let currentActiveId = null;
+        const scrollPosition = window.scrollY + navbarHeight + 1;
+
+        sections.forEach(section => {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            currentActiveId = section.getAttribute('id');
+          }
+        });
+
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2) {
+          const lastSection = sections[sections.length - 1];
+          if (lastSection) currentActiveId = lastSection.id;
+        }
+
+        navLinks.forEach(link => {
+          const navId = link.getAttribute('data-navid');
+          if (navId === currentActiveId) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      };
+
+      window.addEventListener('scroll', updateActiveLink);
+      updateActiveLink(); // Initial check
+    }
+
+    // Smooth scroll for main FIDIPA logo (if it's part of the main navbar)
+    const logoLink = mainNavbar.querySelector('.fidipa-logo'); // Query within mainNavbar
+    if (logoLink) {
+      logoLink.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId && targetId.startsWith('#')) {
+          e.preventDefault();
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - navbarHeight;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+          }
+        }
+      });
+    }
+  } // End of if(mainNavbar)
+
+  // --- Capacity Statement Read More Toggle (Global, not navbar dependent) ---
   const capacityReadMoreButton = document.getElementById('capacity-read-more-button');
   const capacityStatementContent = document.getElementById('capacity-statement-content');
 
@@ -53,111 +139,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     capacityReadMoreButton.addEventListener('click', () => {
       const isOpen = capacityStatementContent.classList.toggle('open');
-      // Max height for transition will be handled by CSS: .collapsible-content and .collapsible-content.open
-      // JS just toggles the class.
-
       if (buttonText) buttonText.textContent = isOpen ? "Show Less" : "Read More";
       if (chevronDown) chevronDown.classList.toggle('hidden', isOpen);
       if (chevronUp) chevronUp.classList.toggle('hidden', !isOpen);
     });
   }
 
-  // Close mobile menu when a link is clicked
-  const mobileNavLinks = mobileMenu ? mobileMenu.querySelectorAll('a') : [];
-  mobileNavLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      if (mobileMenu.classList.contains('open')) {
-        mobileMenu.classList.remove('open');
-        mobileMenu.classList.add('max-h-0', 'opacity-0');
-        menuIcon.classList.remove('hidden');
-        xIcon.classList.add('hidden');
-      }
-    });
-  });
-
-
-  // --- Smooth Scrolling & Active Section Highlighting ---
-  const navLinks = document.querySelectorAll('.nav-link'); // Covers both desktop and mobile
-  const sections = document.querySelectorAll('section[id]');
-  const navbarHeight = document.getElementById('navbar-container')?.offsetHeight || 64; // h-16
-
-  // Smooth scroll for all nav links
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href');
-      if (targetId && targetId.startsWith('#')) {
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-          const offsetPosition = elementPosition - navbarHeight;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }
-      }
-    });
-  });
-
-  // Smooth scroll for FIDIPA logo
-  const logoLink = document.querySelector('.fidipa-logo');
-  if (logoLink) {
-    logoLink.addEventListener('click', function(e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href');
-       if (targetId && targetId.startsWith('#')) {
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-          const offsetPosition = elementPosition - navbarHeight;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }
-      }
-    });
-  }
-
-  // Active section highlighting on scroll
-  const updateActiveLink = () => {
-    let currentActiveId = null;
-    const scrollPosition = window.scrollY + navbarHeight + 1; // +1 for precision
-
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-        currentActiveId = section.getAttribute('id');
-      }
-    });
-
-    // If near bottom of page and last section is small, it might not get highlighted.
-    // Check if scrolled to the very bottom.
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 2) { // -2 for tolerance
-        const lastSection = sections[sections.length -1];
-        if(lastSection) currentActiveId = lastSection.id;
-    }
-
-
-    navLinks.forEach(link => {
-      const navId = link.getAttribute('data-navid');
-      if (navId === currentActiveId) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
-    });
-  };
-
-  window.addEventListener('scroll', updateActiveLink);
-  updateActiveLink(); // Initial check on load
-
-  // Scroll down chevron smooth scroll (already partially handled by general nav link handler, but specific target)
-  // Note: The old JS slideshow logic has been removed. The new slideshow is CSS-only.
+  // Scroll down chevron smooth scroll (Global, if present)
   const scrollDownChevron = document.getElementById('scroll-down-chevron');
   if (scrollDownChevron) {
     scrollDownChevron.addEventListener('click', function(e) {
