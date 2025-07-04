@@ -224,12 +224,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Team Section Carousel Logic ---
   const boardOfDirectorsData = [
-    { name: "Mrs Rosemary N. Meyo", role: "Chairperson - Administration and governance Expert - MBA 2010 – Maseno University", photoUrl: "assets/Mrs. Rosemary N. Meyo - Chairperson.jpg" },
-    { name: "Dr. Josephine Munthali", role: "Vice Chairperson - Gender and Education Expert - University of Edinburgh UK (2001)", photoUrl: "assets/Dr. Josephine Munthali - Vice Chairperson.png" },
-    { name: "Ms Jayne A. I. Wasonga", role: "Secretary and CEO - Gender and Project Management Specialist - Catholic University of Eastern Africa 2016", photoUrl: "assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg" },
+    { name: "Mrs Rosemary N. Meyo", role: "Chairperson - Administration and governance Expert - MBA 2010 – Maseno University", photoUrl: "./assets/Mrs. Rosemary N. Meyo - Chairperson.jpg" },
+    { name: "Dr. Josephine Munthali", role: "Vice Chairperson - Gender and Education Expert - University of Edinburgh UK (2001)", photoUrl: "./assets/Dr. Josephine Munthali - Vice Chairperson.png" },
+    { name: "Ms Jayne A. I. Wasonga", role: "Secretary and CEO - Gender and Project Management Specialist - Catholic University of Eastern Africa 2016", photoUrl: "./assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg" },
     { name: "Sr. Mildred Mayeye", role: "Treasurer – Lwak Mission" }, // Placeholder if specific image not found
-    { name: "Dr. Rev. Simon Oriedo", role: "Committee Member - Theology and Development Expert - Africa International University", photoUrl: "assets/Dr. Rev. Simon Oriedo - Committee Member.png" },
-    { name: "Mr. Samwel O. Onyango", role: "Committee Member - Business Management Specialist - The University of Nairobi 2017", photoUrl: "assets/Mr. Samwel O. Onyango - Committee Member.png" }
+    { name: "Dr. Rev. Simon Oriedo", role: "Committee Member - Theology and Development Expert - Africa International University", photoUrl: "./assets/Dr. Rev. Simon Oriedo - Committee Member.png" },
+    { name: "Mr. Samwel O. Onyango", role: "Committee Member - Business Management Specialist - The University of Nairobi 2017", photoUrl: "./assets/Mr. Samwel O. Onyango - Committee Member.png" }
   ];
 
   const managementCommitteeData = [
@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: "Ms. Grace Ananda", role: "Policy and Governance Expert – University of Nairobi" }, // Placeholder
     { name: "Ms. Christine Sanguli", role: "Gender Expert – Masinde Muliro University" }, // Placeholder
     // Assuming "Jayne A. I. Wasonga" in management is the same as CEO, using her photo. If different, needs a new photo.
-    { name: "Jayne A. I. Wasonga", role: "Gender, Project Management Expert", photoUrl: "assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg" },
+    { name: "Jayne A. I. Wasonga", role: "Gender, Project Management Expert", photoUrl: "./assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg" },
     { name: "Juliet Dima", role: "Legal Expert - University of Nairobi" } // Placeholder
   ];
 
@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameTextClass = screenWidth < 768 ? 'text-base md:text-lg' : 'text-lg lg:text-xl'; // Mobile: 16px, Desktop: 18-20px
         const roleTextClass = screenWidth < 768 ? 'text-xs md:text-sm' : 'text-sm lg:text-base'; // Mobile: 12-13px, Desktop: 14-16px
 
-        const placeholderImageSrc = "assets/default-avatar.svg";
+        const placeholderImageSrc = "./assets/default-avatar.svg";
 
         let imageContent;
         // Added class `team-member-photo` to the img tag itself
@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "women-land-rights-food-security",
       title: "Women Land Rights and food security",
       description: "FIDIPA advocates for women's land rights and food security. The project believes that the Rights-holders become champions: rather than beneficiaries who are dependent on aid, the target group becomes champions, influencing peers and others to change for their improved livelihood.",
-      images: ['assets/Women Land Rights and food security 1.jpg', 'assets/Paralegals follow-up on women land rights.jpg', 'assets/Women Champions of land rights.jpg'],
+      images: ['./assets/Women Land Rights and food security 1.jpg', './assets/Paralegals follow-up on women land rights.jpg', './assets/Women Champions of land rights.jpg'],
       content: "" // No specific bullet points provided for this one
     },
     {
@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "women-leadership-socio-economic",
       title: "Women Leadership and Socio-economic Project",
       description: "Historically, cultural and institutional structures have created gender relationships that have led to the subordination of women in various social spheres, leading to gender inequalities and leadership underrepresentation. FIDIPA train both women and girls on soft skills, leadership, entrepreneurship and group dynamics with emphasis on empowerment arise and shine.",
-      images: ['assets/Women in leadership training.jpg', 'assets/Jayne training leadership and gender at NITA.jpg', 'assets/Enterpreneurship by Mrs Awiti.jpg'],
+      images: ['./assets/Women in leadership training.jpg', './assets/Jayne training leadership and gender at NITA.jpg', './assets/Enterpreneurship by Mrs Awiti.jpg'],
       content: ""
     },
     {
@@ -419,7 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "climate-justice-resilience",
       title: "Climate Justice - Resilience Environment and Livelihood Project",
       description: "FIDIPA recognizes that environmental degradation and climate change are serious global problems. The organization is committed to minimizing her impact on the environment and climate. To meet this goal FIDIPA aims to reduce her carbon footprint as well as minimize actions that can contribute to environmental degradation. FIDIPA is working with farmer community-based organizations and stakeholders to drive towards the desired change. The project seeks to achieve the following four outcomes:",
-      images: ['assets/Climate Justice - Resilience Environment and Livelihood Project 1.png', 'assets/Climate Justice - Resilience Environment and Livelihood Project 2.png', 'assets/Women in action for climate change.jpg'],
+      images: ['./assets/Climate Justice - Resilience Environment and Livelihood Project 1.png', './assets/Climate Justice - Resilience Environment and Livelihood Project 2.png', './assets/Women in action for climate change.jpg'],
       content: "• Outcome 1: Individuals practicing sustainable land management practices. • Outcome 2: Households with stable sources of income. • Outcome 3: CSOs influencing stakeholders on sustainable use of natural resource in the target area. • Outcome 4: Institutions have adopted strategies for sustainable use of natural resource"
     },
     {
@@ -427,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "widows-disability-agribusiness",
       title: "Widows and women with disability agribusiness project",
       description: "FIDIPA has remained sensitive to the needs of the vulnerable and marginalized women in and out of prison to restore their sense of pride and hope, giving them the confidence to take responsibility for those who are suffering. FIDIPA help them sale some of their products. The women are involved in small scale farming for their food and surplus for income.",
-      images: ['assets/Widows program.jpg', 'assets/Gift to PWD - nyakach.jpg', 'assets/FARM 1 - WWD .JPG'],
+      images: ['./assets/Widows program.jpg', './assets/Gift to PWD - nyakach.jpg', './assets/FARM 1 - WWD .JPG'],
       content: ""
     },
     {
@@ -435,7 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "women-prison-project",
       title: "Women prison project",
       description: "The women in and out of prison are targeted because other than the reason for their conviction they have also experienced harassment, oppression, stigma, and discrimination among others that need socio-economic empowerment.",
-      images: ['assets/Women in Prison.jpg', 'assets/Visit to womens prison.jpg'], // Assuming 'Women in Prison.jpg' and 'Visit to womens prison.jpg' exist or similar
+      images: ['./assets/Women in Prison.jpg', './assets/Visit to womens prison.jpg'], // Assuming 'Women in Prison.jpg' and 'Visit to womens prison.jpg' exist or similar
       content: ""
     },
     {
@@ -444,12 +444,12 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Grandmothers and Orphans/Vulnerable Children Project",
       description: "The project support the granny’s taking care of the orphans and vulnerable children (OVC) improve food security, nutrition and health, and livelihood.",
       images: [
-        'assets/Grandmothers and Orphans or Vulnerable Children Project.png',
-        'assets/Grandmothers and Orphans or Vulnerable Children Project 2.png',
-        'assets/Grandmothers and Orphans or Vulnerable Children Project 3.png',
-        'assets/Grandmothers and Orphans or Vulnerable Children Project 4.png',
-        'assets/Grandmothers and Orphans or Vulnerable Children Project 5.png',
-        'assets/OVCs firewood.jpg'
+        './assets/Grandmothers and Orphans or Vulnerable Children Project.png',
+        './assets/Grandmothers and Orphans or Vulnerable Children Project 2.png',
+        './assets/Grandmothers and Orphans or Vulnerable Children Project 3.png',
+        './assets/Grandmothers and Orphans or Vulnerable Children Project 4.png',
+        './assets/Grandmothers and Orphans or Vulnerable Children Project 5.png',
+        './assets/OVCs firewood.jpg'
       ],
       content: ""
     },
@@ -459,12 +459,12 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Youth Engagement",
       description: "The youth soft skills and advocacy project envisions recognized, respected, engaged youth able to redefine their identities and working to improve their socio-economic situations through inclusion in development processes business start-up skills, developing an entrepreneurial mindset, creative thinking, visionary leadership, resourcefulness, and resource mobilization in Kenya. FIDIPA FIDIPA work in Kisumu and Kwale Counties.",
       images: [
-        'assets/YOUTH PROGRAM AT SABAKI.JPG',
-        'assets/Youth engagement in land advocacy.jpg',
-        'assets/SOFT SKILLS SESSIONS.jpg',
-        'assets/Linda talking girls Sabako.jpg',
-        'assets/Youth program by Linda.jpg',
-        'assets/YOUTH-LED COMMUNITY DIALOGUE.jpg'
+        './assets/YOUTH PROGRAM AT SABAKI.JPG',
+        './assets/Youth engagement in land advocacy.jpg',
+        './assets/SOFT SKILLS SESSIONS.jpg',
+        './assets/Linda talking girls Sabako.jpg',
+        './assets/Youth program by Linda.jpg',
+        './assets/YOUTH-LED COMMUNITY DIALOGUE.jpg'
       ],
       content: ""
     },
@@ -473,7 +473,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "school-mentorship-program",
       title: "School mentorship program",
       description: "The program seeks to empower both boys and girls from rural primary schools in Kenya with soft skills and career development. Mainly the project seeks to reduce the high rate of teenage pregnancy and school dropout and improve girls’ education standard in marginalized communities.",
-      images: ['assets/School children with new desks.jpg', 'assets/JP and girls visioning at Sabako.jpg', 'assets/Visioning with girls.jpg', 'assets/School Mentorship Program.jpg'], // Assuming 'School Mentorship Program.jpg' exists
+      images: ['./assets/School children with new desks.jpg', './assets/JP and girls visioning at Sabako.jpg', './assets/Visioning with girls.jpg', './assets/School Mentorship Program.jpg'], // Assuming 'School Mentorship Program.jpg' exists
       content: ""
     }
   ];
@@ -591,82 +591,82 @@ window.openProgramImageLightbox = (src, altText) => {
   const galleryImagesData = [
     // This list will be populated with all images from new_static_site/assets/
     // For brevity in this example, I'll list a selection. Assume all ~150+ images are here.
-    'assets/20240405_103802.jpg',
-    'assets/20250117_162229.jpg',
-    'assets/20250118_140709.jpg',
-    'assets/20250531_143420.jpg',
-    'assets/20250531_143746.jpg',
-    'assets/AT LANDESA.JPG',
-    'assets/Au Zambia presentation.jpg',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 1.png',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 2.png',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 3.png',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 4.png',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 5.png',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 6.png',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 7.png',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 8.png',
-    'assets/Creative thinking NITA.jpg',
+    './assets/20240405_103802.jpg',
+    './assets/20250117_162229.jpg',
+    './assets/20250118_140709.jpg',
+    './assets/20250531_143420.jpg',
+    './assets/20250531_143746.jpg',
+    './assets/AT LANDESA.JPG',
+    './assets/Au Zambia presentation.jpg',
+    './assets/Climate Justice - Resilience Environment and Livelihood Project 1.png',
+    './assets/Climate Justice - Resilience Environment and Livelihood Project 2.png',
+    './assets/Climate Justice - Resilience Environment and Livelihood Project 3.png',
+    './assets/Climate Justice - Resilience Environment and Livelihood Project 4.png',
+    './assets/Climate Justice - Resilience Environment and Livelihood Project 5.png',
+    './assets/Climate Justice - Resilience Environment and Livelihood Project 6.png',
+    './assets/Climate Justice - Resilience Environment and Livelihood Project 7.png',
+    './assets/Climate Justice - Resilience Environment and Livelihood Project 8.png',
+    './assets/Creative thinking NITA.jpg',
     // Skipping team photos from main gallery, they are in team section
-    // 'assets/Dr. Josephine Munthali - Vice Chairperson.png',
-    // 'assets/Dr. Rev. Simon Oriedo - Committee Member.png',
-    'assets/During the training of WWD.jpg',
-    'assets/Enterpreneurship by Mrs Awiti.jpg',
-    'assets/Enterpreneuship training sessions.jpg',
-    'assets/FARM 1 - WWD .JPG',
-    'assets/Follow up visit.jpg',
-    'assets/Gift to PWD - nyakach.jpg',
-    'assets/Grandmothers and Orphans or Vulnerable Children Project 2.png',
-    'assets/Grandmothers and Orphans or Vulnerable Children Project 3.png',
-    'assets/Grandmothers and Orphans or Vulnerable Children Project 4.png',
-    'assets/Grandmothers and Orphans or Vulnerable Children Project 5.png',
-    'assets/Grandmothers and Orphans or Vulnerable Children Project.png',
-    'assets/Innocent YILA.jpg',
-    'assets/Israel ch.jpg',
-    'assets/JP PACJA - UN meeting preparation.jpg',
-    'assets/JP Picture NITA leadership  training.jpg',
-    'assets/JP UN gigiri.jpg',
-    'assets/JP and girls visioning at Sabako.jpg',
-    'assets/JP with Ambassadeur Seku - AU.jpg',
-    'assets/Jayne training leadership and gender at NITA.jpg',
-    'assets/Leadership training sessions in Kwale.jpg',
-    'assets/Linda talking girls Sabako.jpg',
-    'assets/M&E TO WWD.JPG',
-    'assets/Millys house- she is locked out.jpg',
-    // 'assets/Mr. Samwel O. Onyango - Committee Member.png',
-    'assets/Mrs Noel visit to FIDIPA office.jpg',
-    // 'assets/Mrs. Rosemary N. Meyo - Chairperson.jpg',
-    // 'assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg',
-    'assets/OVCs firewood.jpg',
-    'assets/PNBC.jpg',
-    'assets/Paralegals follow-up on women land rights.jpg',
-    'assets/Rev. Karen visit to FIDIPA office.jpg',
-    'assets/SOFT SKILLS SESSIONS.jpg',
-    'assets/Sabaki WEF project.jpg',
-    'assets/School children with new desks.jpg',
-    'assets/School Mentorship Program.jpg',
-    'assets/Team picture.jpg',
-    'assets/Team work.jpg',
-    'assets/Training of Trainers.jpg',
-    'assets/Training sessions at Sabaki.jpg',
-    'assets/Visit to FIdipa office by CEO KLA.jpg',
-    'assets/Visit to womens prison.jpg',
-    'assets/Visioning with girls.jpg',
-    'assets/Voiceless speaking after training.jpg',
-    'assets/WASHEB project.png',
-    'assets/Widows program.jpg',
-    'assets/Women Champions of land rights.jpg',
-    'assets/Women Land Rights and food security 1.jpg',
-    'assets/Women Land Rights and food security 2.jpg',
-    'assets/Women Land Rights and food security 3.jpg',
-    'assets/Women in Prison.jpg',
-    'assets/Women in action for climate change.jpg',
-    'assets/Women in leadership training.jpg',
-    'assets/Women reading a book.jpg',
-    'assets/YOUTH PROGRAM AT SABAKI.JPG',
-    'assets/YOUTH-LED COMMUNITY DIALOGUE.jpg',
-    'assets/Youth engagement in land advocacy.jpg',
-    'assets/Youth program by Linda.jpg'
+    // './assets/Dr. Josephine Munthali - Vice Chairperson.png',
+    // './assets/Dr. Rev. Simon Oriedo - Committee Member.png',
+    './assets/During the training of WWD.jpg',
+    './assets/Enterpreneurship by Mrs Awiti.jpg',
+    './assets/Enterpreneuship training sessions.jpg',
+    './assets/FARM 1 - WWD .JPG',
+    './assets/Follow up visit.jpg',
+    './assets/Gift to PWD - nyakach.jpg',
+    './assets/Grandmothers and Orphans or Vulnerable Children Project 2.png',
+    './assets/Grandmothers and Orphans or Vulnerable Children Project 3.png',
+    './assets/Grandmothers and Orphans or Vulnerable Children Project 4.png',
+    './assets/Grandmothers and Orphans or Vulnerable Children Project 5.png',
+    './assets/Grandmothers and Orphans or Vulnerable Children Project.png',
+    './assets/Innocent YILA.jpg',
+    './assets/Israel ch.jpg',
+    './assets/JP PACJA - UN meeting preparation.jpg',
+    './assets/JP Picture NITA leadership  training.jpg',
+    './assets/JP UN gigiri.jpg',
+    './assets/JP and girls visioning at Sabako.jpg',
+    './assets/JP with Ambassadeur Seku - AU.jpg',
+    './assets/Jayne training leadership and gender at NITA.jpg',
+    './assets/Leadership training sessions in Kwale.jpg',
+    './assets/Linda talking girls Sabako.jpg',
+    './assets/M&E TO WWD.JPG',
+    './assets/Millys house- she is locked out.jpg',
+    // './assets/Mr. Samwel O. Onyango - Committee Member.png',
+    './assets/Mrs Noel visit to FIDIPA office.jpg',
+    // './assets/Mrs. Rosemary N. Meyo - Chairperson.jpg',
+    // './assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg',
+    './assets/OVCs firewood.jpg',
+    './assets/PNBC.jpg',
+    './assets/Paralegals follow-up on women land rights.jpg',
+    './assets/Rev. Karen visit to FIDIPA office.jpg',
+    './assets/SOFT SKILLS SESSIONS.jpg',
+    './assets/Sabaki WEF project.jpg',
+    './assets/School children with new desks.jpg',
+    './assets/School Mentorship Program.jpg',
+    './assets/Team picture.jpg',
+    './assets/Team work.jpg',
+    './assets/Training of Trainers.jpg',
+    './assets/Training sessions at Sabaki.jpg',
+    './assets/Visit to FIdipa office by CEO KLA.jpg',
+    './assets/Visit to womens prison.jpg',
+    './assets/Visioning with girls.jpg',
+    './assets/Voiceless speaking after training.jpg',
+    './assets/WASHEB project.png',
+    './assets/Widows program.jpg',
+    './assets/Women Champions of land rights.jpg',
+    './assets/Women Land Rights and food security 1.jpg',
+    './assets/Women Land Rights and food security 2.jpg',
+    './assets/Women Land Rights and food security 3.jpg',
+    './assets/Women in Prison.jpg',
+    './assets/Women in action for climate change.jpg',
+    './assets/Women in leadership training.jpg',
+    './assets/Women reading a book.jpg',
+    './assets/YOUTH PROGRAM AT SABAKI.JPG',
+    './assets/YOUTH-LED COMMUNITY DIALOGUE.jpg',
+    './assets/Youth engagement in land advocacy.jpg',
+    './assets/Youth program by Linda.jpg'
     // ... and so on for all other images from the ls output.
   ];
 
