@@ -1917,14 +1917,17 @@ html.dark .moon-icon {
   will-change: opacity;
 }
 .css-slide-image {
+  display: block; /* Explicitly set */
+  position: absolute; /* Positioned within .css-slide */
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover; /* Ensures image covers the slide, might crop */
   transform: scale(1.1); /* Initial state for Ken Burns */
   transition: transform 7s ease-out; /* Ken Burns duration for active slide */
   will-change: transform;
-  position: relative; /* Ensure it establishes a stacking context if needed */
-  z-index: 1;        /* Base layer for slide content */
+  z-index: 1;        /* Base layer for slide content, relative to .css-slide */
 }
 
 .css-slide-overlay {
