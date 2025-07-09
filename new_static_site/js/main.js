@@ -460,7 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'assets/Youth engagement in land advocacy.jpg',
         'assets/SOFT SKILLS SESSIONS.jpg',
         'assets/Linda talking girls Sabako.jpg',
-        'assets/Youth program by Linda.jpg',
+        // 'assets/Youth program by Linda.jpg', // Removed as it does not exist
         'assets/YOUTH-LED COMMUNITY DIALOGUE.jpg'
       ],
       content: ""
