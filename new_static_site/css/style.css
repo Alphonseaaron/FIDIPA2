@@ -2087,8 +2087,17 @@ html.dark .moon-icon {
 
 /* Ensure partner text is fully visible */
 .partner-logo-item p {
-  /* Removed line clamping properties */
-  /* Text will now wrap naturally. Height of .partner-logo-item will adjust. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* Ensure text alignment is good if it's less than 2 lines */
+  line-height: 1.4; /* Adjust as needed for your font */
+  max-height: calc(1.4em * 2); /* line-height * number of lines */
+  /* The parent .partner-logo-item already uses flex and items-center,
+     so text should be vertically centered if it's shorter than max-height.
+     No specific change needed here unless visual inspection shows otherwise. */
 }
 
 
