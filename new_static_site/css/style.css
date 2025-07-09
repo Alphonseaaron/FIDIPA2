@@ -2085,19 +2085,21 @@ html.dark .moon-icon {
   animation-play-state: paused; /* Pause animation on hover */
 }
 
-/* Ensure partner text is fully visible */
+/* Ensure partner text is fully visible and wraps to a maximum of two lines */
 .partner-logo-item p {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  /* Ensure text alignment is good if it's less than 2 lines */
+  display: -webkit-box; /* Still use flexbox for alignment if needed */
+  -webkit-box-orient: vertical; /* For flexbox direction */
+  /* Removed line-clamp, overflow: hidden, and text-overflow: ellipsis */
   line-height: 1.4; /* Adjust as needed for your font */
-  max-height: calc(1.4em * 2); /* line-height * number of lines */
+  max-height: calc(1.4em * 2); /* Ensures max two lines based on line-height */
+  overflow-wrap: break-word; /* Allow long words to break and wrap */
+  word-wrap: break-word; /* Legacy support for overflow-wrap */
+  -webkit-hyphens: auto; /* Enable hyphenation for better word breaks if supported */
+  -ms-hyphens: auto;
+  hyphens: auto;
   /* The parent .partner-logo-item already uses flex and items-center,
      so text should be vertically centered if it's shorter than max-height.
-     No specific change needed here unless visual inspection shows otherwise. */
+     The text will wrap naturally up to the max-height constraint. */
 }
 
 
