@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "women-land-rights-food-security",
       title: "Women Land Rights and food security",
       description: "FIDIPA advocates for women's land rights and food security. The project believes that the Rights-holders become champions: rather than beneficiaries who are dependent on aid, the target group becomes champions, influencing peers and others to change for their improved livelihood.",
-      images: ['assets/Women Land Rights and food security 1.jpg', 'assets/Paralegals follow-up on women land rights.jpg', 'assets/Women Champions of land rights.jpg'],
+      images: ['assets/Paralegals follow-up on women land rights.jpg', 'assets/AT LANDESA.JPG', 'assets/SPEAKING AT LANDESA.JPG'],
       content: "" // No specific bullet points provided for this one
     },
     {
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "women-leadership-socio-economic",
       title: "Women Leadership and Socio-economic Project",
       description: "Historically, cultural and institutional structures have created gender relationships that have led to the subordination of women in various social spheres, leading to gender inequalities and leadership underrepresentation. FIDIPA train both women and girls on soft skills, leadership, entrepreneurship and group dynamics with emphasis on empowerment arise and shine.",
-      images: ['assets/Women in leadership training.jpg', 'assets/Jayne training leadership and gender at NITA.jpg', 'assets/Enterpreneurship by Mrs Awiti.jpg'],
+      images: ['assets/Leadership training sessions in Kwale.jpg', 'assets/Enterpreneurship by Mrs Awiti.jpg', 'assets/Au Zambia presentation.jpg'],
       content: ""
     },
     {
@@ -416,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "climate-justice-resilience",
       title: "Climate Justice - Resilience Environment and Livelihood Project",
       description: "FIDIPA recognizes that environmental degradation and climate change are serious global problems. The organization is committed to minimizing her impact on the environment and climate. To meet this goal FIDIPA aims to reduce her carbon footprint as well as minimize actions that can contribute to environmental degradation. FIDIPA is working with farmer community-based organizations and stakeholders to drive towards the desired change. The project seeks to achieve the following four outcomes:",
-      images: ['assets/Climate Justice - Resilience Environment and Livelihood Project 1.png', 'assets/Climate Justice - Resilience Environment and Livelihood Project 2.png', 'assets/Women in action for climate change.jpg'],
+      images: ['assets/The Munara WWD tree nursary project.jpg', 'assets/girls firewood koru.JPG', 'assets/During the training of WWD.jpg'],
       content: "• Outcome 1: Individuals practicing sustainable land management practices. • Outcome 2: Households with stable sources of income. • Outcome 3: CSOs influencing stakeholders on sustainable use of natural resource in the target area. • Outcome 4: Institutions have adopted strategies for sustainable use of natural resource"
     },
     {
@@ -424,7 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "widows-disability-agribusiness",
       title: "Widows and women with disability agribusiness project",
       description: "FIDIPA has remained sensitive to the needs of the vulnerable and marginalized women in and out of prison to restore their sense of pride and hope, giving them the confidence to take responsibility for those who are suffering. FIDIPA help them sale some of their products. The women are involved in small scale farming for their food and surplus for income.",
-      images: ['assets/Widows program.jpg', 'assets/Gift to PWD - nyakach.jpg', 'assets/FARM 1 - WWD .JPG'],
+      images: ['assets/christmas gift nyakach.jpg', 'assets/deaf lady rapped.jpg', 'assets/Millys house- she is locked out.jpg'],
       content: ""
     },
     {
@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "women-prison-project",
       title: "Women prison project",
       description: "The women in and out of prison are targeted because other than the reason for their conviction they have also experienced harassment, oppression, stigma, and discrimination among others that need socio-economic empowerment.",
-      images: ['assets/Women in Prison.jpg', 'assets/Visit to womens prison.jpg'], // Assuming 'Women in Prison.jpg' and 'Visit to womens prison.jpg' exist or similar
+      images: ['assets/Follow up visit.jpg', 'assets/Mrs Noel visit to FIDIPA office.jpg'],
       content: ""
     },
     {
@@ -441,12 +441,12 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Grandmothers and Orphans/Vulnerable Children Project",
       description: "The project support the granny’s taking care of the orphans and vulnerable children (OVC) improve food security, nutrition and health, and livelihood.",
       images: [
-        'assets/Grandmothers and Orphans or Vulnerable Children Project.png',
-        'assets/Grandmothers and Orphans or Vulnerable Children Project 2.png',
-        'assets/Grandmothers and Orphans or Vulnerable Children Project 3.png',
-        'assets/Grandmothers and Orphans or Vulnerable Children Project 4.png',
-        'assets/Grandmothers and Orphans or Vulnerable Children Project 5.png',
-        'assets/OVCs firewood.jpg'
+        'assets/OVCs firewood.jpg',
+        'assets/JP and girls visioning at Sabako.jpg',
+        'assets/Linda talking girls Sabako.jpg',
+        'assets/mentorship of girls.jpg',
+        'assets/kwale women group.jpg',
+        'assets/Innocent YILA.jpg'
       ],
       content: ""
     },
@@ -456,12 +456,10 @@ document.addEventListener('DOMContentLoaded', () => {
       title: "Youth Engagement",
       description: "The youth soft skills and advocacy project envisions recognized, respected, engaged youth able to redefine their identities and working to improve their socio-economic situations through inclusion in development processes business start-up skills, developing an entrepreneurial mindset, creative thinking, visionary leadership, resourcefulness, and resource mobilization in Kenya. FIDIPA FIDIPA work in Kisumu and Kwale Counties.",
       images: [
-        'assets/YOUTH PROGRAM AT SABAKI.JPG',
-        'assets/Youth engagement in land advocacy.jpg',
+        'assets/Youth advocacy training.jpg',
         'assets/SOFT SKILLS SESSIONS.jpg',
-        'assets/Linda talking girls Sabako.jpg',
-        // 'assets/Youth program by Linda.jpg', // Removed as it does not exist
-        'assets/YOUTH-LED COMMUNITY DIALOGUE.jpg'
+        'assets/creative thinking at SABAKO TVET group 1.jpg',
+        'assets/visioning game at TVET.jpg'
       ],
       content: ""
     },
@@ -470,7 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "school-mentorship-program",
       title: "School mentorship program",
       description: "The program seeks to empower both boys and girls from rural primary schools in Kenya with soft skills and career development. Mainly the project seeks to reduce the high rate of teenage pregnancy and school dropout and improve girls’ education standard in marginalized communities.",
-      images: ['assets/School children with new desks.jpg', 'assets/JP and girls visioning at Sabako.jpg', 'assets/Visioning with girls.jpg', 'assets/School Mentorship Program.jpg'], // Assuming 'School Mentorship Program.jpg' exists
+      images: ['assets/life skills and mentorship sessions.jpg', 'assets/Creative thinking NITA.jpg', 'assets/lifeskilsl creatical thinking workshop.jpg', 'assets/visioning game by JPaul TVET.jpg'],
       content: ""
     }
   ];
