@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en" class="dark"> <!-- Default to dark, JS will manage this -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FIDIPA - Friendly Integrated Development Initiative in Poverty Alleviation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Assuming vite.svg would be copied to new_static_site/vite.svg or new_static_site/images/vite.svg -->
+  </head>
+  <body class="bg-white dark:bg-dark text-dark dark:text-white antialiased">
+    <div id="app-container" class="min-h-screen flex flex-col">
+      <header id="navbar-container" class="fixed w-full z-50 bg-white/95 dark:bg-dark/95 backdrop-blur-sm">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center justify-between h-16">
+            <a href="#home" class="fidipa-logo text-dark dark:text-white font-bold text-xl hover:scale-105 active:scale-95 transition-transform duration-150">
+              FIDIPA
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-4">
+              <div class="flex items-baseline space-x-1" id="desktop-nav-links">
+                <a href="#home" data-navid="home" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white transition-colors duration-300 relative">Home <span class="active-indicator"></span></a>
+                <a href="#about" data-navid="about" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white transition-colors duration-300 relative">About <span class="active-indicator"></span></a>
+                <a href="#programs" data-navid="programs" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white transition-colors duration-300 relative">Programs <span class="active-indicator"></span></a>
+                <a href="#team" data-navid="team" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white transition-colors duration-300 relative">Team <span class="active-indicator"></span></a>
+                <a href="#partners" data-navid="partners" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white transition-colors duration-300 relative">Partners <span class="active-indicator"></span></a>
+                <a href="#gallery" data-navid="gallery" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white transition-colors duration-300 relative">Gallery <span class="active-indicator"></span></a>
+                <a href="#contact" data-navid="contact" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white transition-colors duration-300 relative">Contact <span class="active-indicator"></span></a>
+              </div>
+              <button id="theme-toggle-desktop" aria-label="Toggle theme" class="theme-toggle-button p-2 rounded-full hover:bg-gray-100 dark:hover:bg-dark-lighter transition-colors hover:scale-110 active:scale-90 duration-150">
+                <svg class="sun-icon w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.66-15.66l-.707.707M4.04 19.96l-.707.707M21 12h-1M4 12H3m15.66 8.66l-.707-.707M4.04 4.04l-.707-.707"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18a6 6 0 100-12 6 6 0 000 12z"></path></svg>
+                <svg class="moon-icon w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+              </button>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden flex items-center space-x-2">
+              <button id="theme-toggle-mobile" aria-label="Toggle theme" class="theme-toggle-button p-2 text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:scale-110 active:scale-90 transition-transform duration-150">
+                 <svg class="sun-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m8.66-15.66l-.707.707M4.04 19.96l-.707.707M21 12h-1M4 12H3m15.66 8.66l-.707-.707M4.04 4.04l-.707-.707"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18a6 6 0 100-12 6 6 0 000 12z"></path></svg>
+                 <svg class="moon-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+              </button>
+              <button id="mobile-menu-button" aria-label="Open menu" class="p-2 text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:scale-110 active:scale-90 transition-transform duration-150">
+                <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <svg id="x-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+              </button>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden bg-white/95 dark:bg-dark-lighter/95 backdrop-blur-sm overflow-hidden max-h-0 opacity-0">
+          <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3" id="mobile-nav-links">
+            <a href="#home" data-navid="home" class="nav-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:bg-gray-100/30 dark:hover:bg-dark-accent/30">Home</a>
+            <a href="#about" data-navid="about" class="nav-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:bg-gray-100/30 dark:hover:bg-dark-accent/30">About</a>
+            <a href="#programs" data-navid="programs" class="nav-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:bg-gray-100/30 dark:hover:bg-dark-accent/30">Programs</a>
+            <a href="#team" data-navid="team" class="nav-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:bg-gray-100/30 dark:hover:bg-dark-accent/30">Team</a>
+            <a href="#partners" data-navid="partners" class="nav-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:bg-gray-100/30 dark:hover:bg-dark-accent/30">Partners</a>
+            <a href="#gallery" data-navid="gallery" class="nav-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:bg-gray-100/30 dark:hover:bg-dark-accent/30">Gallery</a>
+            <a href="#contact" data-navid="contact" class="nav-link block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 dark:text-gray-300 hover:text-dark dark:hover:text-white hover:bg-gray-100/30 dark:hover:bg-dark-accent/30">Contact</a>
+          </div>
+        </div>
+      </header>
+
+      <main class="flex-1 pt-16"> <!-- pt-16 for fixed navbar -->
+        <section id="home" class="css-slideshow-container min-h-screen relative overflow-hidden">
+          <!-- Hidden radio buttons for slide control -->
+          <input type="radio" name="css-slide" id="slide-radio-1" class="css-slide-input" checked>
+          <input type="radio" name="css-slide" id="slide-radio-2" class="css-slide-input">
+          <input type="radio" name="css-slide" id="slide-radio-3" class="css-slide-input">
+          <input type="radio" name="css-slide" id="slide-radio-4" class="css-slide-input">
+          <input type="radio" name="css-slide" id="slide-radio-5" class="css-slide-input">
+
+          <div class="slides-wrapper">
+            <!-- Slide 1 -->
+            <div class="css-slide" data-slide-index="1">
+              <img src="./assets/Team picture.jpg" alt="FIDIPA Team" class="css-slide-image">
+              <div class="css-slide-overlay"></div>
+              <div class="css-slide-text-content">
+                <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight">Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA)</h1>
+                <p class="text-lg md:text-xl text-white max-w-2xl mx-auto">A holistic peaceful and democratic society with justice for all</p>
+              </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="css-slide" data-slide-index="2">
+              <img src="./assets/Enterpreneuship training sessions.jpg" alt="Empowering Communities Since 2007" class="css-slide-image">
+              <div class="css-slide-overlay"></div>
+              <div class="css-slide-text-content">
+                <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight">Empowering Communities Since 2007</h1>
+                <p class="text-lg md:text-xl text-white max-w-2xl mx-auto">Registered under the NGO Act of Kenya as a National NGO</p>
+              </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="css-slide" data-slide-index="3">
+              <img src="./assets/Au Zambia presentation.jpg" alt="Fostering Unity and Effective Participation" class="css-slide-image">
+              <div class="css-slide-overlay"></div>
+              <div class="css-slide-text-content">
+                <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight">Fostering Unity and Effective Participation</h1>
+                <p class="text-lg md:text-xl text-white max-w-2xl mx-auto">Working with urban and rural communities for sustainable development</p>
+              </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="css-slide" data-slide-index="4">
+              <img src="./assets/Women Land Rights and food security 1.jpg" alt="Human Rights Based Approach" class="css-slide-image">
+              <div class="css-slide-overlay"></div>
+              <div class="css-slide-text-content">
+                <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight">Human Rights Based Approach</h1>
+                <p class="text-lg md:text-xl text-white max-w-2xl mx-auto">Empowering women and girls to claim their rights</p>
+              </div>
+            </div>
+            <!-- Slide 5 -->
+            <div class="css-slide" data-slide-index="5">
+              <img src="./assets/School children with new desks.jpg" alt="Supporting Education and Livelihoods" class="css-slide-image">
+              <div class="css-slide-overlay"></div>
+              <div class="css-slide-text-content">
+                <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight">Supporting Education and Livelihoods</h1>
+                <p class="text-lg md:text-xl text-white max-w-2xl mx-auto">Building better futures for our communities</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="css-slide-dots">
+            <label for="slide-radio-1" class="css-dot" data-dot-index="1"></label>
+            <label for="slide-radio-2" class="css-dot" data-dot-index="2"></label>
+            <label for="slide-radio-3" class="css-dot" data-dot-index="3"></label>
+            <label for="slide-radio-4" class="css-dot" data-dot-index="4"></label>
+            <label for="slide-radio-5" class="css-dot" data-dot-index="5"></label>
+          </div>
+
+          <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+            <a href="#about" id="scroll-down-chevron" class="text-primary animate-bounce cursor-pointer">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </a>
+          </div>
+        </section>
+        <section id="about" class="py-32 bg-gradient-to-b from-light-darker via-light to-light-darker dark:from-dark-lighter dark:via-dark dark:to-dark-lighter min-h-screen flex items-center">
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 animate-on-scroll fade-in-up">
+              <h2 class="text-4xl font-bold mb-6 text-gray-900 dark:text-white">ABOUT US</h2>
+              <div class="text-gray-600 dark:text-gray-300 text-lg leading-relaxed max-w-3xl mx-auto">
+                <p class="mb-4">
+                  Friendly Integrated Development Initiative in Poverty Alleviation (FIDIPA) is a Non-Governmental Organization (NGO) registered in Kenya in 2007. As a grassroots, faith-based NGO, FIDIPA fosters unity, participation, and cooperation with marginalized urban and rural populations. The organization is committed to gender-responsive development for social and economic growth, guided by a human rights-based approach (HRBA) and inspired by the holistic mission of “abundant life in Jesus Christ” (John 10:10). FIDIPA is founded on the following vision and mission.
+                </p>
+                <div class="collapsible-section">
+                  <strong class="block mb-2">CAPACITY STATEMENT AND MANAGEMENT STRUCTURE</strong>
+                  <div id="capacity-statement-content" class="collapsible-content">
+                    <p>
+                      FIDIPA evolves around ways of linking rights awareness with poverty alleviation. FIDIPA has a vast experience in capacity building and community empowerment since 2007. FIDIPA has highly qualified advisory board members responsible for the formulation and review of policy frameworks executed by the management committee. The management structure ensures that the project is implemented by the desired standards established by the respective funding partner and organization policies. FIDIPA has a well-established network of more than 200 community paralegals working as volunteers, responsible for educating their respective community members and linking rights with development initiatives. Financially the organization has a transparent, accountable, and user-friendly human resource administration and financial manual in place. The books of accounts are annually audited by a reputable audit firm and submitted to the government relevant authorities.
+                    </p>
+                  </div>
+                  <div class="flex justify-center mt-4">
+                    <button id="capacity-read-more-button" class="text-primary hover:text-primary/80 transition-colors inline-flex items-center">
+                      <span>Read More</span>
+                      <svg class="chevron-down w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                      <svg class="chevron-up w-4 h-4 ml-1 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mt-12">
+              <div class="about-card bg-white dark:bg-dark-lighter/50 shadow-lg dark:shadow-none backdrop-blur-sm p-8 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-primary/30 transition-colors group animate-on-scroll fade-in-up" style="transition-delay: 0.0s;">
+                <div class="text-4xl mb-4 icon-hover-scale">👁️</div>
+                <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white group-hover:text-primary transition-colors">Our Vision</h3>
+                <p class="text-gray-600 dark:text-gray-300">A holistic peaceful and democratic society with justice for all.</p>
+              </div>
+              <div class="about-card bg-white dark:bg-dark-lighter/50 shadow-lg dark:shadow-none backdrop-blur-sm p-8 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-primary/30 transition-colors group animate-on-scroll fade-in-up" style="transition-delay: 0.2s;">
+                <div class="text-4xl mb-4 icon-hover-scale">🎯</div>
+                <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white group-hover:text-primary transition-colors">Mission:</h3>
+                <p class="text-gray-600 dark:text-gray-300">To empower underprivileged  rural and urban populations to challenge oppressive structures, access justice, and lead in promoting gender equity, peacebuilding, good governance, food security, environmental sustainability, and improved livelihoods.</p>
+              </div>
+              <div class="about-card bg-white dark:bg-dark-lighter/50 shadow-lg dark:shadow-none backdrop-blur-sm p-8 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-primary/30 transition-colors group animate-on-scroll fade-in-up" style="transition-delay: 0.4s;">
+                <div class="text-4xl mb-4 icon-hover-scale">⭐</div>
+                <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white group-hover:text-primary transition-colors">Core Values:</h3>
+                <ul class="list-disc list-inside text-gray-600 dark:text-gray-300 text-left space-y-1">
+                  <li><span class="font-semibold">Professionalism and Teamwork:</span> Delivering services efficiently and reliably through collaboration.</li>
+                  <li><span class="font-semibold">Integrity and Accountability:</span> Upholding ethical standards in operations and stakeholder interactions.</li>
+                  <li><span class="font-semibold">Partnerships and Collaboration:</span> Promoting cooperation for mutual goals and learning.</li>
+                  <li><span class="font-semibold">Equity and Inclusivity:</span> Ensuring equal access to opportunities, resources, and rights.</li>
+                  <li><span class="font-semibold">Dynamism:</span> Respecting diverse opinions while fostering innovation and dedication to service.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mt-16 grid md:grid-cols-4 gap-8 text-center">
+              <div class="stat-card bg-gradient-to-br from-primary/10 to-primary/5 p-6 rounded-lg shadow-lg dark:shadow-none animate-on-scroll scale-in" style="transition-delay: 0.0s;">
+                <h4 class="text-3xl font-bold text-primary mb-2">18+</h4>
+                <p class="text-gray-600 dark:text-gray-300">Years Experience</p>
+              </div>
+              <div class="stat-card bg-gradient-to-br from-primary/10 to-primary/5 p-6 rounded-lg shadow-lg dark:shadow-none animate-on-scroll scale-in" style="transition-delay: 0.1s;">
+                <h4 class="text-3xl font-bold text-primary mb-2">200+</h4>
+                <p class="text-gray-600 dark:text-gray-300">Community Paralegals</p>
+              </div>
+              <div class="stat-card bg-gradient-to-br from-primary/10 to-primary/5 p-6 rounded-lg shadow-lg dark:shadow-none animate-on-scroll scale-in" style="transition-delay: 0.2s;">
+                <h4 class="text-3xl font-bold text-primary mb-2">7</h4>
+                <p class="text-gray-600 dark:text-gray-300">Counties Served</p>
+              </div>
+              <div class="stat-card bg-gradient-to-br from-primary/10 to-primary/5 p-6 rounded-lg shadow-lg dark:shadow-none animate-on-scroll scale-in" style="transition-delay: 0.3s;">
+                <h4 class="text-3xl font-bold text-primary mb-2">50+</h4>
+                <p class="text-gray-600 dark:text-gray-300">Community Partners</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="programs" class="py-20 relative bg-light dark:bg-dark">
+          <div class="absolute inset-0 bg-fixed bg-cover bg-center opacity-50 dark:opacity-40" style="background-image: url('./assets/Team picture.jpg');"></div>
+          <div class="absolute inset-0 bg-white/80 dark:bg-dark/60 backdrop-blur-[2px]"></div>
+
+          <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="flex justify-between items-center mb-12 animate-on-scroll fade-in-up">
+              <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Our Programs</h2>
+              <a href="programs.html" class="text-primary hover:text-primary/80 transition-colors flex items-center">
+                View All Programs
+                <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+              <!-- Program 1 -->
+              <div class="program-card group bg-white dark:bg-dark-lighter/80 shadow-lg dark:shadow-none backdrop-blur-sm rounded-lg overflow-hidden hover:shadow-xl dark:hover:bg-dark-accent/50 transition-all duration-300 animate-on-scroll fade-in-up" style="transition-delay: 0.0s;">
+                <div class="h-48 overflow-hidden">
+                  <img src="./assets/Women Land Rights and food security 1.jpg" alt="Women Land Rights and food security" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                </div>
+                <div class="p-6">
+                  <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white group-hover:text-primary transition-colors">Women Land Rights and food security</h3>
+                  <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">FIDIPA advocates for women's land rights and food security. The project believes that the Rights-holders become champions...</p>
+                  <a href="programs.html#women-land-rights-food-security" class="text-primary hover:text-primary/80 transition-colors flex items-center">
+                    Learn More
+                    <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
+              <!-- Program 2 -->
+              <div class="program-card group bg-white dark:bg-dark-lighter/80 shadow-lg dark:shadow-none backdrop-blur-sm rounded-lg overflow-hidden hover:shadow-xl dark:hover:bg-dark-accent/50 transition-all duration-300 animate-on-scroll fade-in-up" style="transition-delay: 0.2s;">
+                <div class="h-48 overflow-hidden">
+                  <img src="./assets/Women in leadership training.jpg" alt="Women Leadership and Socio-economic Project" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                </div>
+                <div class="p-6">
+                  <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white group-hover:text-primary transition-colors">Women Leadership and Socio-economic Project</h3>
+                  <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">Historically, cultural and institutional structures have created gender relationships that have led to the subordination of women...</p>
+                  <a href="programs.html#women-leadership-socio-economic" class="text-primary hover:text-primary/80 transition-colors flex items-center">
+                    Learn More
+                    <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
+              <!-- Program 3 -->
+              <div class="program-card group bg-white dark:bg-dark-lighter/80 shadow-lg dark:shadow-none backdrop-blur-sm rounded-lg overflow-hidden hover:shadow-xl dark:hover:bg-dark-accent/50 transition-all duration-300 animate-on-scroll fade-in-up" style="transition-delay: 0.4s;">
+                <div class="h-48 overflow-hidden">
+                  <img src="./assets/Climate Justice - Resilience Environment and Livelihood Project 1.png" alt="Climate Justice - Resilience Environment and Livelihood Project" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                </div>
+                <div class="p-6">
+                  <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white group-hover:text-primary transition-colors">Climate Justice - Resilience Environment and Livelihood Project</h3>
+                  <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">FIDIPA recognizes that environmental degradation and climate change are serious global problems. The organization is committed to minimizing her impact...</p>
+                  <a href="programs.html#climate-justice-resilience" class="text-primary hover:text-primary/80 transition-colors flex items-center">
+                    Learn More
+                    <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="team" class="py-20 bg-light dark:bg-dark">
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 animate-on-scroll fade-in-up">
+              <h2 class="text-4xl font-bold mb-4 text-gray-900 dark:text-white">Our Team</h2>
+              <p class="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                Meet the dedicated individuals who work tirelessly to make our mission a reality.
+              </p>
+            </div>
+
+            <div class="space-y-16">
+              <div>
+                <h3 class="text-2xl font-bold mb-8 text-gray-900 dark:text-white animate-on-scroll fade-in-up">Board of Directors</h3>
+                <div id="board-carousel" class="team-carousel relative animate-on-scroll fade-in-up">
+                  <div class="carousel-viewport mx-auto overflow-hidden relative" style="max-width: calc(3 * (288px + 24px));"> <!-- Approx 3 cards wide -->
+                    <div class="carousel-track flex transition-transform duration-500 ease-in-out">
+                      <!-- Board cards will be injected by JS -->
+                    </div>
+                  </div>
+                  <button class="carousel-prev absolute left-0 sm:-left-4 top-1/2 -translate-y-1/2 z-20 bg-white dark:bg-dark-lighter p-2 rounded-full shadow-lg hover:scale-110 transition-transform border border-gray-200 dark:border-gray-700">
+                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                  </button>
+                  <button class="carousel-next absolute right-0 sm:-right-4 top-1/2 -translate-y-1/2 z-20 bg-white dark:bg-dark-lighter p-2 rounded-full shadow-lg hover:scale-110 transition-transform border border-gray-200 dark:border-gray-700">
+                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="text-2xl font-bold mb-8 text-gray-900 dark:text-white animate-on-scroll fade-in-up">Management Committee</h3>
+                <div id="management-committee-carousel" class="team-carousel relative animate-on-scroll fade-in-up">
+                  <div class="carousel-viewport mx-auto overflow-hidden relative" style="max-width: calc(3 * (288px + 24px));"> <!-- Approx 3 cards wide -->
+                    <div class="carousel-track flex transition-transform duration-500 ease-in-out">
+                      <!-- Management Committee cards will be injected by JS -->
+                    </div>
+                  </div>
+                  <button class="carousel-prev absolute left-0 sm:-left-4 top-1/2 -translate-y-1/2 z-20 bg-white dark:bg-dark-lighter p-2 rounded-full shadow-lg hover:scale-110 transition-transform border border-gray-200 dark:border-gray-700">
+                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                  </button>
+                  <button class="carousel-next absolute right-0 sm:-right-4 top-1/2 -translate-y-1/2 z-20 bg-white dark:bg-dark-lighter p-2 rounded-full shadow-lg hover:scale-110 transition-transform border border-gray-200 dark:border-gray-700">
+                    <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="partners" class="py-20 bg-white dark:bg-dark-lighter">
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 animate-on-scroll fade-in-up">
+              <h2 class="text-4xl font-bold mb-4 text-gray-900 dark:text-white">Our Partners</h2>
+              <p class="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                We are proud to collaborate with a diverse range of organizations to achieve our mission.
+              </p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 text-center animate-on-scroll fade-in-up" style="transition-delay: 0.2s;">
+              <div class="partner-logo p-4 bg-light dark:bg-dark rounded-lg shadow hover:shadow-md transition-shadow">
+                <p class="text-gray-700 dark:text-gray-300 font-semibold">America Space</p>
+              </div>
+              <div class="partner-logo p-4 bg-light dark:bg-dark rounded-lg shadow hover:shadow-md transition-shadow">
+                <p class="text-gray-700 dark:text-gray-300 font-semibold">Kenya Land Alliance</p>
+              </div>
+              <div class="partner-logo p-4 bg-light dark:bg-dark rounded-lg shadow hover:shadow-md transition-shadow">
+                <p class="text-gray-700 dark:text-gray-300 font-semibold">Landesa - She for Land program</p>
+              </div>
+              <div class="partner-logo p-4 bg-light dark:bg-dark rounded-lg shadow hover:shadow-md transition-shadow">
+                <p class="text-gray-700 dark:text-gray-300 font-semibold">World pulse</p>
+              </div>
+              <div class="partner-logo p-4 bg-light dark:bg-dark rounded-lg shadow hover:shadow-md transition-shadow">
+                <p class="text-gray-700 dark:text-gray-300 font-semibold">PACJA</p>
+              </div>
+              <div class="partner-logo p-4 bg-light dark:bg-dark rounded-lg shadow hover:shadow-md transition-shadow">
+                <p class="text-gray-700 dark:text-gray-300 font-semibold">Progressive Baptist</p>
+              </div>
+              <div class="partner-logo p-4 bg-light dark:bg-dark rounded-lg shadow hover:shadow-md transition-shadow">
+                <p class="text-gray-700 dark:text-gray-300 font-semibold">Youth Initiative for Land in Africa –(YILAA)</p>
+              </div>
+              <div class="partner-logo p-4 bg-light dark:bg-dark rounded-lg shadow hover:shadow-md transition-shadow">
+                <p class="text-gray-700 dark:text-gray-300 font-semibold">Haki Nawiri</p>
+              </div>
+              <div class="partner-logo p-4 bg-light dark:bg-dark rounded-lg shadow hover:shadow-md transition-shadow">
+                <p class="text-gray-700 dark:text-gray-300 font-semibold">The Inclusive Climate Change Adaptation for a Sustainable Africa (ICCASA)</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="gallery" class="py-20 bg-light dark:bg-dark">
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center mb-12 animate-on-scroll fade-in-up">
+              <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Photo Gallery</h2>
+              <a href="gallery.html" class="text-primary hover:text-primary/80 transition-colors flex items-center">
+                View All Photos
+                <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+
+            <div id="homepage-gallery-grid" class="gallery-masonry-container animate-on-scroll fade-in-up" style="transition-delay: 0.2s;">
+              <!-- Image 1 -->
+              <div class="gallery-item relative group overflow-hidden rounded-lg">
+                <div class="aspect-square">
+                  <img src="./assets/AT LANDESA.JPG" alt="Gallery preview image 1" class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110"/>
+                </div>
+                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <a href="gallery.html" class="text-white hover:text-primary transition-colors p-4">View Gallery</a>
+                </div>
+              </div>
+              <!-- Image 2 -->
+              <div class="gallery-item relative group overflow-hidden rounded-lg">
+                <div class="aspect-square">
+                  <img src="./assets/Creative thinking NITA.jpg" alt="Gallery preview image 2" class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110"/>
+                </div>
+                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <a href="gallery.html" class="text-white hover:text-primary transition-colors p-4">View Gallery</a>
+                </div>
+              </div>
+              <!-- Image 3 -->
+              <div class="gallery-item relative group overflow-hidden rounded-lg">
+                <div class="aspect-square">
+                  <img src="./assets/During the training of WWD.jpg" alt="Gallery preview image 3" class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110"/>
+                </div>
+                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <a href="gallery.html" class="text-white hover:text-primary transition-colors p-4">View Gallery</a>
+                </div>
+              </div>
+              <!-- Image 4 -->
+              <div class="gallery-item relative group overflow-hidden rounded-lg">
+                <div class="aspect-square">
+                  <img src="./assets/JP Picture NITA leadership  training.jpg" alt="Gallery preview image 4" class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110"/>
+                </div>
+                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <a href="gallery.html" class="text-white hover:text-primary transition-colors p-4">View Gallery</a>
+                </div>
+              </div>
+              <!-- Image 5 -->
+              <div class="gallery-item relative group overflow-hidden rounded-lg">
+                <div class="aspect-square">
+                  <img src="./assets/Training of Trainers.jpg" alt="Gallery preview image 5" class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110"/>
+                </div>
+                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <a href="gallery.html" class="text-white hover:text-primary transition-colors p-4">View Gallery</a>
+                </div>
+              </div>
+              <!-- Image 6 -->
+              <div class="gallery-item relative group overflow-hidden rounded-lg">
+                <div class="aspect-square">
+                  <img src="./assets/YOUTH-LED COMMUNITY DIALOGUE.jpg" alt="Gallery preview image 6" class="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-110"/>
+                </div>
+                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <a href="gallery.html" class="text-white hover:text-primary transition-colors p-4">View Gallery</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section id="contact" class="py-20 bg-white dark:bg-dark-lighter">
+          <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center text-gray-900 dark:text-white animate-on-scroll fade-in-up">
+              Contact Us
+            </h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 animate-on-scroll fade-in-up" style="transition-delay: 0.2s;">
+              <!-- Main Office Card -->
+              <div class="contact-card bg-white dark:bg-dark p-6 rounded-lg shadow-lg dark:shadow-none relative overflow-hidden group hover:shadow-xl dark:hover:bg-dark-accent transition-all duration-300">
+                <div class="contact-card-bg absolute inset-0 bg-cover bg-center opacity-5 dark:opacity-10 group-hover:opacity-10 dark:group-hover:opacity-20 transition-opacity duration-300" style="background-image: url('https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&q=80&w=1600');"></div>
+                <div class="relative z-10">
+                  <svg class="w-8 h-8 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                  <h3 class="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Main Office</h3>
+                  <p class="text-gray-600 dark:text-gray-300">Kisumu Obambo next to St. John Anglican Church Obambo</p>
+                </div>
+              </div>
+
+              <!-- Liaison Office Card -->
+              <div class="contact-card bg-white dark:bg-dark p-6 rounded-lg shadow-lg dark:shadow-none relative overflow-hidden group hover:shadow-xl dark:hover:bg-dark-accent transition-all duration-300">
+                <div class="contact-card-bg absolute inset-0 bg-cover bg-center opacity-5 dark:opacity-10 group-hover:opacity-10 dark:group-hover:opacity-20 transition-opacity duration-300" style="background-image: url('https://images.unsplash.com/photo-1577563908411-5077b6dc7624?auto=format&fit=crop&q=80&w=1600');"></div>
+                <div class="relative z-10">
+                  <!-- Building2 Icon -->
+                  <svg class="w-8 h-8 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m-1 4h1m5-4h1m-1 4h1m-1-4h1m-1 4h1"></path></svg>
+                  <h3 class="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Liaison Office</h3>
+                  <p class="text-gray-600 dark:text-gray-300">Kayole Spine Road D2 Hse 383 Nairobi</p>
+                </div>
+              </div>
+
+              <!-- Phone Card -->
+              <a href="tel:+254735443379" class="contact-card block bg-white dark:bg-dark p-6 rounded-lg shadow-lg dark:shadow-none text-left hover:shadow-xl dark:hover:bg-dark-accent transition-all duration-300 relative overflow-hidden group">
+                <div class="contact-card-bg absolute inset-0 bg-cover bg-center opacity-5 dark:opacity-10 group-hover:opacity-10 dark:group-hover:opacity-20 transition-opacity duration-300" style="background-image: url('https://images.unsplash.com/photo-1523966211575-eb4a01e7dd51?auto=format&fit=crop&q=80&w=1600');"></div>
+                <div class="relative z-10">
+                  <svg class="w-8 h-8 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.308 1.154a11.034 11.034 0 005.364 5.364l1.154-2.308a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                  <h3 class="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Phone</h3>
+                  <p class="text-gray-600 dark:text-gray-300">+254 735 443 379</p>
+                </div>
+              </a>
+
+              <!-- Email Card -->
+              <div class="contact-card bg-white dark:bg-dark p-6 rounded-lg shadow-lg dark:shadow-none text-left hover:shadow-xl dark:hover:bg-dark-accent transition-all duration-300 relative overflow-hidden group">
+                <div class="contact-card-bg absolute inset-0 bg-cover bg-center opacity-5 dark:opacity-10 group-hover:opacity-10 dark:group-hover:opacity-20 transition-opacity duration-300" style="background-image: url('https://images.unsplash.com/photo-1596526131083-e8c633c948d2?auto=format&fit=crop&q=80&w=1600');"></div>
+                <div class="relative z-10">
+                  <svg class="w-8 h-8 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                  <h3 class="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Email</h3>
+                  <a href="mailto:fidipakenya@gmail.com" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors block">fidipakenya@gmail.com</a>
+                  <a href="mailto:nyapaulj@gmail.com" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors block">nyapaulj@gmail.com</a>
+                </div>
+              </div>
+
+              <!-- Website & Address Card -->
+              <div class="contact-card bg-white dark:bg-dark p-6 rounded-lg shadow-lg dark:shadow-none text-left hover:shadow-xl dark:hover:bg-dark-accent transition-all duration-300 relative overflow-hidden group">
+                <div class="contact-card-bg absolute inset-0 bg-cover bg-center opacity-5 dark:opacity-10 group-hover:opacity-10 dark:group-hover:opacity-20 transition-opacity duration-300" style="background-image: url('https://images.unsplash.com/photo-1487014679447-9f8336841d58?auto=format&fit=crop&q=80&w=1600');"></div>
+                <div class="relative z-10">
+                   <!-- Globe Icon -->
+                   <svg class="w-8 h-8 text-primary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2h10a2 2 0 002-2v-1a2 2 0 012-2h1.945M7.737 16.061L12 20.324l4.263-4.263M12 3v9"></path></svg>
+                  <h3 class="font-semibold text-lg mb-2 text-gray-900 dark:text-white">Website & Address</h3>
+                  <p class="text-gray-600 dark:text-gray-300">www.fidipa.org</p>
+                  <p class="text-gray-600 dark:text-gray-300 mt-2">P.O. Box 62226, Code 00200 Nairobi</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer id="footer-container" class="py-4 bg-white dark:bg-dark-lighter border-t border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+          <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+            © 2025
+            <a
+              href="https://alphonseaaronmumbo.web.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-primary hover:text-primary/80 transition-colors"
+            >
+              FIDIPA
+            </a>
+            – Friendly Integrated Development Initiative in Poverty Alleviation. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
+    <script src="js/main.js"></script>
+  </body>
+</html>

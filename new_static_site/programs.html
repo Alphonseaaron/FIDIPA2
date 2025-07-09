@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Programs - FIDIPA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .floating-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      transform: translateY(-100%);
+      transition: transform 0.3s ease-in-out;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+    .dark .floating-header {
+      background-color: rgba(24, 24, 27, 0.95);
+    }
+    .floating-header.visible {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="bg-light dark:bg-dark text-dark dark:text-white antialiased">
+  <div id="app-container" class="min-h-screen flex flex-col">
+
+    <!-- Scroll-triggered floating header -->
+    <div id="floating-header" class="floating-header">
+      <div class="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
+        <a href="javascript:history.back()" class="flex items-center text-primary hover:scale-105 transition-transform">
+          <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          <span class="font-medium text-base">Back</span>
+        </a>
+        <h1 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white text-center w-full -ml-12 sm:-ml-16">
+          Our Programs
+        </h1>
+      </div>
+    </div>
+
+    <!-- Main content (navbar removed, replaced with static back + title) -->
+    <main class="flex-1 pt-8 bg-light dark:bg-dark">
+      <div class="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
+        <a href="javascript:history.back()" class="flex items-center text-primary hover:scale-105 transition-transform">
+          <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          <span class="font-medium text-base">Back</span>
+        </a>
+        <h1 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white text-center w-full -ml-12 sm:-ml-16">
+          Our Programs
+        </h1>
+      </div>
+
+      <!-- Retain all existing content unchanged -->
+      <div class="pt-12 pb-16 min-h-screen">
+        <div class="max-w-7xl mx-auto px-4">
+          <!-- <h1 class="text-4xl font-bold mb-12 text-center text-gray-900 dark:text-white animate-on-scroll fade-in-up">
+            Our Programs
+          </h1> -->
+          <div id="programs-list-container" class="space-y-12 animate-on-scroll fade-in-up" style="transition-delay: 0.1s;">
+            <p class="text-center text-gray-500 dark:text-gray-400">Loading programs...</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Lightbox (unchanged) -->
+    <div id="lightbox" class="lightbox">
+      <div class="lightbox-content">
+        <img id="lightbox-image" src="" alt="Selected program image" />
+        <button id="lightbox-close" class="lightbox-close" aria-label="Close lightbox">&times;</button>
+        <button id="lightbox-prev" class="lightbox-nav prev" aria-label="Previous image" style="display: none;">&#10094;</button>
+        <button id="lightbox-next" class="lightbox-nav next" aria-label="Next image" style="display: none;">&#10095;</button>
+      </div>
+    </div>
+
+    <!-- Footer (unchanged) -->
+    <footer class="py-4 bg-white dark:bg-dark-lighter border-t border-gray-200 dark:border-gray-800">
+      <div class="max-w-7xl mx-auto px-4">
+        <p class="text-center text-sm text-gray-600 dark:text-gray-400">
+          © 2025
+          <a href="https://alphonseaaronmumbo.web.app/" target="_blank" class="text-primary hover:text-primary/80 transition-colors">
+            FIDIPA
+          </a>
+            – Friendly Integrated Development Initiative in Poverty Alleviation. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    const floatingHeader = document.getElementById('floating-header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 80) {
+        floatingHeader.classList.add('visible');
+      } else {
+        floatingHeader.classList.remove('visible');
+      }
+    });
+  </script>
+</body>
+</html>
