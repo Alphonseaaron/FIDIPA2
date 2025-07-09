@@ -2063,8 +2063,13 @@ html.dark .moon-icon {
 }
 
 .partner-logo-item {
-  /* Tailwind classes: h-24 flex items-center justify-center bg-light dark:bg-dark rounded-lg shadow hover:shadow-md transition-shadow p-2 text-center */
+  /* Tailwind classes: flex items-center justify-center bg-light dark:bg-dark rounded-lg shadow hover:shadow-md transition-shadow p-2 text-center */
+  /* Removed h-24, will be handled by Tailwind class modification or inline style */
+  min-height: 6rem; /* min-h-24 */
   width: 100%; /* Ensure it fills the slide */
+  display: flex; /* Ensure flex properties apply if not already inherited */
+  align-items: center; /* Keep content vertically centered */
+  justify-content: center; /* Keep content horizontally centered */
 }
 
 @keyframes slide {
@@ -2080,17 +2085,10 @@ html.dark .moon-icon {
   animation-play-state: paused; /* Pause animation on hover */
 }
 
-/* Ensure partner text is max two lines and truncates with ellipsis */
+/* Ensure partner text is fully visible */
 .partner-logo-item p {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  /* The existing h-24 on partner-logo-item should provide enough vertical space.
-     The p-2 on partner-logo-item gives padding.
-     If text is still too squeezed vertically, font size or item height might need adjustment,
-     but this change specifically addresses the line clamping. */
+  /* Removed line clamping properties */
+  /* Text will now wrap naturally. Height of .partner-logo-item will adjust. */
 }
 
 
