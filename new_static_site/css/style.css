@@ -2044,6 +2044,43 @@ html.dark .moon-icon {
   width: 2rem; /* w-8, elongated active dot */
 }
 
+/* Partners Slider Styles */
+.partners-slider-container {
+  /* Tailwind classes: overflow-hidden relative w-full */
+}
+
+.partners-track {
+  /* Tailwind classes: flex */
+  /* Width will be 200% of the number of original items to accommodate duplicates for loop */
+  /* Example: If 9 original partners, total 18 slides. Track width is 9 * (slide_width_percentage) * 2 */
+  /* This is handled by flex items' width and the animation. */
+  animation: slide 30s linear infinite; /* Adjust duration as needed */
+}
+
+.partner-slide {
+  /* Tailwind classes: flex-none p-4 w-1/2 md:w-1/3 lg:w-1/4 */
+  /* These classes define the width of each slide. The animation will move the track. */
+}
+
+.partner-logo-item {
+  /* Tailwind classes: h-24 flex items-center justify-center bg-light dark:bg-dark rounded-lg shadow hover:shadow-md transition-shadow p-2 text-center */
+  width: 100%; /* Ensure it fills the slide */
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%); /* Slides halfway, which is the length of original items */
+  }
+}
+
+.partners-slider-container:hover .partners-track {
+  animation-play-state: paused; /* Pause animation on hover */
+}
+
+
 @media (min-width: 640px) {
   .sm\:-left-4 {
     left: -1rem;
