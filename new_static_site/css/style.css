@@ -2080,6 +2080,19 @@ html.dark .moon-icon {
   animation-play-state: paused; /* Pause animation on hover */
 }
 
+/* Ensure partner text is max two lines and truncates with ellipsis */
+.partner-logo-item p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* The existing h-24 on partner-logo-item should provide enough vertical space.
+     The p-2 on partner-logo-item gives padding.
+     If text is still too squeezed vertically, font size or item height might need adjustment,
+     but this change specifically addresses the line clamping. */
+}
+
 
 @media (min-width: 640px) {
   .sm\:-left-4 {
