@@ -227,15 +227,15 @@ document.addEventListener('DOMContentLoaded', () => {
     { name: "Mrs Rosemary N. Meyo", role: "Chairperson", photoUrl: "assets/Mrs. Rosemary N. Meyo - Chairperson.jpg" },
     { name: "Dr. Josephine Munthali", role: "Vice Chairperson", photoUrl: "assets/Dr. Josephine Munthali - Vice Chairperson.png" },
     { name: "Ms Jayne A. I. Wasonga", role: "Secretary and CEO", photoUrl: "assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg" },
-    { name: "Sr. Mildred Mayeye", role: "Treasurer" }, // Placeholder if specific image not found
+    { name: "Sr. Mildred Mayeye", role: "Treasurer", photoUrl: "assets/default-avatar.svg" }, // Explicitly using default
     { name: "Dr. Rev. Simon Oriedo", role: "Committee Member", photoUrl: "assets/Dr. Rev. Simon Oriedo - Committee Member.png" },
     { name: "Mr. Samwel O. Onyango", role: "Committee Member", photoUrl: "assets/Mr. Samwel O. Onyango - Committee Member.png" }
   ];
 
   const managementCommitteeData = [
-    { name: "Prof. Esther Mombo", role: "Theology and Gender Expert" }, // Placeholder
-    { name: "Ms. Grace Ananda", role: "Policy and Governance Expert" }, // Placeholder
-    { name: "Ms. Christine Sanguli", role: "Gender Expert" } // Placeholder
+    { name: "Prof. Esther Mombo", role: "Theology and Gender Expert", photoUrl: "assets/default-avatar.svg" },
+    { name: "Ms. Grace Ananda", role: "Policy and Governance Expert", photoUrl: "assets/default-avatar.svg" },
+    { name: "Ms. Christine Sanguli", role: "Gender Expert", photoUrl: "assets/default-avatar.svg" }
   ];
 
   function setupTeamCarousel(carouselId, membersData) {
@@ -582,6 +582,40 @@ window.openProgramImageLightbox = (src, altText) => {
   // Call render functions specific to pages if their containers exist
   if (document.getElementById('programs-list-container')) {
     renderProgramsPage();
+  }
+
+  // --- Parallax Effect for Programs Section ---
+  const programsSection = document.getElementById('programs');
+  const parallaxBg = document.getElementById('programs-parallax-bg');
+
+  if (programsSection && parallaxBg) {
+    window.addEventListener('scroll', () => {
+      const sectionRect = programsSection.getBoundingClientRect();
+      // Start effect when section is coming into view and stop when it's out of view
+      if (sectionRect.bottom > 0 && sectionRect.top < window.innerHeight) {
+        const scrollPosition = window.pageYOffset;
+        // Calculate how far into the section we've scrolled (0 to 1)
+        // Or, more simply, base it on the top of the section relative to viewport
+        const parallaxOffset = (sectionRect.top * 0.3); // Adjust 0.3 to change speed/intensity
+
+        // We want the background to move up as we scroll down.
+        // The initial state of the background is top-aligned due to `top-0`.
+        // `h-[150%]` means it has 50% extra height.
+        // We can translate it from 0% (top aligned with section top) to -50% (bottom aligned with section bottom if section is 100% of bg)
+        // A simpler approach is to let its natural position be centered and move it slightly.
+        // The current setup has bg-center. Let's try to move it based on scroll.
+
+        // The background is 150% height of the section.
+        // We want it to move from its top covering the section top, to its bottom covering the section bottom.
+        // Let's adjust its 'top' position or use 'transform: translateY'.
+        // If sectionRect.top is 0 (section top at viewport top), bg should be somewhat down.
+        // If sectionRect.bottom is window.innerHeight (section bottom at viewport bottom), bg should be somewhat up.
+
+        // Simpler: move based on how much of the section is visible or overall scroll
+        // The value of parallaxOffset will be negative when scrolling down past the section top.
+        parallaxBg.style.transform = `translateY(${parallaxOffset}px)`;
+      }
+    });
   }
 
   // --- Gallery Page Logic ---
