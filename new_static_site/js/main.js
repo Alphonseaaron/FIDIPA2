@@ -224,21 +224,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Team Section Carousel Logic ---
   const boardOfDirectorsData = [
-    { name: "Mrs Rosemary N. Meyo", role: "Chairperson - Administration and governance Expert - MBA 2010 – Maseno University", photoUrl: "assets/Mrs. Rosemary N. Meyo - Chairperson.jpg" },
-    { name: "Dr. Josephine Munthali", role: "Vice Chairperson - Gender and Education Expert - University of Edinburgh UK (2001)", photoUrl: "assets/Dr. Josephine Munthali - Vice Chairperson.png" },
-    { name: "Ms Jayne A. I. Wasonga", role: "Secretary and CEO - Gender and Project Management Specialist - Catholic University of Eastern Africa 2016", photoUrl: "assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg" },
-    { name: "Sr. Mildred Mayeye", role: "Treasurer – Lwak Mission" }, // Placeholder if specific image not found
-    { name: "Dr. Rev. Simon Oriedo", role: "Committee Member - Theology and Development Expert - Africa International University", photoUrl: "assets/Dr. Rev. Simon Oriedo - Committee Member.png" },
-    { name: "Mr. Samwel O. Onyango", role: "Committee Member - Business Management Specialist - The University of Nairobi 2017", photoUrl: "assets/Mr. Samwel O. Onyango - Committee Member.png" }
+    { name: "Mrs Rosemary N. Meyo", role: "Chairperson", photoUrl: "assets/Mrs. Rosemary N. Meyo - Chairperson.jpg" },
+    { name: "Dr. Josephine Munthali", role: "Vice Chairperson", photoUrl: "assets/Dr. Josephine Munthali - Vice Chairperson.png" },
+    { name: "Ms Jayne A. I. Wasonga", role: "Secretary and CEO", photoUrl: "assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg" },
+    { name: "Sr. Mildred Mayeye", role: "Treasurer" }, // Placeholder if specific image not found
+    { name: "Dr. Rev. Simon Oriedo", role: "Committee Member", photoUrl: "assets/Dr. Rev. Simon Oriedo - Committee Member.png" },
+    { name: "Mr. Samwel O. Onyango", role: "Committee Member", photoUrl: "assets/Mr. Samwel O. Onyango - Committee Member.png" }
   ];
 
   const managementCommitteeData = [
-    { name: "Prof. Esther Mombo", role: "Theology and Gender Expert – University of Wales" }, // Placeholder
-    { name: "Ms. Grace Ananda", role: "Policy and Governance Expert – University of Nairobi" }, // Placeholder
-    { name: "Ms. Christine Sanguli", role: "Gender Expert – Masinde Muliro University" }, // Placeholder
-    // Assuming "Jayne A. I. Wasonga" in management is the same as CEO, using her photo. If different, needs a new photo.
-    { name: "Jayne A. I. Wasonga", role: "Gender, Project Management Expert", photoUrl: "assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg" },
-    { name: "Juliet Dima", role: "Legal Expert - University of Nairobi" } // Placeholder
+    { name: "Prof. Esther Mombo", role: "Theology and Gender Expert" }, // Placeholder
+    { name: "Ms. Grace Ananda", role: "Policy and Governance Expert" }, // Placeholder
+    { name: "Ms. Christine Sanguli", role: "Gender Expert" } // Placeholder
   ];
 
   function setupTeamCarousel(carouselId, membersData) {
@@ -589,38 +586,20 @@ window.openProgramImageLightbox = (src, altText) => {
 
   // --- Gallery Page Logic ---
   const galleryImagesData = [
-    // This list will be populated with all images from new_static_site/assets/
-    // For brevity in this example, I'll list a selection. Assume all ~150+ images are here.
     'assets/20240405_103802.jpg',
     'assets/20250117_162229.jpg',
-    'assets/20250118_140709.jpg',
     'assets/20250531_143420.jpg',
     'assets/20250531_143746.jpg',
     'assets/AT LANDESA.JPG',
     'assets/Au Zambia presentation.jpg',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 1.png',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 2.png',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 3.png',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 4.png',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 5.png',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 6.png',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 7.png',
-    'assets/Climate Justice - Resilience Environment and Livelihood Project 8.png',
     'assets/Creative thinking NITA.jpg',
-    // Skipping team photos from main gallery, they are in team section
-    // 'assets/Dr. Josephine Munthali - Vice Chairperson.png',
-    // 'assets/Dr. Rev. Simon Oriedo - Committee Member.png',
+    'assets/Dr. Josephine Munthali - Vice Chairperson.png',
+    'assets/Dr. Rev. Simon Oriedo - Committee Member.png',
     'assets/During the training of WWD.jpg',
     'assets/Enterpreneurship by Mrs Awiti.jpg',
     'assets/Enterpreneuship training sessions.jpg',
     'assets/FARM 1 - WWD .JPG',
     'assets/Follow up visit.jpg',
-    'assets/Gift to PWD - nyakach.jpg',
-    'assets/Grandmothers and Orphans or Vulnerable Children Project 2.png',
-    'assets/Grandmothers and Orphans or Vulnerable Children Project 3.png',
-    'assets/Grandmothers and Orphans or Vulnerable Children Project 4.png',
-    'assets/Grandmothers and Orphans or Vulnerable Children Project 5.png',
-    'assets/Grandmothers and Orphans or Vulnerable Children Project.png',
     'assets/Innocent YILA.jpg',
     'assets/Israel ch.jpg',
     'assets/JP PACJA - UN meeting preparation.jpg',
@@ -633,41 +612,64 @@ window.openProgramImageLightbox = (src, altText) => {
     'assets/Linda talking girls Sabako.jpg',
     'assets/M&E TO WWD.JPG',
     'assets/Millys house- she is locked out.jpg',
-    // 'assets/Mr. Samwel O. Onyango - Committee Member.png',
+    'assets/Mr. Samwel O. Onyango - Committee Member.png',
     'assets/Mrs Noel visit to FIDIPA office.jpg',
-    // 'assets/Mrs. Rosemary N. Meyo - Chairperson.jpg',
-    // 'assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg',
+    'assets/Mrs. Rosemary N. Meyo - Chairperson.jpg',
+    'assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg',
     'assets/OVCs firewood.jpg',
     'assets/PNBC.jpg',
     'assets/Paralegals follow-up on women land rights.jpg',
     'assets/Rev. Karen visit to FIDIPA office.jpg',
     'assets/SOFT SKILLS SESSIONS.jpg',
-    'assets/Sabaki WEF project.jpg',
-    'assets/School children with new desks.jpg',
-    'assets/School Mentorship Program.jpg',
-    'assets/Team picture.jpg',
-    'assets/Team work.jpg',
-    'assets/Training of Trainers.jpg',
-    'assets/Training sessions at Sabaki.jpg',
-    'assets/Visit to FIdipa office by CEO KLA.jpg',
-    'assets/Visit to womens prison.jpg',
-    'assets/Visioning with girls.jpg',
-    'assets/Voiceless speaking after training.jpg',
-    'assets/WASHEB project.png',
-    'assets/Widows program.jpg',
-    'assets/Women Champions of land rights.jpg',
-    'assets/Women Land Rights and food security 1.jpg',
-    'assets/Women Land Rights and food security 2.jpg',
-    'assets/Women Land Rights and food security 3.jpg',
-    'assets/Women in Prison.jpg',
-    'assets/Women in action for climate change.jpg',
-    'assets/Women in leadership training.jpg',
-    'assets/Women reading a book.jpg',
-    'assets/YOUTH PROGRAM AT SABAKI.JPG',
-    'assets/YOUTH-LED COMMUNITY DIALOGUE.jpg',
-    'assets/Youth engagement in land advocacy.jpg',
-    'assets/Youth program by Linda.jpg'
-    // ... and so on for all other images from the ls output.
+    'assets/SPEAKING AT LANDESA.JPG',
+    'assets/The Munara WWD tree nursary project.jpg',
+    'assets/WITH JESSY LANDESA.JPG',
+    'assets/Youth advocacy training.jpg',
+    'assets/christmas gift nyakach.jpg',
+    'assets/creative thinking at SABAKO TVET group 1.jpg',
+    'assets/creative thinking at Sabako.jpg',
+    'assets/creative thinking group 2.jpg',
+    'assets/creative thinking group 3.jpg',
+    'assets/creative thinking group1b.jpg',
+    'assets/crops of pWD.jpg',
+    'assets/deaf lady rapped.jpg',
+    'assets/entrepreneurship training with Dr- Janipher Awiti.jpg',
+    'assets/gallery image 1.jpg',
+    'assets/gallery image 2.jpg',
+    'assets/gallery image 3.jpg',
+    'assets/gallery image 4.jpg',
+    'assets/gallery image 5.jpg',
+    'assets/gallery image 6.jpg',
+    'assets/gallery image 7.jpg',
+    'assets/gallery image 8.jpg',
+    'assets/gallery image 9.jpg',
+    'assets/gift giving nyakach.jpg',
+    'assets/gift to nyakach widows.jpg',
+    'assets/giving gift to PWD.jpg',
+    'assets/group photo.jpg',
+    'assets/group photo1.jpg',
+    'assets/group work.jpg',
+    'assets/leadership training.jpg',
+    'assets/meeting with WWD.jpg',
+    'assets/member of PWD receiving gift.jpg',
+    'assets/members of WWD.jpg',
+    'assets/nyakach PWDs.jpg',
+    'assets/sabako tvet.jpg',
+    'assets/speaking engagement.jpg',
+    'assets/speaking to group.jpg',
+    'assets/team building.jpg',
+    'assets/team photo.jpg',
+    'assets/training session.jpg',
+    'assets/tree planting.jpg',
+    'assets/visit to KLA.jpg',
+    'assets/visiting PWDs.jpg',
+    'assets/women group.jpg',
+    'assets/women leaders.jpg',
+    'assets/women receiving training.jpg',
+    'assets/workshop.jpg',
+    'assets/youth group.jpg',
+    'assets/youth meeting.jpg',
+    'assets/youth training.jpg'
   ];
 
   function renderGalleryPage() {
@@ -776,7 +778,7 @@ window.openProgramImageLightbox = (src, altText) => {
     const slideRadios = document.querySelectorAll('.css-slide-input');
     const numSlides = slideRadios.length;
     let currentSlideIndex = 0; // Used to determine starting point, will be updated
-    const autoPlayInterval = 3000; // 3 seconds
+    const autoPlayInterval = 2000; // 2 seconds
     let slideshowTimer;
 
     const playNextSlide = () => {
