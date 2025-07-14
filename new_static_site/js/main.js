@@ -288,40 +288,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
       membersData.forEach(member => {
         const card = document.createElement('div');
-        // Base classes
         let cardClasses = 'team-member-card bg-white dark:bg-dark-lighter rounded-lg p-4 md:p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 dark:border-gray-700 flex flex-col items-center text-center';
 
-        // Responsive classes
-        if (screenWidth < 768) { // Mobile
-          cardClasses += ' w-full h-auto'; // Full width, auto height
-          card.style.marginRight = '0px'; // No gap for single full-width card
-        } else { // Tablet/Desktop
-          if (member.title) {
-            cardClasses += ` md:w-[${cardWidth}px] h-[320px]`; // Fixed width for carousel, reduced height
-          } else {
-            cardClasses += ` md:w-[${cardWidth}px] h-auto`; // Fixed width for carousel, auto height
-          }
+        if (screenWidth < 768) {
+          cardClasses += ' w-full h-auto';
+          card.style.marginRight = '0px';
+        } else {
+          cardClasses += ` w-[${cardWidth}px] h-auto`;
           card.style.width = `${cardWidth}px`;
           card.style.marginRight = `${cardGap}px`;
         }
 
         card.className = cardClasses;
-
-        const imageContainerSizeClass = "w-24 h-24"; // Consistent 96x96px size for the container
-        const nameTextClass = screenWidth < 768 ? 'text-base md:text-lg' : 'text-lg lg:text-xl'; // Mobile: 16px, Desktop: 18-20px
-        const roleTextClass = screenWidth < 768 ? 'text-xs md:text-sm' : 'text-sm lg:text-base'; // Mobile: 12-13px, Desktop: 14-16px
-
+        const imageContainerSizeClass = "w-24 h-24";
+        const nameTextClass = 'text-lg lg:text-xl';
+        const roleTextClass = 'text-sm lg:text-base';
         const placeholderImageSrc = "assets/default-avatar.svg";
 
-        let imageContent;
-        // Added class `team-member-photo` to the img tag itself
-        if (member.photoUrl && member.photoUrl.trim() !== "") {
-          imageContent = `<img src="${member.photoUrl}" alt="${member.name}" class="team-member-photo w-full h-full object-cover">`;
-        } else {
-          imageContent = `<img src="${placeholderImageSrc}" alt="Default avatar for ${member.name}" class="team-member-photo w-full h-full object-cover">`;
-        }
+        let imageContent = `<img src="${member.photoUrl || placeholderImageSrc}" alt="${member.name}" class="team-member-photo w-full h-full object-cover">`;
 
-        // Added class `team-member-photo-container` to the div wrapping the image
         card.innerHTML = `
           <div class="team-member-photo-container ${imageContainerSizeClass} mx-auto mb-2 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center border dark:border-gray-700 shrink-0">
             ${imageContent}
@@ -335,17 +320,11 @@ document.addEventListener('DOMContentLoaded', () => {
         track.appendChild(card);
       });
 
-      if (screenWidth >= 768 && track.lastChild) {
-        track.lastChild.style.marginRight = '0px';
+      if (screenWidth >= 768) {
+        track.style.paddingRight = `${cardGap}px`;
+      } else {
+        track.style.paddingRight = '0px';
       }
-      // Add padding to the track itself to prevent last card from being flush with viewport edge
-      track.style.paddingRight = (screenWidth < 768 || totalItems <= itemsPerPage) ? '0px' : `${cardGap}px`;
-
-      // Add a spacer element to the end of the track
-      const spacer = document.createElement('div');
-      spacer.style.width = `${cardGap}px`;
-      spacer.style.flexShrink = '0';
-      track.appendChild(spacer);
     }
 
     function goToIndex(index, immediate = false) {
@@ -595,36 +574,12 @@ window.openProgramImageLightbox = (src, altText) => {
   }
 
   // --- Parallax Effect for Programs Section ---
-  const programsSection = document.getElementById('programs');
   const parallaxBg = document.getElementById('programs-parallax-bg');
 
-  if (programsSection && parallaxBg) {
+  if (parallaxBg) {
     window.addEventListener('scroll', () => {
-      const sectionRect = programsSection.getBoundingClientRect();
-      // Start effect when section is coming into view and stop when it's out of view
-      if (sectionRect.bottom > 0 && sectionRect.top < window.innerHeight) {
-        const scrollPosition = window.pageYOffset;
-        // Calculate how far into the section we've scrolled (0 to 1)
-        // Or, more simply, base it on the top of the section relative to viewport
-        const parallaxOffset = (sectionRect.top * 0.3); // Adjust 0.3 to change speed/intensity
-
-        // We want the background to move up as we scroll down.
-        // The initial state of the background is top-aligned due to `top-0`.
-        // `h-[150%]` means it has 50% extra height.
-        // We can translate it from 0% (top aligned with section top) to -50% (bottom aligned with section bottom if section is 100% of bg)
-        // A simpler approach is to let its natural position be centered and move it slightly.
-        // The current setup has bg-center. Let's try to move it based on scroll.
-
-        // The background is 150% height of the section.
-        // We want it to move from its top covering the section top, to its bottom covering the section bottom.
-        // Let's adjust its 'top' position or use 'transform: translateY'.
-        // If sectionRect.top is 0 (section top at viewport top), bg should be somewhat down.
-        // If sectionRect.bottom is window.innerHeight (section bottom at viewport bottom), bg should be somewhat up.
-
-        // Simpler: move based on how much of the section is visible or overall scroll
-        // The value of parallaxOffset will be negative when scrolling down past the section top.
-        parallaxBg.style.transform = `translateY(${parallaxOffset}px)`;
-      }
+      const scrollPosition = window.pageYOffset;
+      parallaxBg.style.transform = `translateY(${scrollPosition * 0.5}px)`;
     });
   }
 
