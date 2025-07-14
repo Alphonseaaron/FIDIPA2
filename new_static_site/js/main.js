@@ -288,40 +288,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
       membersData.forEach(member => {
         const card = document.createElement('div');
-        // Base classes
         let cardClasses = 'team-member-card bg-white dark:bg-dark-lighter rounded-lg p-4 md:p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-200 dark:border-gray-700 flex flex-col items-center text-center';
 
-        // Responsive classes
-        if (screenWidth < 768) { // Mobile
-          cardClasses += ' w-full h-auto'; // Full width, auto height
-          card.style.marginRight = '0px'; // No gap for single full-width card
-        } else { // Tablet/Desktop
-          if (member.title) {
-            cardClasses += ` md:w-[${cardWidth}px] h-[320px]`; // Fixed width for carousel, reduced height
-          } else {
-            cardClasses += ` md:w-[${cardWidth}px] h-auto`; // Fixed width for carousel, auto height
-          }
+        if (screenWidth < 768) {
+          cardClasses += ' w-full h-auto';
+          card.style.marginRight = '0px';
+        } else {
+          cardClasses += ` w-[${cardWidth}px] h-auto`;
           card.style.width = `${cardWidth}px`;
           card.style.marginRight = `${cardGap}px`;
         }
 
         card.className = cardClasses;
-
-        const imageContainerSizeClass = "w-24 h-24"; // Consistent 96x96px size for the container
-        const nameTextClass = screenWidth < 768 ? 'text-base md:text-lg' : 'text-lg lg:text-xl'; // Mobile: 16px, Desktop: 18-20px
-        const roleTextClass = screenWidth < 768 ? 'text-xs md:text-sm' : 'text-sm lg:text-base'; // Mobile: 12-13px, Desktop: 14-16px
-
+        const imageContainerSizeClass = "w-24 h-24";
+        const nameTextClass = 'text-lg lg:text-xl';
+        const roleTextClass = 'text-sm lg:text-base';
         const placeholderImageSrc = "assets/default-avatar.svg";
 
-        let imageContent;
-        // Added class `team-member-photo` to the img tag itself
-        if (member.photoUrl && member.photoUrl.trim() !== "") {
-          imageContent = `<img src="${member.photoUrl}" alt="${member.name}" class="team-member-photo w-full h-full object-cover">`;
-        } else {
-          imageContent = `<img src="${placeholderImageSrc}" alt="Default avatar for ${member.name}" class="team-member-photo w-full h-full object-cover">`;
-        }
+        let imageContent = `<img src="${member.photoUrl || placeholderImageSrc}" alt="${member.name}" class="team-member-photo w-full h-full object-cover">`;
 
-        // Added class `team-member-photo-container` to the div wrapping the image
         card.innerHTML = `
           <div class="team-member-photo-container ${imageContainerSizeClass} mx-auto mb-2 rounded-full overflow-hidden bg-primary/10 flex items-center justify-center border dark:border-gray-700 shrink-0">
             ${imageContent}
@@ -335,17 +320,11 @@ document.addEventListener('DOMContentLoaded', () => {
         track.appendChild(card);
       });
 
-      if (screenWidth >= 768 && track.lastChild) {
-        track.lastChild.style.marginRight = '0px';
+      if (screenWidth >= 768) {
+        track.style.paddingRight = `${cardGap}px`;
+      } else {
+        track.style.paddingRight = '0px';
       }
-      // Add padding to the track itself to prevent last card from being flush with viewport edge
-      track.style.paddingRight = (screenWidth < 768 || totalItems <= itemsPerPage) ? '0px' : `${cardGap}px`;
-
-      // Add a spacer element to the end of the track
-      const spacer = document.createElement('div');
-      spacer.style.width = `${cardGap}px`;
-      spacer.style.flexShrink = '0';
-      track.appendChild(spacer);
     }
 
     function goToIndex(index, immediate = false) {

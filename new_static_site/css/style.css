@@ -1912,6 +1912,15 @@ html.dark .moon-icon {
   height: 100vh; /* Full viewport height */
 }
 
+.css-slide-dots {
+  bottom: 2rem; /* Position dots lower */
+}
+
+.css-dot {
+  background-color: rgba(255, 255, 255, 0.3); /* Dimmer inactive dots */
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
 .css-slide-input {
   display: none; /* Hide the actual radio buttons */
 }
@@ -2076,13 +2085,17 @@ html.dark .moon-icon {
 }
 
 .partner-logo-item {
-  /* Tailwind classes: flex items-center justify-center bg-light dark:bg-dark rounded-lg shadow hover:shadow-md transition-shadow p-2 text-center */
-  /* Removed h-24, will be handled by Tailwind class modification or inline style */
-  min-height: 6rem; /* min-h-24 */
-  width: 100%; /* Ensure it fills the slide */
-  display: flex; /* Ensure flex properties apply if not already inherited */
-  align-items: center; /* Keep content vertically centered */
-  justify-content: center; /* Keep content horizontally centered */
+  min-height: 6rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem; /* Equal padding */
+  background-color: #f3f4f6; /* Light grey for light mode */
+}
+
+.dark .partner-logo-item {
+  background-color: #1a1a1a; /* Dark mode background */
 }
 
 @keyframes slide {
