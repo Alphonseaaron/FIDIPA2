@@ -336,6 +336,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       // Add padding to the track itself to prevent last card from being flush with viewport edge
       track.style.paddingRight = (screenWidth < 768 || totalItems <= itemsPerPage) ? '0px' : `${cardGap}px`;
+
+      // Add a spacer element to the end of the track
+      const spacer = document.createElement('div');
+      spacer.style.width = '1px';
+      spacer.style.flexShrink = '0';
+      track.appendChild(spacer);
     }
 
     function goToIndex(index, immediate = false) {
