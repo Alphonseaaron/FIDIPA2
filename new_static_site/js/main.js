@@ -296,7 +296,11 @@ document.addEventListener('DOMContentLoaded', () => {
           cardClasses += ' w-full h-auto'; // Full width, auto height
           card.style.marginRight = '0px'; // No gap for single full-width card
         } else { // Tablet/Desktop
-          cardClasses += ` md:w-[${cardWidth}px] h-auto`; // Fixed width for carousel, auto height
+          if (member.title) {
+            cardClasses += ` md:w-[${cardWidth}px] h-[320px]`; // Fixed width for carousel, reduced height
+          } else {
+            cardClasses += ` md:w-[${cardWidth}px] h-auto`; // Fixed width for carousel, auto height
+          }
           card.style.width = `${cardWidth}px`;
           card.style.marginRight = `${cardGap}px`;
         }
@@ -339,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Add a spacer element to the end of the track
       const spacer = document.createElement('div');
-      spacer.style.width = '1px';
+      spacer.style.width = `${cardGap}px`;
       spacer.style.flexShrink = '0';
       track.appendChild(spacer);
     }
