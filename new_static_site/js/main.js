@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
           cardClasses += ' w-full h-auto'; // Full width, auto height
           card.style.marginRight = '0px'; // No gap for single full-width card
         } else { // Tablet/Desktop
-          cardClasses += ` md:w-[${cardWidth}px] h-[320px]`; // Fixed width for carousel, reduced height
+          cardClasses += ` md:w-[${cardWidth}px] h-auto`; // Fixed width for carousel, auto height
           card.style.width = `${cardWidth}px`;
           card.style.marginRight = `${cardGap}px`;
         }
@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="flex-1 flex flex-col items-center justify-center w-full">
             <h3 class="${nameTextClass} font-semibold text-gray-900 dark:text-white mb-1 md:mb-2">${member.name}</h3>
             <p class="text-primary font-medium ${roleTextClass} line-clamp-2">${member.role}</p>
-            <p class="text-gray-500 dark:text-gray-400 text-xs mt-2">${member.title}</p>
+            ${member.title ? `<p class="text-gray-500 dark:text-gray-400 text-xs mt-2">${member.title}</p>` : ''}
           </div>
         `;
         track.appendChild(card);
@@ -793,7 +793,7 @@ window.openProgramImageLightbox = (src, altText) => {
     const slideRadios = document.querySelectorAll('.css-slide-input');
     const numSlides = slideRadios.length;
     let currentSlideIndex = 0; // Used to determine starting point, will be updated
-    const autoPlayInterval = 2000; // 2 seconds
+    const autoPlayInterval = 3000; // 3 seconds
     let slideshowTimer;
 
     const playNextSlide = () => {
