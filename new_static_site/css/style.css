@@ -2071,6 +2071,7 @@ html.dark .moon-icon {
 .partner-slide {
   /* Tailwind classes: flex-none p-4 w-1/2 md:w-1/3 lg:w-1/4 */
   /* These classes define the width of each slide. The animation will move the track. */
+  flex: 1 0 auto;
 }
 
 .partner-logo-item {
@@ -2098,19 +2099,15 @@ html.dark .moon-icon {
 
 /* Ensure partner text is fully visible and wraps to a maximum of two lines */
 .partner-logo-item p {
-  display: -webkit-box; /* Still use flexbox for alignment if needed */
-  -webkit-box-orient: vertical; /* For flexbox direction */
-  /* Removed line-clamp, overflow: hidden, and text-overflow: ellipsis */
   line-height: 1.4; /* Adjust as needed for your font */
   max-height: calc(1.4em * 2); /* Ensures max two lines based on line-height */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow-wrap: break-word; /* Allow long words to break and wrap */
   word-wrap: break-word; /* Legacy support for overflow-wrap */
-  -webkit-hyphens: auto; /* Enable hyphenation for better word breaks if supported */
-  -ms-hyphens: auto;
-  hyphens: auto;
-  /* The parent .partner-logo-item already uses flex and items-center,
-     so text should be vertically centered if it's shorter than max-height.
-     The text will wrap naturally up to the max-height constraint. */
 }
 
 
