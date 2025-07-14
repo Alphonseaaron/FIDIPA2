@@ -2102,7 +2102,6 @@ html.dark .moon-icon {
   line-height: 1.4; /* Adjust as needed for your font */
   max-height: calc(1.4em * 2); /* Ensures max two lines based on line-height */
   overflow: hidden;
-  text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
