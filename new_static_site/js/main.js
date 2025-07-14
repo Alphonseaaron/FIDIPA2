@@ -410,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slug: "women-leadership-socio-economic",
       title: "Women Leadership and Socio-economic Project",
       description: "Historically, cultural and institutional structures have created gender relationships that have led to the subordination of women in various social spheres, leading to gender inequalities and leadership underrepresentation. FIDIPA train both women and girls on soft skills, leadership, entrepreneurship and group dynamics with emphasis on empowerment arise and shine.",
-      images: ['assets/Leadership training sessions in Kwale.jpg', 'assets/Enterpreneurship by Mrs Awiti.jpg', 'assets/Au Zambia presentation.jpg'],
+      images: ['assets/fidipa-masumbi 001.jpg', 'assets/Women kinango - 2.jpg', 'assets/The Munara WWD tree nursary project.jpg', 'assets/M&E TO WWD.JPG'],
       content: ""
     },
     {
