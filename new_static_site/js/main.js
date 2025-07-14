@@ -224,12 +224,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Team Section Carousel Logic ---
   const boardOfDirectorsData = [
-    { name: "Mrs Rosemary N. Meyo", role: "Chairperson", photoUrl: "assets/Mrs. Rosemary N. Meyo - Chairperson.jpg" },
-    { name: "Dr. Josephine Munthali", role: "Vice Chairperson", photoUrl: "assets/Dr. Josephine Munthali - Vice Chairperson.png" },
-    { name: "Ms Jayne A. I. Wasonga", role: "Secretary and CEO", photoUrl: "assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg" },
-    { name: "Sr. Mildred Mayeye", role: "Treasurer", photoUrl: "assets/default-avatar.svg" }, // Explicitly using default
-    { name: "Dr. Rev. Simon Oriedo", role: "Committee Member", photoUrl: "assets/Dr. Rev. Simon Oriedo - Committee Member.png" },
-    { name: "Mr. Samwel O. Onyango", role: "Committee Member", photoUrl: "assets/Mr. Samwel O. Onyango - Committee Member.png" }
+    { name: "Mrs. Rosemary N. Meyo", role: "Chairperson", title: "MBA, Business and Administration Expert (Maseno University)", photoUrl: "assets/Mrs. Rosemary N. Meyo - Chairperson.jpg" },
+    { name: "Dr. Josephine Munthali", role: "Vice Chairperson", title: "Education and Gender Expert PhD, University of Edinburgh", photoUrl: "assets/Dr. Josephine Munthali - Vice Chairperson.png" },
+    { name: "Ms. Jayne Paul", role: "Chief Executive Officer", title: "Gender and Project Management Expert M.A., Catholic University of Eastern Africa", photoUrl: "assets/Ms Jayne A. I. Wasonga - Secretary & CEO.jpg" },
+    { name: "Sr. Mildred Mayeye", role: "Treasurer", title: "Higher Diploma, Interior Designer – Lwak", photoUrl: "assets/default-avatar.svg" }, // Explicitly using default
+    { name: "Dr. Rev. Simon J. Oriedo", role: "Theology and Evangelism Expert", title: "PhD, Africa International University", photoUrl: "assets/Dr. Rev. Simon Oriedo - Committee Member.png" },
+    { name: "Leah Wanaswa", role: "Peace and Conflict Resolution Expert", title: "MSc, Masinde Muliro University", photoUrl: "assets/default-avatar.svg" },
+    { name: "Samwel O. Onyango", role: "Marketing Expert", title: "B.Com, University of Nairobi", photoUrl: "assets/Mr. Samwel O. Onyango - Committee Member.png" }
   ];
 
   const managementCommitteeData = [
@@ -324,6 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="flex-1 flex flex-col items-center justify-center w-full">
             <h3 class="${nameTextClass} font-semibold text-gray-900 dark:text-white mb-1 md:mb-2">${member.name}</h3>
             <p class="text-primary font-medium ${roleTextClass} line-clamp-2">${member.role}</p>
+            <p class="text-gray-500 dark:text-gray-400 text-xs mt-2">${member.title}</p>
           </div>
         `;
         track.appendChild(card);
