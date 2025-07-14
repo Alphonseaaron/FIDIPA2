@@ -1475,6 +1475,17 @@ html.dark .moon-icon {
      or staggered by JS adding a class. For now, the track movement is the primary animation. */
 }
 
+.team-member-card .title {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.dark .team-member-card .title {
+  color: #9ca3af;
+}
+
 /* Contact Section Styles */
 
 .contact-card {
